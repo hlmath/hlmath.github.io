@@ -145,6 +145,76 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://hlmath.github.io/2021/01/31/limit/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="hlmath">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="hlmath">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/01/31/limit/" class="post-title-link" itemprop="url">limit</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2021-01-31 15:43:33 / Modified: 15:49:25" itemprop="dateCreated datePublished" datetime="2021-01-31T15:43:33+08:00">2021-01-31</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>求极限 </p>
+<script type="math/tex; mode=display">
+\lim\limits_{n\rightarrow \infty}\sum_{k=1}^{n}\frac{1}{\sqrt{k(n-k+1)}}.</script><p>解：由</p>
+<script type="math/tex; mode=display">
+\sum_{k=1}^{n}\frac{1}{\sqrt{\frac{k}{n}(1-\frac{k-1}{n})}}\leq \sum_{k=1}^{n}\int_{\frac{k-1}{n}}^{\frac{k}{n}}\frac{dx}{\sqrt{x(1-x)}}=\int_{0}^{1}\frac{dx}{\sqrt{x(1-x)}}=\pi</script><script type="math/tex; mode=display">
+\sum_{k=1}^{n}\frac{1}{\sqrt{\frac{k}{n}(1-\frac{k-1}{n})}}=\sum_{k=1}^{n}\frac{1}{\sqrt{\frac{k}{n}(1+\frac{2}{n}-\frac{k+1}{n})}}</script><script type="math/tex; mode=display">
+\geq \sum_{k=1}^{n}\int_{\frac{k}{n}}^{\frac{k+1}{n}}\frac{dx}{\sqrt{x(1+\frac{2}{n}-x)}}=\int_{\frac{1}{n}}^{1+\frac{1}{n}}\frac{dx}{\sqrt{x(1+\frac{2}{n}-x)}}</script><script type="math/tex; mode=display">
+=\int_{\frac{1}{n}}^{1+\frac{2}{n}}\frac{dx}{\sqrt{x(1+\frac{2}{n}-x)}}-\int_{0}^{1+\frac{1}{n}}\frac{dx}{\sqrt{x(1+\frac{2}{n}-x)}}-\int_{1+\frac{1}{n}}^{1+\frac{2}{n}}\frac{dx}{\sqrt{x(1+\frac{2}{n}-x)}}</script><script type="math/tex; mode=display">
+=\int_{0}^{1}\frac{dt}{\sqrt{t(1-t)}}-2\int_{0}^{\frac{1}{n}}\frac{dx}{\sqrt{x(1+\frac{2}{n}-x)}}(t=\frac{x}{1+\frac{2}{n}})</script><script type="math/tex; mode=display">
+\geq \pi-\frac{2}{\sqrt{1+\frac{1}{n}}}\int_{0}^{\frac{1}{n}}\frac{1}{\sqrt{x}}dx=\pi-\frac{2}{\sqrt{1+\frac{1}{n}}}\frac{2}{\sqrt{n}}=\pi-\frac{4}{\sqrt{n+1}}</script><p>于是</p>
+<script type="math/tex; mode=display">
+\pi-\frac{4}{\sqrt{n+1}}\leq \sum_{k=1}^{n}\frac{1} {\sqrt{k(n-k+1)}}=\sum_{k=1}^{n}\frac{1}{\sqrt{\frac{k}{n}(1-\frac{k-1}{n})}}\leq \pi</script><p>从而极限是$\pi$.</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="https://hlmath.github.io/2021/01/31/creatmathjax/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -333,7 +403,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">2</span>
+          <span class="site-state-item-count">3</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -418,6 +488,61 @@
 
 
   
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
 
   
 
