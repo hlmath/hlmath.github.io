@@ -1,0 +1,173 @@
+\documentclass[UTF8]{article}
+\usepackage{ctex}
+\usepackage{tikz}
+\usepackage[all]{xy}
+\usepackage[colorlinks=true]{hyperref}
+\title{习题}
+\author{Lhzsl}
+\date{\today }
+\usepackage[b5paper,left=10mm,right=10mm,top=15mm,bottom=15mm]{geometry}
+\usepackage{amsthm,amsmath,amssymb}
+\usepackage{mathrsfs}
+\begin{document}
+	例1.设$f(x)\in Q[x]$是不可约首一多项式，$\alpha_{1},\cdots,\alpha_{n}$是它的$n$个根，称$d(f)=\prod_{1\leq r<s\leq n}(\alpha_{r}-\alpha_{s})^{2}$是多项式$f(x)$的判别式，定义等幂和为$s_{k}=\sum_{i=1}^{n}\alpha_{i}^{k}$.则
+	$$
+	d(f)=\begin{vmatrix}
+	s_{0}&s_{1}&\cdots &s_{n-1}\\
+	s_{1}&s_{2}&\cdots &s_{n}\\
+	\vdots&\vdots& &\vdots \\
+	s_{n-1}&s_{n}&\cdots&s_{2n-2}
+\end{vmatrix}
+$$
+
+	只需注意到$\prod_{1\leq r<s\leq n}(\alpha_{r}-\alpha_{s})$是范德蒙德行列式$(\alpha_{i}^{j})(1\leq i\leq n,0\leq j\leq n-1)$的值.\\
+	设$f(x)=x^{n}+ax+b$是$Q[x]$中的不可约多项式，求证：
+	$$d(f)=(-1)^{n(n-1)/2}[(-1)^{n-1}(n-1)^{n-1}a^{n}+n^{n}b^{n-1}].$$
+	证明:需用到牛顿公式.设$f(x)$是有理数域$Q$上的$n$次多项式,$\alpha_{1},\cdots,\alpha_{n}$是它的$n$个根，$\sigma_{k}(1\leq k\leq n)$是基本对称多项式，即$
+	\sigma_{k}=\sum_{1\leq i_{1}<i_{2}<\cdots<i_{k}\leq n}x_{i_{1}}x_{i_{2}}\cdots,x_{i{k}}
+	$
+	牛顿公式为\\
+	当$k\geq n$时，
+	$$
+	s_{k}-s_{k-1}\sigma_{1}+s_{k-2}\sigma_{2}+\cdots+(-1)^{k}s_{k-n}\sigma_{n}=0;
+	$$
+	当$k<n$时，
+	$$
+	s_{k}-s_{k-1}\sigma_{1}+\cdots+(-1)^{k-1}s_{1}\sigma_{k-1}+(-1)^{k}k\sigma_{k}=0.
+	$$
+	具体地，对于多项式$f(x)=x^{n}+ax+b$,基本对称多项式为$\sigma_{i}=0(1\leq i\leq n-2),\sigma_{n-1}=(-1)^{n-1}a,\sigma_{n}=(-1)^{n}b.$再根据牛顿公式
+	,等幂和为$$s_{0}=n,s_{i}=0(1\leq i\leq n-2,n+1\leq i\leq 2n-3),s_{n-1}=-(n-1)a,s_{n}=-nb,s_{2n-2}=(n-1)a^{2}$$
+	于是
+	$$
+		d(f)=\begin{vmatrix}
+		n&0&\cdots &\cdots&-(n-1)a\\
+		0&0&\cdots&-(n-1)a &-nb\\
+		\vdots&\vdots&\ &\vdots& \vdots\\
+		0&-(n-1)a&-nb &\cdots&\cdots \\
+		-(n-1)a&-nb&\cdots&\cdots&(n-1)a^{2}
+	\end{vmatrix}
+	$$
+	
+	计算该行列式即得到结论。\\
+	例2.设$\zeta_{m}=e^{\frac{2\pi i}{m}}(m\in Z_{\geq 0})$,证明:$\mathbb{Q}(\zeta_{m})\cap \mathbb{Q}(\zeta_{n})=\mathbb{Q}(\zeta_{(m,n)})$,这里$(m,n)$是$m,n$的最大公约数.\\
+	证明:首先易知$\mathbb{Q}(\zeta_{m})\cap \mathbb{Q}(\zeta_{n})\supseteq\mathbb{Q}(\zeta_{(m,n)}).$\\
+	令$l=[m,n],d=(m,n),F=\mathbb{Q}(\zeta_{m})\cap \mathbb{Q}(\zeta_{n})$\\
+	任取$f\in Gal(\mathbb{Q}(\zeta_{l})/\mathbb{Q}(\zeta_{n})).$$f$必形如
+	映射$$f_{k}:\mathbb{Q}(\zeta_{l})\rightarrow \mathbb{Q}(\zeta_{l}),
+	\zeta_{l}\mapsto \zeta_{l}^{k},(k,l)=1,k\equiv 1(mod\quad n)$$
+	
+	因$F$是$\mathbb{Q}(\zeta_{n})$的子域，$f_{k}$保持$F$不变，另有$(k,l)=1,l=[m,n]\Rightarrow (k,m)=1,$于是$f_{k}$在$\mathbb{Q}(\zeta_{m})$上的限制是自同构，从而有$f_{k}|_{\mathbb{Q}(\zeta_{m})}\in Gal(\mathbb{Q}(\zeta_{m})/F).$
+	因此
+	$$|Gal(\mathbb{Q}(\zeta_{l})/\mathbb{Q}(\zeta_{n}))|=\frac{\varphi(l)}{\varphi(n)}=\frac{\varphi(m)}{\varphi(d)}\leq [\mathbb{Q}(\zeta_{m}):F].$$
+	由域扩张的乘积公式($[L:F]=[L:E][E:F]$)得到$[F:\mathbb{Q}]\leq \varphi(d),$再由$[\mathbb{Q}(\zeta_{d}):\mathbb{Q}]=\varphi(d)$及$\mathbb{Q}(\zeta_{d})\subseteq F$得到$\mathbb{Q}(\zeta_{d})=F.$\\
+	
+	例3.设$\theta$是多项式$f(x)=x^{3}+x^{2}-2x+8\in \mathbb{Q}[x]$的一个根，$K=\mathbb{Q}(\theta),$则\\
+	i)$d_{k}(1,\theta,\theta^{2})=-4\cdot503$.\\
+	ii)证明:$\theta^{'}=4/\theta\in \mathcal{O}_{K},$$\{1,\theta,\theta^{'}\}$是域$K$的一组整基,并且$d(K)=-503.$\\
+	iii)对于每个$\alpha\in \mathcal{O}_{K},$
+	$\{1,\alpha,\alpha^{2}\}$不可能是域$K$的一组整基.\\
+	证明:(1)类似例1即可得到结论。\\
+	(2)根据行列式的性质即得。\\
+	(3)设$\theta$是$f(x)$的一根，则可验证$\{1,\theta,\beta=(\theta+\theta^{2})/2\}$是一组整基，若$\alpha\in \mathcal{O}_{K}$,且$\{1,\alpha,\alpha^{2}\}$是域$K$的一组整基，不妨设$\alpha=a+b\theta+c\beta,$由于$\{1,\alpha,\alpha^{2}\}$是域$K$的一组整基当且仅当$\{1,(\alpha-a),(\alpha-a)^{2}\}$是域$K$的一组整基,因此，我们不妨设$a=0.$利用$\theta$是$f(x)$的根，我们得到
+	$$
+	(b\theta+c\beta)^{2}=-8bc-2c^2+(2bc-b^2-\frac{c^2}{2})\theta+(2b^2-c^2)\beta
+	$$
+	从而$$
+	(1,\alpha,\alpha^2)=(1,\theta,\beta)A
+	$$
+	其中	$$
+	A=\begin{vmatrix}
+1&0&-8bc-2c^2\\
+	0&b&2bc-b^2-\frac{c^2}{2}\\
+	0&c&2b^2-c^2
+	\end{vmatrix}
+	$$
+整基之间变换矩阵的行列式为$\pm 1.$
+于是$$\pm 1=detA=2b^3-bc^2-2bc^2+b^2c+\frac{c^3}{2}=2b^3-3bc^2+b^2c+\frac{c^3}{2}$$
+于是$b,c$是整数，$c$只能是偶数，但此时行列式也为偶数，矛盾！从而对于每个$\alpha\in \mathcal{O}_{K},$
+$\{1,\alpha,\alpha^{2}\}$不可能是域$K$的一组整基.\\
+(d-uple embedding)设$n,d > 0,$ $M_{0},M_{1},\cdots,M_{N}$
+是$n+1$个变量$x_{0},x_{1},\cdots,x_{n}$的次数为$d$的首一多项式，于是$N=C_{n+d}^{n}-1$.定义映射$\nu_{d}:\mathbb{P}^{n}\rightarrow \mathbb{P}^{N}$为
+$$
+(x_{0},x_{1},\cdots,x_{n})\mapsto (M_{0}(x_{0},x_{1},\cdots,x_{n}),M_{1}(x_{0},x_{1},\cdots,x_{n}),\cdots,M_{N}(x_{0},x_{1},\cdots,x_{n})).
+$$
+则i)定义映射$\theta:K[y_{0},\cdots,y_{N}]\rightarrow K[x_{0},\cdots,x_{n}]$
+$f(y_{0},\cdots,y_{N})\mapsto f(M_{0},M_{1},\cdots,M_{N}),$令$\mathfrak{a}=ker(\theta)$，则$\mathfrak{a}$是齐次素理想.\\
+证明:设$f(y_{0},\cdots,y_{N})\in \mathfrak{a}$,由于$K[y_{0},\cdots,y_{N}]$是分次环，可令$f=\sum_{i}f_{i}$,其中$f_{i}$是$i$次齐次多项式，于是$f(M_{0},M_{1},\cdots,M_{N})=\sum_{i}f_{i}(M_{0},M_{1},\cdots,M_{N})=0.$这就得到$f_{i}(M_{0},M_{1},\cdots,M_{N})=0,$即$f_{i}\in \mathfrak{a}.$于是$\mathfrak{a}=\oplus_{i}\mathfrak{a}\cap K[y_{0},\cdots,y_{N}]_{i},$于是$\mathfrak{a}$是齐次理想。\\
+若$f,g\in K[y_{0},\cdots,y_{N}]$且$\theta(fg)=\theta(f)\theta(g)=0$，由于$k[x_{0},\cdots,x_{n}]$为整环，故必有$\theta(f)=0$或$\theta(g)=0$，即$f\in\mathfrak{a}$或$g\in \mathfrak{a}$,从而$\mathfrak{a}$是素理想.\\
+下面来刻画$\nu_{d}$的像。首先说明记号，由于$M_{i}$是关于$x_{0},x_{1},\cdots,x_{n}$的$d$次单项式，从而$$M_{i}=x_{0}^{i_{0}}x_{1}^{i_{1}}\cdots x_{n}^{i_{n}},$$
+把右边记为$x^{I_{i}},I_{i}=(i_{0},i_{1},\cdots,i_{n}),$
+于是每个$M_{i}$对应一个$I_{i}$,把映射$\nu_{d}$的像中$M_{i}(x_{0},\cdots,x_{n})$所在$\mathbb{P}^{N}$中的分量命名为$z_{I_{i}}.$于是$\mathbb{P}^{N}$中的元素可用$(z_{I_{0}},z_{I_{1}},\cdots,z_{I_{N}})$表示，这里只是用$I_{k}(k=0,\cdots,N)$代替了$0,1,2,\cdots,N$,只是记号的改变。\\
+命题1：映射$\nu_{d}:\mathbb{P}^{n}\rightarrow \mathbb{P}^{N}$的像为投射簇
+$$
+W=V(\{z_{I}z_{J}-z_{K}z_{L}:I,J,K,L\in \mathbb{N}^{n+1},I+J=K+L\}).
+$$
+这里指标的加法定义为:若$I=(i_{0},i_{1},\cdots,i_{n}),J=(j_{0},\cdots,j_{n}),$则$I+J:=(i_{0}+j_{0},\cdots,i_{n}+j_{n}).$\\
+证明:首先由于$x^{I}x^{J}-x^{K}x^{L}=x^{I+J}-x^{K+L}=0$知$z_{I}z_{J}-z_{K}z_{L}$在$\nu_{d}(\mathbb{P}^{n})$上恒为零.于是$\nu_{d}(\mathbb{P}^{n})\subseteq W.$\\
+为了证明$W\subseteq \mathbb{P}^{n}$，构造映射$\phi:W\rightarrow \mathbb{P}^{n}$使得$\phi\circ \nu_{d}=id_{\mathbb{P}^{n}},\nu_{d}\circ \phi=id_{W}.$\\
+设$z=[\cdots:z_{I}:\cdots]\in W,$则$z_{(d,0,\cdots,)},z_{(0,d,\cdots)},\cdots,z_{(0,\cdots,0,d)}$中必有一非零元，否则由$W$的定义可得$z$的所有分量都是零,与$\mathbb{P}^{N}$中分量全部为零的点矛盾。事实上,设
+$$z_{(d,0,\cdots,)}=z_{(0,d,\cdots)}=\cdots=z_{(0,\cdots,0,d)}=0,z_{(i_{0},i_{1},\cdots,i_{n})}\neq 0.$$
+不是一般性可以设$i_{0}\neq 0,$且对于$j_{0}>i_{0}$都有$z_{(j_{0},j_{1},\cdots,j_{n})}=0.$由于$i_{0}<d,$因此存在指标，设为$d> i_{1} > 0,$由$W$的中元素满足的方程知$z^{2}_{(i_{0},i_{1},\cdots,i_{n})}=z_{(i_{0}+1,i_{1}-1,\cdots,i_{n})}z_{(i_{0}-1,i_{1}+1,\cdots,i_{n})}.$从而$z_{(i_{0}+1,i_{1}-1,\cdots,i_{n})}\neq 0,$矛盾！\\
+令$U_{i}=\{z\in W|z_{(0,\cdots,d^{i},\cdots)}\neq 0 \}.$(这里$(0,\cdots,d^{k},\cdots)$表示指标$j_{0}=0,\cdots,j_{i}=d,\cdots,$)从而$U_{i}$是$W$的一组覆盖。\\
+定义映射$\phi_{i}:U_{i}\rightarrow \mathbb{P}^{n}$
+$$
+z\mapsto [z_{(1,0,\cdots,d-1^{i}),0,\cdots,0}:z_{(0,1,\cdots,d-1^{i}),0,\cdots,0}:\cdots,z_{(0,\cdots,d-1^{i}),0,\cdots,1}]
+$$
+下面验证$\phi_{i}$和$\phi_{j}$在$U_{i}\cap U_{j}$上是相等的，由等式
+$$
+z_{(0,\cdots,1^{a},\cdots,d-1^{j},\cdots,0)}z_{(0,\cdots,d^{i},\cdots,0)}=z_{(0,\cdots,1^{a},\cdots,d-1^{i},\cdots,0)}z_{(0,\cdots,1^{i},\cdots,d-1^{j},\cdots,0)},
+$$
+得到
+$$
+z_{(0,\cdots,1^{a},\cdots,d-1^{j},\cdots,0)}=\frac{z_{(0,\cdots,1^{i},\cdots,d-1^{j},\cdots,0)}}{z_{(0,\cdots,d^{i},\cdots,0)}}z_{(0,\cdots,1^{a},\cdots,d-1^{i},\cdots,0)},
+$$
+因此$\phi_{i}$和$\phi_{j}$在$U_{i}\cap U_{j}$上是相等的。\\
+将$\phi_{i}$结合在一起可得到映射$\phi:W\rightarrow\mathbb{P}^{n},$定义为:若$z\in U_{i}$，则$\phi(z)=\phi_{i}(z).$\\
+复合映射是$\phi\circ\nu_{d}:\mathbb{P}^{n}\rightarrow\nu_{d}(\mathbb{P}^{n})\rightarrow \mathbb{P}^{n}$
+$$
+[x_{0}:\cdots:x_{n}]\mapsto \nu_{d}(x)\mapsto[x_{0}x_{i}^{d-1}:\cdots:x_{n}x_{i}^{d-1}]=[x_{0}:\cdots:x_{n}],
+$$
+即是恒等映射。\\
+同样地，容易验证$\nu_{d}\circ \phi:\nu_{d}(\mathbb{P}^{n})\rightarrow \mathbb{P}^{n}\rightarrow\nu_{d}(\mathbb{P}^{n})$是$W$上的恒等映射。\\
+于是$\nu_{d}$是满射，从而$W=\nu_{d}(\mathbb{P}^{n}).$\\
+注意到由于$z_{I}z_{J}-z_{K}z_{L}\in \mathfrak{a}$于是$V(\mathfrak{a})\subseteq W,$其次易见$\nu_{d}(\mathbb{P}^{n})\subseteq V(\mathfrak{a}),$于是$V(\mathfrak{a})=W=\nu_{d}(\mathbb{P}^{n}).$\\
+命题2:如果$Y\subseteq \mathbb{P}^{n}$是投射簇，那么$\nu_{d}(Y)$是$\nu_{d}(\mathbb{P}^{n})$的子投射簇.\\
+证明:对于映射$\nu_{d}::\mathbb{P}^{n}\rightarrow \mathbb{P}^{N}$，我们可以将其看作仿射空间上映射$\hat{\nu_{d}}:\mathbb{A}^{n+1}\rightarrow \mathbb{A}^{\tbinom{n+d}{d}},[x_{0},\cdots,x_{n}]\mapsto [\cdots,x^{I},\cdots,]$诱导得出的.将$K[\cdots,z_{I},\cdots]$上的多项式$g(z)$与映射$\hat{\nu_{d}}$复合便得到$K[x_{0},\cdots,
+x_{n}]$上的一个多项式$g\circ \hat{\nu_{d}}(x).$\\
+注意到下面事实：设$F$是多项式环$K[x_{0},\cdots,x_{n}]$中的一个多项式，那么
+$$
+V(F)=V(x_{0}F,x_{1}F,\cdots,x_{n}F)\subseteq \mathbb{P}^{n}.
+$$
+因此若$Y=V(F_{1},\cdots,F_{r})\subseteq \mathbb{P}^{n},$且$deg(F_{i})=m_{i}(i=1,\cdots,r),$则取$a$满足$ad>m_{i}$对任意$i$成立，于是就存在$ad$次齐次多项式$G_{1},\cdots,G_{s}$使得$Y=V(G_{1},\cdots,G_{s}).$\\
+进一步，存在$a$次齐次多项式$H_{i}(i=1,\cdots,r)$使得$G_{i}=H_{i}\circ\hat{\nu_{d}}$成立。
+由定义
+$$y\in \nu_{d}(Y)\Leftrightarrow y=\nu_{d}(x),G_{i}(x)=0,\forall i.$$
+但是$G_{i}(x)=H_{i}\circ\hat{\nu_{d}}(x)$,因此$x\in Y\Leftrightarrow \nu_{d}(x)\in V(H_{1},\cdots,H_{s}).$综上$\nu_{d}(Y)=\nu_{d}(\mathbb{P}^{n})\cap V(H_{1},\cdots,H_{s}).$\\
+上述命题说明$\nu_{d}$是开映射,从而命题1中$\phi$是连续映射.反过来，设$W$是$\nu_{d}$中闭集，从而存在多项式环$K[y_{0},y_{1},\cdots,y_{N}]$中齐次函数$H_{i}(i=1,\cdots, n)$使得$W=\nu_{d}(\mathbb{P}^{n})\cap V(H_{1},\cdots,H_{n})$,易验证$\nu_{d}(\mathbb{P}^{n})\cap V(H_{1},\cdots,H_{n})=\nu_{d}(V(H_{1}\circ \nu_{d},\cdots,H_{n}\circ \nu_{d})),$于是$\phi(W)=\phi\nu_{d}(V(H_{1}\circ \nu_{d},\cdots,H_{n}\circ \nu_{d}))= V(H_{1}\circ \nu_{d},\cdots,H_{n}\circ \nu_{d}),$这就说明$\phi$是开映射，从而$\nu_{d}$连续.\\
+\textbf{segre embedding}
+\textbf{定义：}Segre embedding定义为映射$$
+\sigma_{n,m}:\mathbb{P}^{n}\times\mathbb{P}^{m}\rightarrow \mathbb{P}^{(n+1)(m+1)-1}
+$$
+\textbf{命题3：}设$E/F,K/E$是域扩张，则$E/F,K/E$是代数扩张当且仅当$K/F$是代数扩张。\\
+证明:若$K/F$是代数扩张,则易证明$E/F,K/E$是代数扩张。反过来任取$\alpha\in K,$由于$K/E$是代数扩张，因此有$E[X]$中多项式$f(X)$使得$f(\alpha)=0$.设$f(X)=a_{0}+a_{1}X+a_{2}X^{2}+\cdots+a_{n}X^{n},a_{i}\in E,$则$\alpha$是$F(a_{0},\cdots,a_{n})$上代数元，从而$F(a_{0},\cdots,a_{n})(\alpha)$是$F(a_{0},\cdots,a_{n})$的有限扩张。注意到$E/F$是代数扩张，从而$F(a_{0},\cdots,a_{n})/F$是有限扩张。综上，$F(a_{0},\cdots,a_{n})(\alpha)/F$是有限扩张，于是$\alpha$是$F$上代数元，即$K/F$是代数扩张。\\
+\textbf{命题4：}设$K/F$是代数扩张，$\tau:K\rightarrow K$是$F$嵌入，即$\tau|_{F}=id_{F}$,则$\tau$是$K$的自同构.\\
+证明:任取$\alpha \in K$,设$P(x)$是其在$F$上的最小多项式，令$S=\{\alpha \in K|P(\alpha)=0\},E=F(S),$则$\tau(E)\subseteq E.$由于$E/F$是有限生成代数扩张，$E/F$是有限扩张，设$\alpha_{0}=1,\alpha_{1},\cdots,\alpha_{n-1}$是$E$的一组$F$基，由于$\tau$是单射，我们可以得到$\tau(\alpha_{0}),\cdots,\tau(\alpha_{n-1})$线性无关，从而$dim_{F}\tau(E)\geq n$,但是$\tau(E)\subseteq E,dim_{F}E=n,$于是$\tau(E)=E.$由于$\alpha$是任取的，这就说明$\tau$是域$K$的子同构。\\
+
+设$f(X)$是$\mathbb{Z}[x]$中首一多项式，而$g(x)\in \mathbb{Q}[x]$是$f(x)$的首一多项式因子，求证$g(x)\in \mathbb{Z}[x].$\\
+证明：设$g(x)=x^{m}+\frac{b_{m-1}}{a_{m-1}}x^{m-1}+\cdots+\frac{b_{0}}{a_{0}},$其中$a_{i},b_{i}\in \mathbb{Z}$且$(a_{i},b_{i})=1.$令$a=[a_{0},a_{1},\cdots,a_{m-1}],$
+即$a$为$a_{0},a_{1},\cdots,a_{m-1}$的最小公倍数，则
+$$
+(a,a\frac{b_{0}}{a_{0}},\cdots,a\frac{b_{m-1}}{a_{m-1}})=1
+$$
+于是多项式
+$h(x)=ax^{m}+a\frac{b_{m-1}}{a_{m-1}}x^{m-1}+\cdots+a\frac{b_{0}}{a_{0}}$是本原多项式，而$g(x)=\frac{1}{a}h(x)$,设$f(x)=g(x)p(x)$,同样地，有本原多项式$q(x)$使得$p(x)=\frac{1}{b}q(x),$于是$f(x)=\frac{1}{ab}h(x)q(x)$，由$Gauss$引理
+$h(x)q(x)$为本原多项式，$f(x)$为首一多项式，从而也是本原多项式，于是$ab=1$,从而$a=b=1,$这就说明$g(x)=h(x)\in\mathbb{Z}[x].$\\
+
+2.4设$A$是环，$(X,O_{X})$是概型，我们有一一对应
+$$
+Hom(X,SpecA)\rightarrow Hom(A,O_{X}(X))
+$$
+
+
+
+\end{document}

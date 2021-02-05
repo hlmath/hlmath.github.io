@@ -1,0 +1,242 @@
+\documentclass[UTF8]{article}
+\usepackage{ctex}
+\usepackage{tikz}
+\usepackage[all]{xy}
+\usepackage[colorlinks=true]{hyperref}
+\title{范畴}
+\author{Lhzsl}
+\date{\today }
+\usepackage[b5paper,left=10mm,right=10mm,top=15mm,bottom=15mm]{geometry}
+\usepackage{amsthm,amsmath,amssymb}
+\usepackage{mathrsfs}
+\begin{document}
+	\maketitle
+	本文适用于对范畴零基础的读者\\
+ 范畴的定义\\
+  \textbf{定义:}一个\textbf{范畴}$\mathfrak{C}$包含以下结构\\
+  1.集合$Ob(\mathfrak{C})$,其元素称作$\mathfrak{C}$的对象，\\
+  2.对于$\mathfrak{C}$中任意两个对象，给定一个集合$[A,B]_{\mathfrak{C}}$，其中元素称为范畴$\mathfrak{C}$内$A$到$B$的\textbf{态射}，该集合常简记为$Hom_{\mathfrak{C}}(A,B).$集合$Moc(\mathfrak{C})=\cup_{A,B\in \mathfrak{C}}Hom_{\mathfrak{C}}(A,B)$中元素称为$\mathfrak{C}$的态射。\\
+  3.对每个对象X给定元素$id_{X}\in Hom_{\mathfrak{C}}(X,X),$称为X到自身的恒等映射。\\
+  4.对于任意$X,Y,Z\in Ob(\mathfrak{C})$,给定态射间的\textbf{合成映射}\\
+ $$ \circ:Hom_{\mathfrak{C}}(Y,Z)\times Hom_{\mathfrak{C}}(X,Y)\longrightarrow Hom_{\mathfrak{C}}(X,Z)
+  $$
+  $$
+  (f,g)\mapsto f\circ g,
+  $$
+  常将 $f\circ g$简记为$fg$.它满足\\
+  (i)结合律:对于任意态射$h,g,f\in Mor(\mathfrak{C})$，若合成$f(gh)$和$(fg)h$都有定义，则$$
+  f(gh)=(fg)h.
+  $$
+  故两边可写成同时$fgh$。\\
+  (ii)对于任意态射$f\in Hom_{\mathfrak{C}}(X,Y),$有$$
+  f\circ id_{X}=f=id_{Y}\circ f.
+  $$
+  设有范畴$\mathfrak{C},\mathfrak{B}$.若有$Ob(\mathfrak{B})\subseteq Ob(\mathfrak{C}),$对于任意$A,B\in Ob(\mathfrak{B}),Hom_{\mathfrak{B}}(A,B)\subseteq Hom_{\mathfrak{C}}(A,B)$及$\mathfrak{C},\mathfrak{B}$有相同的合成映射，那么称$\mathfrak{B}$是$\mathfrak{C}$的子范畴，再者，如果对于任意$A,B\in Ob(\mathfrak{C})$有$Hom_{\mathfrak{C}}(A,B)=Hom_{\mathfrak{B}}(A,B),$则称$\mathfrak{B}$是$\mathfrak{C}$的全子范畴。\\
+  这里仅举一个范畴的例子：把所有的群都放在一起得到$\mathfrak{Gp}.$对于任意两个群,所有从A到B的群同态组成$Hom_{\mathfrak{Gp}}(A,B),g\circ f$是映射的合成，这样便得到群范畴$\mathfrak{Gp}.$\\
+  设$m$是范畴$\mathfrak{C}$的态射，如果对于任意$f,g\in Mor(\mathfrak{C})$,从$mf=mg$得到$f=g,$则称m为单态射，另一方面如果对于任意$f,g\in Mor_{\mathfrak{C}},$从$fm=gm$得到$f=g$,则称m为满态射。我们称$f\in [A,B]_{\mathfrak{C}}$是同构，如果 存在$g\in [B,A]_{\mathfrak{C}}$使得$gf=1_{A},fg=1_{B}.$\\
+  设$\mathfrak{C},\mathfrak{D}$是两个范畴，由$\mathfrak{C}$到$\mathfrak{D}$的一个(共变(covariant))函子(functor)F是指：\\
+  (i)对于$\mathfrak{C}$中任意对象X,F规定了$\mathfrak{D}$中的相应的对象$F(X).$\\
+  (ii)设$X,Y$是$\mathfrak{C}$中任意两个对象，对于任一$f\in [X,Y]_{\mathfrak{C}},$F规定$[F(X),F(Y)]_{\mathfrak{D}}$中的一个元素(态射)F(f),满足:\\
+  $$F(g\circ f)=F(g)\circ F(f),\forall f\in[X,Y]_{\mathfrak{C}},g\in [Y,Z]_{\mathfrak{C}} 
+  $$
+  以及$$
+  F(1_{X})=1_{F(X)}.
+  $$
+  如果将上述条件(ii)改成\\
+  (ii')对于任一$f\in [X,Y]_{\mathfrak{C}},$F规定了$[F(Y),F(X)]_{\mathfrak{D}}$中的一个元素(态射)F(f),满足：\\
+  $$
+  F(g\circ f)=F(f)\circ F(g),\forall f\in [X,Y],g\in [Y,Z]
+  $$
+  以及$$
+  F(1_{X})=1_{F(X)}
+  $$
+  则称F为$\mathfrak{C}$到$\mathfrak{D}$的反变函子(contravariant functor)。\\
+  对于任何范畴$\mathfrak{C}$,设$((sets))$是全体集合组成的范畴，任取$X\in Ob(\mathfrak{C})$,若规定$h_{X}:\mathfrak{C}\rightarrow ((sets)),Y\mapsto Hom_{\mathfrak{C}}(Y,X),$任意态射$f:Z\rightarrow Y,$
+  $$h_{X}(f):Hom_{\mathfrak{C}}(Y,X)\rightarrow Hom_{\mathfrak{C}}(Z,X),$$
+  $$g\mapsto g\circ f$$
+  则$h_{X}$(也可写作$Hom_{\mathfrak{C}}(\cdot,X)$)是$\mathfrak{C}$到$((sets))$的反变函子。\\
+  联系两个函子的概念是“函子态射”(或称"自然变换").设$\mathfrak{C}$和$\mathfrak{D}$是两个范畴，F和G是$\mathfrak{C}$到$\mathfrak{D}$的两个函子。由F到$G$的函子态射$\Phi$是指:对于$\mathfrak{C}$的任何一个对象X,给定一个态射$\Phi_{X}:F(X)\rightarrow G(X)$，使得下图交换
+  $$
+\xymatrix{F(X)\ar[r]^{\Phi_{X}}\ar[d]_{F(f)}&G(X)\ar[d]^{G(f)}\\
+F(Y)\ar[r]^{\Phi_{Y}}&G(Y)}
+  $$
+  其中$X,Y$是$\mathfrak{C}$中任意两个对象，f是$X$到$Y$的任意态射。我们记函子态射$\Phi$为$\Phi:F\rightarrow G,$当所有$\Phi_{X}:FX\rightarrow GX$是同构时，称函子同态是函子同构。\\
+  称函子$T:\mathfrak{C}\rightarrow \mathfrak{D}$是范畴等价：若存在函子$S:\mathfrak{D}\rightarrow \mathfrak{C}$及函子同构
+  $$
+  \Phi: 1_{\mathfrak{D}}\backsimeq TS,\Psi :ST\backsimeq 1_{\mathfrak{C}}.
+  $$
+  称函子$T:\mathfrak{C}\rightarrow \mathfrak{D}$是要满函子：若对于任意$Y\in Ob(\mathfrak{D})$,
+存在$X\in Ob(\mathfrak{C})$使得$TX$与$Y$同构。\\
+称函子T是忠实的(faithful),如果从任意对象$A,B\in Ob(\mathfrak{C})$所定的映射$$
+T:Hom_{\mathfrak{C}}(A,B)\rightarrow Hom_{\mathfrak{D}}(T(A),T(B))
+$$
+$$
+(A\stackrel{f}{\rightarrow }B)\mapsto (T(A)\stackrel{T(f)}{\rightarrow}T(B))
+$$
+是单射。如果此映射是满射，则说函子T是全忠实函子(fully faithful).\\
+  \textbf{命题：}函子$F:\mathfrak{C}_{1}\rightarrow \mathfrak{C}_{2}$等价当且仅当F是全忠实要满函子。\\
+  证明:$(\Rightarrow)$设拟逆函子$G:\mathfrak{C}_{2}\rightarrow \mathfrak{C}_{1}$和函子同构$\psi:id_{\mathfrak{C}_{1}} \approx GF,\phi: id_{\mathfrak{C}_{2}}\approx FG .$对于$\mathfrak{C}_{2}$中任何对象$Z$,都有同构$\phi_{Z}:F(GZ)\rightarrow Z,$故$F$是本质满的。\\
+  观察到$$
+  Hom_{\mathfrak{C}_{1}}(X,Y)\stackrel{F}\rightarrow Hom_{\mathfrak{C}_{2}}(FX,FY)\stackrel{G}\rightarrow Hom_{\mathfrak{C}_{1}}(GF(X),GF(Y))\rightarrow Hom_{\mathfrak{C}_{1}}(X,Y)
+  $$
+$$
+f\longmapsto Ff\longmapsto GF(f)\longmapsto \psi_{Y}^{-1}GF(f)\psi_{X}
+$$  
+合成是恒等映射，事实上，由函子同构$\psi :id_{\mathfrak{C}_{1}}\stackrel{\sim}{\rightarrow} GF$，有交换图表
+$$\xymatrix{ X\ar[r]^{\psi_X}\ar[d]_{f} & GF(X)\ar[d]^{GF(f)}\\
+Y\ar[r]_{\psi_Y} & GF(Y)  }   $$    
+从而$\psi_{Y}f=GF(f)\psi_{X}.$由于$\psi_{Y}$是同构，因此$f=\psi_{Y}^{-1}GF(f)\psi_{X}.$这就说明F有逆映射,从而是单射，同样可得G是忠实的。\\
+下面证明是满射：首先对任意的$v\in Hom_{\mathfrak{C}_{2}}(FX,FY)$,令$f=(\psi_{Y})^{-1}G(v)(\psi_{X}).$对于该映射，上交换图依然交换，于是$GF(f)=G(v),$由于$G$是忠实的，得到$F(f)=v,$从而是满射。\\
+$(\Leftarrow)$首先对于$\mathfrak{C}_{2}$中每一对象M，$\mathfrak{C}_{1}$中存在对象$A_{M}$(可能有多个，选取其中一个)及同构$v_{M}:M\rightarrow F(A_{M}).$\\
+定义函子$G:\mathfrak{C}_{2}\rightarrow \mathfrak{C}_{1}$如下：若$M\in \mathfrak{C}_{2},$设$G(M)=A_{M}.$若$w:M\rightarrow N$，利用$v_{M}$是同构得到$w^{'}:FA\rightarrow FB$使有交换图表：
+$$
+\xymatrix{M\ar[r]^{v_{M}}\ar[d]_{w}&FA_{M}\ar[d]^{w^{'}}\\
+	N\ar[r]_{v_{N}}&FA_{N}
+}
+$$ 
+由于F是全忠实函子，故有$w_{1}:A\rightarrow B$使得$F(w_{1})=w^{'}.$设$G(w)=w_{1}.$\\
+取$A\in \mathfrak{C}_{1}$,设$B=GFA,$于是有同构$v_{FA}:FA\rightarrow FB.$因为F是全忠实函子，有唯一$\psi_{A}:A\rightarrow B=GFA$使得$F\psi_{A}=v_{FA}.$注意由于$v_{FA}$是同构，F是全忠实函子，得到$\psi_{A}:A
+\rightarrow GFA$是同构，这就决定函子同构$\psi:1\rightarrow GF.$\\
+取$M\in \mathfrak{C}_{2},$设$A=GM.$则同构$v_{M}:M\rightarrow FA=FGM$决定函子同构$\phi :1\rightarrow FG,$即有$\phi_{M}=v_{M}.$\\
+下面验证函子态射的交换性。\\
+首先验证$$
+\xymatrix{M\ar[r]^{\phi_{M}=v_{M}}\ar[d]_{w}&FG(M)\ar[d]^{FG(w)}\\
+	N\ar[r]_{\phi_{N}=v_{N}}&FG(N)
+}
+$$
+这只需注意到$FG(w)=w^{'}$,由上一个交换图表即得。\\
+下面验证$\mathfrak{C}_{1}$中函子态射交换性,任意态射$f:A\rightarrow Y,$在$\mathfrak{C}_{2}$中有下交换图表
+$$
+\xymatrix{
+FA\ar[r]^{v_{FA}}\ar[d]_{F(f)}&FG(FA)\ar[d]^{FG(F(f))}\\
+FY\ar[r]_{v_{FY}}&FG(F(Y))
+}
+$$
+从而$F(GF(f))=v_{FY}\circ F(f)\circ (v_{FA})^{-1}.$再注意到$F\psi_{A}=v_{FA}.$于是$F(\psi_{Y}\circ f\circ {\psi_{A}}^{-1})=v_{FY}\circ F(f)\circ (v_{FA})^{-1}.$由于F是忠实的，得到$GF(f)=\psi_{Y}\circ f\circ {\psi_{A}}^{-1}$.从而有交换图
+$$
+\xymatrix{A\ar[r]^{\psi_{A}}\ar[d]_{f} &GF(A)\ar[d]^{GF(f)}\\
+Y\ar[r]^{\psi_{Y}}&GF(Y)   }
+$$
+证毕。\\
+若$F,G:\mathfrak{C}\rightarrow \mathfrak{D}$是两个函子，我们用记号$Tran(F,G)$表示从F到G的自然变换全体.有下述引理\\
+\textbf{Yoneda 引理：}设$\mathfrak{C}$是范畴，F是$\mathfrak{C}$到集合范畴((sets))的反变函子，$X\in Ob(\mathfrak{C})$,则有双射$$
+y:Tran(Hom_{\mathfrak{C}}(\cdot,X),F)\rightarrow F(X).
+$$
+$$
+y:\bar{\xi}\mapsto \bar{\xi}_{X}(id_{X})
+$$
+证明：设$\xi\in F(X).$对于$\mathfrak{C}$中态射$f:A\rightarrow X,$令$\bar{\xi}_{A}(f)=F(f)(\xi).$下面验证$\bar{\xi}$是自然变换。在$\mathfrak{C}$中$g:A\rightarrow B$为态射，须验证下图交换
+$$
+\xymatrix{Hom_{\mathfrak{C}}(A,X)\ar[r]^{\bar{\xi}_{A}}\ar[d]_{Hom_{\mathfrak{C}}(\cdot,X)(g)}&F(A)\ar[d]^{F(g)}\\
+	Hom_{\mathfrak{C}}(B,X)\ar[r]_{\bar{\xi}_{B}}&F(B)
+}
+$$
+任意$f\in Hom_{\mathfrak{C}}(A,X),F(g)\bar{\xi}_{A}(f)=F(g)F(f)(\xi)=F(f\circ g)(\xi)$(注意F是反变函子),\\
+$\bar{\xi}_{B}(Hom_{\mathfrak{C}}(\cdot,X)(g))(f)=\bar{\xi}_{B}(f\circ g)=F(f\circ g)(\xi),$这就是上图交换，于是$\bar{\xi}$是自然变换，且$\bar{\xi}_{X}(id_{X})=F(id_{X})(\xi)=\xi.$即该映射是满射。\\
+下证单射：$\bar{\xi}\in Tran(Hom_{\mathfrak{C}}(\cdot,X),F)$是自然变换,于是对于$\mathfrak{C}$中态射$f:A\rightarrow X$，有下交换图
+$$
+\xymatrix{Hom_{\mathfrak{C}}(X,X)\ar[r]^{\bar{\xi}_{X}}\ar[d]_{Hom_{\mathfrak{C}}(\cdot,X)(f)}&F(X)\ar[d]^{F(f)}\\
+	Hom_{\mathfrak{C}}(A,X)\ar[r]_{\bar{\xi}_{A}}&F(A)}
+$$
+于是$\bar{\xi}_{A}(f)=\bar{\xi}_{A}(f)(id_{X})=F(f)\circ \bar{\xi}_{X}(id_{X}).$若有另外自然变换$\sigma\in Tran(Hom_{\mathfrak{C}}(\cdot,X)),$使得$\sigma_{X}(id_{X})=\bar{\xi}_{X}(id_{X}),$则$\bar{\xi}_{A}(f)=\sigma_{A}(f)$,于是$\bar{\xi}_{B}=\sigma_{B}$对任意$B\in Ob(\mathfrak{C})$成立，即$\bar{\xi}=\sigma .$此即单射。$\quad \bullet$\\
+$Abel$范畴有拉回和推出.详细的说，\\
+(1)设$\mathcal{A}$是加法范畴.则$\mathcal{A}$有拉回当且仅当其有核.\\
+设$\mathcal{A}$有核,$b:B\longrightarrow D$和$g:C\longrightarrow D.$考虑$(b,g):B\oplus C\longrightarrow D$的核$Ker(b,g)$及合成
+$$
+f:Ker(b,g)\hookrightarrow B\oplus C\stackrel{(1,0)}{\longrightarrow}B
+$$
+和$$
+-a:Ker(b,g)\hookrightarrow B\oplus C\stackrel{(0,1)}{\longrightarrow}C.
+$$
+则$(a,f,Ker(b,g))$是$(b,g)$的拉回.\\
+证明：若$\mathcal{A}$有核，则直接验证上述构造是拉回.\\
+即有拉回$$
+\xymatrix{Ker(f,g)\ar[r]^{a}\ar[d]_{f} &C\ar[d]^{g}\\
+	B\ar[r]^{b}&D   }
+$$
+为此，需验证(1)$bf=ga.$注意到$Ker(f,g)$是映射$(b,g):B\oplus C\longrightarrow D$的核,记$h:Ker(b,g)\longrightarrow B\oplus C,$于是有$(b,g)h=0,$展开得到$(b(1,0)+g(0,1))h=0,$即$bf-ga=0.$\\
+(2)设另有$(t,s,X)$使得下图交换
+$$
+\xymatrix{X\ar[r]^{s}\ar[d]_{t} &C\ar[d]^{g}\\
+	B\ar[r]^{b}&D   }
+$$
+需证明存在态射$r:X\longrightarrow Ker(b,g)$使得下图交换
+$$
+\xymatrix{X\ar@{-->}[dr]^{r}\ar[rrd]^{s}\ar[ddr]_{t}\\
+   &Ker(b,g)\ar[r]^{a}\ar[d]_{f}&D\ar[d]^{g}\\
+&B\ar[r]^{b}&D   }
+$$
+注意到$Ker(f,g)$是映射$(b,g):B\oplus C\longrightarrow D$的核，我们可构造一个映射$k:X\longrightarrow B\oplus C$使得$(b,g)k=0.$这样利用核的性质，我们便能得到一个映射$r:X\longrightarrow Ker(b,g).$这一映射或许就是我们要找的映射。
+余积$B\oplus C$连同的态射记为$e_{1}:B\longrightarrow B\oplus C,e_{2}:C\longrightarrow B\oplus C.$\\
+$(b,g)e_{1}t=bt,(b,g)(-e_{2})s=-gs.$从而$(b,g)(e_{1}t-e_{2}s)=0.$于是存在映射$r:X\longrightarrow Ker(b,g)$使得$hr=e_{1}t-e_{2}s.$下面验证：$ar=-(0,1)hr=s,fr=(1,0)hr=t.$满足交换性。
+$$
+\xymatrix{X\ar@{-->}[dr]^{r}\ar[rrrdd]^{s}\ar[dddrr]_{t}\\
+	&Ker(b,g)\ar[dr]^{h}\\
+	& &B\oplus C\ar[r]^{-(0,1)}\ar[d]_{(1,0)}\ar[rd]^{(b,g)}&C\ar[d]^{g}\\
+	& &B\ar[r]^{b}&D   }
+$$
+设$\mathcal{A}$是有零对象的范畴，考虑下图$$
+\xymatrix{
+A^{'}\ar[r]&A\ar[d]\\
+B^{'}\ar[r]&B
+}
+$$
+其中$B^{'}\longrightarrow B$是某个态射$B\longrightarrow B^{''}$的核.则该图能扩展成交换图当且仅当$A^{'}\longrightarrow A$是复合态射$A\longrightarrow B\longrightarrow B^{''}$的核.\\
+证明:设$A^{'}\longrightarrow A$是复合态射$A\longrightarrow B\longrightarrow B^{''}$的核，则存在唯一的态射$A^{'}\longrightarrow B^{'}$使得上图交换。若有X使得$X\longrightarrow A\longrightarrow B=X\longrightarrow B^{'}\longrightarrow B,$则$X\longrightarrow A\longrightarrow B\longrightarrow B^{''}=X\longrightarrow B^{'}\longrightarrow B\longrightarrow B^{''}.$由于$A^{'}\longrightarrow A$是复合态射$A\longrightarrow B\longrightarrow B^{''}$的核,因此存在唯一态射$X\longrightarrow A^{'}$使得$X\longrightarrow A^{'}\longrightarrow A=X\longrightarrow A.$并且
+$$X\longrightarrow A^{'}\longrightarrow B^{'}\longrightarrow B=X\longrightarrow A^{'}\longrightarrow A\longrightarrow B=X\longrightarrow A\longrightarrow B=X\longrightarrow B^{'}\longrightarrow B.$$
+由于$B^{'}\rightarrow B$是单射，$X\rightarrow A^{'}\rightarrow B^{'}=X\rightarrow B^{'}.$\\
+反之，若有拉回
+$$
+\xymatrix{
+	A^{'}\ar[r]\ar[d]&A\ar[d]\\
+	B^{'}\ar[r]&B
+}
+$$
+则$A^{'}\longrightarrow A$是复合态射$A\longrightarrow B\longrightarrow B^{''}$的核。事实上，若$X\rightarrow A\longrightarrow B\longrightarrow B^{''}=0$由于$B^{'}\rightarrow B$是$B\rightarrow B^{''}$的核,于是存在态射$X\rightarrow B^{'}$使得$X\rightarrow A\rightarrow B=X\rightarrow B^{'}\rightarrow B.$再根据拉回性质，存在态射$X\rightarrow A^{'}$使得$X\rightarrow A^{'}\rightarrow A=X\rightarrow A.$\\
+(9 lemma)
+如下是范畴中的一个交换图，所有行和列是正合列.
+$$
+\xymatrix{
+	&0\ar[d]&0\ar[d]&0\ar[d]\\
+	&A^{'}\ar[d]&A\ar[d]&A^{''}\ar[d]\\
+0\ar[r]&	B^{'}\ar[r]\ar[d]&B\ar[r]\ar[d]&B^{''}\ar[r]\ar[d]&0\\
+0\ar[r]&	C^{'}\ar[r]\ar[d]&C\ar[r]\ar[d]&C^{''}\ar[r]\ar[d]&0\\
+&0&0&0&\\
+}
+$$
+存在态射$A^{'}\rightarrow A$和$A\rightarrow A^{''}$使得图交换，并且$
+0\rightarrow A^{'}\rightarrow A\rightarrow A^{''}\rightarrow 0$是正合列。\\
+下图是一拉回$$
+\xymatrix{
+	B^{'}\ar[r]\ar[d]&C^{'}\ar[d]\\
+	B\ar[r]&C
+}
+$$
+其中$B\rightarrow C$是满射，$C^{'}\rightarrow C$是单射，则能扩充为下面交换图.\\
+$$
+\xymatrix{
+	&&0\ar[d]&0\ar[d]\\
+0\ar[r]	&A\ar@{=}[d]\ar[r]&B^{'}\ar[d]\ar[r]&C^{'}\ar[d]\ar[r]&0\\
+	0\ar[r]&A\ar[r]&B\ar[r]\ar[d]&C\ar[r]\ar[d]&0\\
+&&C^{''}\ar@{=}[r]\ar[d]&C^{''}\ar[d]&\\
+	&&0&0&\\
+}
+$$
+证明:令$C\rightarrow C^{''}$是$C^{'}\rightarrow C$的余核，$A\rightarrow B$是$B\rightarrow C$的核。由上面命题知$B^{'}\rightarrow B$是$B\rightarrow C\rightarrow C^{''}$的核，于是便能得到中间一列的正合性。接下来对下图应用“9引理”便得到
+结果。
+$$
+\xymatrix{
+	&0\ar[d]&0\ar[d]&0\ar[d]\\
+	&A\ar@{=}[d]&B^{'}\ar[d]&C^{'}\ar[d]\\
+0\ar[r]	&A\ar[d]\ar[r]&B\ar[d]\ar[r]&C\ar[d]\ar[r]&0\\
+	0\ar[r]&0\ar[r]\ar[d]&C^{''}\ar@{=}[r]\ar[d]&C^{''}\ar[r]\ar[d]&0\\
+	&0&0&0&\\
+}
+$$
+这里注意到存在唯一地态射$B^{'}\rightarrow C^{'}$使得$$
+\xymatrix{
+	B^{'}\ar[r]\ar[d]&C^{'}\ar[d]\\
+	B\ar[r]&C
+}
+$$交换，于是由"9引理"得到的态射$B^{'}\rightarrow C^{'}$核原来是一致的。
+\end{document}

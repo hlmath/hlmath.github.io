@@ -1,0 +1,148 @@
+\documentclass[UTF8]{article}
+\usepackage{ctex}
+\usepackage{tikz}
+\usepackage[all]{xy}
+\usepackage{pgflibraryarrows}
+\usepackage{pgflibrarysnakes}
+\usepackage[colorlinks=true]{hyperref}
+\title{反例及典型题}
+\author{Lhzsl}
+\date{\today }
+\usepackage[b5paper,left=10mm,right=10mm,top=15mm,bottom=15mm]{geometry}
+\usepackage{amsthm,amsmath,amssymb}
+\usepackage{mathrsfs}
+\begin{document}
+		\maketitle
+	1.有限生成模的子模不必是有限生成的。\\
+	例：令$R=\{f(X)=a_{n}X^{n}+a_{n-1}X^{n-1}+\cdots+a_{0}\in Q[X]|a_{0}\in Z\}.$可验证R关于多项式的乘法和加法成为环。其理想$I=\{f(X)\in R|a_{0}=0\}$作为R-模不是有限生成的。\\
+	2.度量空间中的有界闭集不一定是紧集。\\
+	例.在R上定义度量$d(x,y)=\frac{|x-y|}{1+|x-y|},$则整数集Z是$(R,d)$中的有界闭集，同时由于$d(x_{n},x)\rightarrow 0\iff |x_{n}-x|\rightarrow 0,$因此这一度量空间和通常的度量空间有相同的开集，闭集，紧集，从而Z不是$(R,d)$中的紧集。\\
+	例.$\ell^{\infty}$表示有界实数序列组成的集合,定义其中元素$x=(x_{n})_{n\in N}$范数是$||x||_{\infty}=sup_{n\in N}|x_{n}|.$则$\ell^{\infty}$中的单位球$B(0,1)=\{x\in \ell_{\infty}|||x||_{\infty \leq 1}\}$是有界闭集,不是紧集，取$e_{i}=(\delta_{i}^{n} )_{n\in N}\in B(0,1),i=1,2,\cdots,$但$\{e_{i}\}$没有收敛子列，于是$B(0,1)$不是列紧的，但由于度量空间中紧性等价于列紧性，从而$B(0,1)$不是紧集。\\
+	3.99阶群是循环群。\\
+	证明：由$sylow$定理，存在$sylow-3$子群P，$sylow-11$子群N,且$P,N$都是正规子群，由于$|P|=3^{2},$从而P是循环群，$|N|=11$，N也是循环群,设P，N的生成元分别为$a,b.$由$(9,11)=1,$得到$P\cap N=\{e\},$考虑$b^{-1}aba^{-1},$由于P,N都正规，于是$b^{-1}aba^{-1}\in P\cap N,$从而$b^{-1}aba^{-1}=e,$即$ab=ba.$由此可知$ab$的阶为99,从而该群是循环群。\\
+	4.p,q是两个不同的素数，设$p<q,$若$p\nmid q-1,$则$pq$阶群是Abel群，否则存在$pq$阶非Abel群。\\
+	证明:前半部分是简单的，只需利用$sylow$第三定理便可推的。下面证明后一部分，事实上，半直积$\mathbb{Z}_{q}\rtimes\mathbb{Z}_{p}$就不是Abel群，这里半直积的定义如下：设$H,N$为群，并给定同态$\alpha :H\rightarrow Aut(N).$
+	相应的半直积$N\rtimes_{\alpha}H$定义为如下的群(下标$\alpha $经常略去)：\\
+	(i)作为集合，$N\rtimes H$无非是积集$N\times H;$\\
+	(ii)二元运算是$(n,h)(n^{'},h^{'})=(n\alpha(h)(n^{'}),hh^{'}),$其中$n,n^{'}\in N,h,h^{'}\in H.$\\
+	设$\alpha:\mathbb{Z}_{p}\rightarrow Aut(\mathbb{Z}_{q})$是同态,$\mathbb{Z}_{q}$的自同构必定把生成元映为生成元$\mathbb{Z}_{q}$的生成元为$\bar{1},\bar{2},\cdots,\bar{q-1},$由此易得$\mathbb{Z}_{q}$共有q-1个自同构$\beta_{i}:\bar{1}\rightarrow \bar{i},i=1,\cdots,q-1.$\\
+	在$\mathbb{Z}_{q}\rtimes\mathbb{Z}_{p}$中$$
+	(1,0)(0,1)=(1+\alpha(0)(0),1+0)=(1,1)$$$$
+	(0,1)(1,0)=(\alpha(1)(1),1)
+	$$
+	于是,若$\alpha(1)(1)\neq 1,$那么$\mathbb{Z}_{q}\rtimes\mathbb{Z}_{p}$便不是Abel群，这相当于$\alpha(1)\neq \beta_{1}.$注意到$\bar{1}$是$\mathbb{Z}{p}$中生成元，对于任一映射$\alpha,$只要给出$\bar{1}$在映射下的像，便确定了其它元素的像，而后需要检验是否保持运算，于是我们可先假设$\alpha(1)=\beta_{i},$那么由$\alpha$是态射得到$\alpha(0)=\beta_{1},$另一方面$\alpha(0)=\alpha(p\bar{1})=\alpha(\bar{1})^{p}=\beta_{i}^{p}$(注意自同构群中运算是乘法)，从而必须有$\beta_{i}^{p}=\beta_{1}.$问题便为是否有这样的$\beta_{i},2\leq i\leq q-1$.由$\beta_{i}$的定义，上述问题等价于$x^{p}\equiv 1(mod \quad q),2\leq x\leq q-1$是否有解，有下命题\\
+	$$p|q-1\iff \exists 2\leq x\leq q-1,s.t,x^{p}\equiv 1(mod \quad q)$$
+	$\Rightarrow$)由Fermat小定理$\forall  2\leq x\leq q-1,s.t,x^{q-1}\equiv 1(mod \quad q).$由$p|q-1$得$q-1=kp,$从而$(x^{k})^{p}\equiv 1(mod\quad q).$由于$k\leq q-3,$从而存在$2\leq y\leq q-1$使得在$\mathbb{Z}_{q}$中$y^{k}\quad mod \quad q$不为$\bar{1}$,这就是一个解。\\
+	$\Leftarrow)$在群$F_{q}^{*}$中考虑，其中每个元素得阶是$q-1$得因数，于是$p|q-1.$\\
+	综上，存在半直积$\mathbb{Z}_{q}\rtimes_{\alpha}\mathbb{Z}_{p}$不是Abel群.\\
+	5.设n阶矩阵$A$的极分解唯一，求证:$A$可逆。\\
+	证明:只需证明若A奇异$(det(A)=0)$,A的极分解不唯一。
+	设$A$有极分解$A=UP,$其中$U$是一个酉矩阵，$P=\sqrt{AA^{T}},$由于$A$奇异，得到$P$奇异。注意到$U$满足$A=UP$当且仅当$$
+	U(Px)=Ax,\forall x\in \mathbb{C}^{n}
+	$$
+	设$\{x_{1},\cdots,x_{r}\}$是P的像空间的一组正交基，将其扩张成$\mathbb{C}^{n}$的一组基$\{x_{1},\cdots,x_{n}\},$设$V$是一个酉变换，且在该基下的矩阵为
+	\begin{displaymath}
+	\left(\begin{array}{c c}
+	I_{r\times r} & 0 \\
+	0 & V^{'}
+	\end{array}\right)
+	\end{displaymath}
+	这里$I_{r\times r}$是单位矩阵，$V^{'}$是任意酉矩阵，令$U_{2}=U_{1}V$,则有$U_{2}Px=U_{1}Px=Ax,\forall x\in\mathbb{C}^{n},$于是$A=U_{2}P,$只要$V\neq I,$就有$U_{1}\neq U_{2}.$\\
+	6.设$A$是3阶实正交矩阵，且$det(A)=1$,证明$$
+	(Tr(A)-1)^{2}+\sum_{i<j}(a_{ij}-a_{ji})^{2}=4.
+	$$
+	证明：设
+		\begin{displaymath}
+	A=\left(\begin{array}{c cc}
+	a_{11} & a_{12}&a_{13} \\
+	a_{21}& a_{22}&a_{23}\\
+	a_{31}&a_{32}&a_{33}
+	\end{array}\right)
+	\end{displaymath}
+	那么对于上述等式。\\
+	$$LHS=4+2(a_{11}a_{22}+a_{11}a_{33}+a_{22}a_{33})-2(a_{12}a_{21}+a_{13}a_{31}+a_{23}a_{32})-2(a_{11}+a_{22}+a_{33})$$
+	$$=4+2(a_{11}a_{22}-a_{12}a_{21})+2(a_{11}a_{33}-a_{13}a_{31})+2(a_{22}a_{33}-a_{23}a_{32})-2(a_{11}+a_{22}+a_{33})$$
+	$$=4+2(minor(a_{33})+minor(a_{22})+minor(a_{11}))-2(a_{11}+a_{22}+a_{33}).$$
+	这里$minor(a_{11})=a_{22}a_{33}-a_{23}a_{32},$其它两个类似。下面利用特征多项式完成证明。\\
+	设$Det(tI-A)=t^{3}-c_{2}t^{2}+c_{1}t-c_{0}.$直接计算便得到$c_{0}=Det(A)=1,c_{1}=minor(a_{33})+minor(a_{22})+minor(a_{11}),c_{2}=Tr(A).$由于$A$是奇数阶方阵，必有实特征值，由于A是正交阵，这一特征值必是$-1$或$1$,于是由$det(A)=1,$得到$A$有特征值1，代数特征多项式得到$
+	1-c_{2}+c_{1}-c_{0}=0
+	$,于是$$
+	minor(a_{33})+minor(a_{22})+minor(a_{11})=a_{11}+a_{22}+a_{33}
+	$$
+	最后$LHS=4$.\\
+	
+	7.举出一例是正规扩张但非可分扩张.\\
+    8.阶数小于60群的分类.\\
+    (i)所有素数阶群均是循环群，例如$2,3,5,7,11,13,17,19,23,29,31,37,41,43,47,53,57,59$阶群。\\
+    (ii)$pq$阶群G，这里$p\neq q,$p,q均为素数.\\
+    首先注意到若$N_{1},N_{2}$是G的正规子群，且$N_{1}\cap N_{2}=\{e\},G=N_{1}N_{2}.$则有群同构$$
+    \alpha :N_{1}\times N_{2}\rightarrow G
+    $$
+     $$
+     (a,b)\mapsto ab
+     $$
+    可以验证该映射是群同态，单射，满射，从而是群同构。\\
+    不妨设$p<q,$若$p\nmid q-1,$则群G的$sylow-p,sylow-q$群H,N均为正规子群,且$N\cap H=\{e\},NH=G,$从而$G\cong N\times H,$但$N\cong Z_{(p)},H\cong Z_{(q)},(p,q)=1,$由中国剩余定理知$Z_{(p)}\times Z_{(q)}\cong Z_{(pq)},$于是$G\cong Z_{(pq)}.$\\
+    若$p|q-1$,由上面知存在非Abel群，下面说明的是任意两个pq阶非Abel群同构，此时$sylow-q$子群N是G的正规子群，\\
+    若$N,H$是G的子群，且N是正规子群，且$G=NH,N\cap H=\{e\}$,同态$\phi :H\rightarrow Aut(N)$定义为$\phi(h)(n)=hnh^{-1}.$H,N关于此同态的半直积记为$N\rtimes_{\phi}H,$则有同构$$
+    \beta :N\rtimes_{\phi}H\rightarrow G
+    $$
+    $$
+    (n,h)\mapsto nh
+    $$
+    由于$G=NH,$映射显然是满射，又由于$|N\rtimes_{\phi}H|=|N||H|=|NH||N\cap H|=|G|$知该映射是单射，简单地验证即知该映射是同态。\\
+    由此可知非Abel群pq阶群必定同构于$sylow-p,sylow-q$子群H，N的一个半直积，即是上面构造的半直积，若该映射$\phi :H\rightarrow Aut(N)$是平凡的,即$\forall h\in H,n\in N,hn=nh,$则$G\cong N\rtimes_{\phi}H=N\times H\cong Z_{(pq)},$于是G是循环群，从而$\phi$非平凡，但由于$p|q-1,\phi$只能是唯一的，事实上，设$H=<x|x^{p}=e>,N=<y|y^{q}=e>$,N的自同构群$Aut(N)$是q-1阶循环群，有唯一的p阶子群K，从而若$\phi :H\rightarrow Aut(N)$非平凡，则只能是$\phi(H)=K.$这就说明H,N的非Alel群半直积是唯一的，进而可知pq阶非Abel群都是同构的。\\
+   \url{https://math.stackexchange.com/questions/1889482/classify-all-groups-with-order-pq-p-is-not-equal-to-q?noredirect=1&lq=1}
+   pq阶Abel群同构于$Z_{(pq)},$所有pq阶非Abel群都是同构的\\
+   $p^{2}$阶群是循环群.
+   非平凡p群有非平凡的中心$Z_G$,于是$|Z_G|=p,$或$Z_{G}=G,$若为前者，则$G/Z_G$是p阶群，从而是循环群，若为后者，则G当然是循环群。\\
+   4阶群均是循环群，由有限Abel群分类定理知，4阶群同构于$Z_{(4)}$或$Z_{(2)}\oplus Z_{(2)}$.\\
+   8阶群，\\
+   9.设$\{a_{n}\}$是正实数序列，$a_{m+n}\leq a_{m}+a_{n}$对任意m,n成立，证明$\lim_{n\rightarrow\infty}\dfrac{a_n}{n}$存在。\\
+   10.$Z_{p}$的自同构群是循环群。\\
+   11.证明：群$A_{n}(n\geq 4)$的中心$Z(A_{n})=\{(1)\}.$\\
+   证明：任意非恒等置换$\sigma\in A_{n}$，存在$1\leq i\neq j\leq n$使得$\sigma(i)=j$,取$(jkl)\in A_{n},$其中$k,l$不等于$i,j$中任何一个(注意到$n\geq 4$),于是$((jkl)\sigma)(i)=k,(\sigma(jkl))(i)=j,$
+   这就说明$Z(A_{n})=\{(1)\}.$同样可证明$n\geq 3$\\
+   
+   12.求$A_{5}$的所有共轭类。\\
+   设$x\in A_{5}$.先考虑$S_{5}$对自身的共轭作用，由轨道-稳定子公式
+   $$
+   |orb(x)_{S_{5}}|=\frac{|S_{5}|}{|Stab(x)_{S_{5}}|}.
+   $$
+   同样有公式
+    $$
+   |orb(x)_{A_{5}}|=\frac{|A_{5}|}{|Stab(x)_{A_{5}}|}.
+   $$
+   下面对$orb(x)_{A_{5}}$进行讨论：\\
+   1)若$Stab(x)_{S_{5}}\subseteq A_{5},$则由上述公式$|orb(x)_{A_{5}}|=\frac{1}{2}|orb(x)_{S_{5}}|,$此时$x$在$S_{5}$中的共轭类在$A_{5}$中分裂成两个共轭类。事实上，此时任取$y\in orb(x)_{S_{5}}-orb(x)_{A_{5}},$首先注意到存在$g\in S_{5}$使得$y=g^{-1}xg$,因此$x$与$y$有相同的奇偶性，故$y\in A_{5}$。但由于$y\notin orb(x)_{A_{5}},$必有$g\in S_{5}-A_{5},$即$g$为奇置换.于是任取$z\in Stab(x)_{S_{5}},$存在$h\in S_{5}$使得$z=h^{-1}xh.$若$h$是偶置换，则$z$在$A_{5}$中与$x$共轭；若$h$是奇置换，则$z$在$A_{5}$中与$y$共轭。\\
+   2)$Stab(x)_{S_{5}}\not\subseteq A_{5}:$首先显然有
+       $$Stab(x)_{A_{5}}=A_{5}\cap Stab(x)_{S_{5}}.$$
+   其次由$[S_{5}:A_{5}]=2,$$A_{5}$是$S_{5}$的正规子群。由$Stab(x)_{S_{5}}\not\subseteq A_{5}$知$Stab(x)_{S_{5}}A_{5}=S_{5},$
+   于是由第一群同态定理(或许有些地方称为第二群同态定理)
+   $$Stab(x)_{S_{5}}/Stab(x)_{S_{5}}\cap A_{5}\cong Stab(x)_{S_{5}}A_{5}/A_{5}=S_{5}/A_{5}.$$
+   于是$[Stab(x)_{S_{5}}:[Stab(x)_{S_{5}}]=2,$进而$|orb(x)_{A_{5}}|=|orb(x)_{S_{5}}|.$即$x$在$A_{5}$和$S_{5}$中有相同的共轭类。\\
+   利用上述分析，我们便可给出$A_{5}$的共轭类分类。
+  
+   在$S_{n}$中，设置换$\sigma$的不相交的轮换分解式(包含所有的$1-$轮换)为
+   $$
+   \sigma=(a_{1}a_{2}\cdots a_{l_{1}})(b_{1}b_{2}\cdots b_{l_{2}})\cdots (q_{1}q_{2}\cdots q_{l_{t}})
+   $$
+   其中$l_{1}\geq l_{2}\geq \cdots \geq l_{t},$且$l_{1}+\cdots+\l_{t}=n,$则我们把有序整数组$(l_{1},l_{2},\cdots,l_{t})$称为置换$\sigma$的型，也称为$n$的一个分拆。\\
+   易证得$\sigma_{1}$和$\sigma_{2}$在$S_{n}$中共轭当且仅当$\sigma_{1}$和$\sigma_{2}$同型。\\
+   于是$S_{n}$中共轭的个数等于$n$的分拆的个数。\\
+   $5$有$7$种分拆，$5=1+1+1+1+1,5=4+1,5=3+2,5=3+1+1,5=2+2+1,5=2+1+1+1,5=5$.
+   于是$S_{5}$有$7$个共轭类，其代表元分别为
+   $$(1),(12345),(1234)(5),(123)(45),(123)(4)(5)=(123),(12)(34)(5),(12)(3)(4)(5).$$
+   上述$7$个代表元中属于$A_{5}$的是$(1),(12345),(123),(12)(34).$
+   若$\sigma_{1}$和$\sigma_{2}$在$A_{5}$中不同型，$\sigma_{1}$和$\sigma_{2}$在$A_{5}$中必不共轭。但若$\sigma_{1}$和$\sigma_{2}$同型，$\sigma_{1}$和$\sigma_{2}$在$A_{5}$中也可能不共轭。
+  注意到$(45)(123)(45)^{-1}=(123),$即$(45)\in Stab((123))_{S_{5}},$但显然$(45)\notin A_{5},$于是由上面2)$orb((123))_{A_{5}}=orb((123))_{S_{5}}.$同样地可得到$orb((12)(34))_{A_{5}}=orb((12)(34))_{S_{5}}.$\\
+  而对于$(12345)$,可由:$\sigma_{1}$和$\sigma_{2}$在$S_{n}$中共轭当且仅当$\sigma_{1}$和$\sigma_{2}$同型这一结论得到 $$Stab((12345))_{S_{5}}=<(12345)>\subseteq A_{5}.$$
+  因之$<(12345)>$在$A_{5}$中分裂成两个共轭类.任取$\sigma\in S_{5}- A_{5},$例如$(12)$,则
+  $(12)(12345)(12)=(13452).$于是$A_{5}$中有$5$个共轭类，其一组代表元为
+  $$(1),(123),(12)(34),(12345),(13452).$$
+   
+   
+   
+   
+   
+\end{document}

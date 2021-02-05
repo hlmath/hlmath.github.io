@@ -1,0 +1,405 @@
+\documentclass[UTF8]{article}
+\usepackage{ctex}
+\usepackage{tikz}
+\usepackage[all]{xy}
+\usepackage[colorlinks=true]{hyperref}
+\title{代数几何基础笔记}
+\author{Lhzsl}
+\date{\today }
+\usepackage[b5paper,left=10mm,right=10mm,top=15mm,bottom=15mm]{geometry}
+\usepackage{amsthm,amsmath,amssymb}
+\usepackage{mathrsfs}
+\begin{document}
+	\maketitle
+	设$X$是拓扑空间,$\varphi:\mathcal{F}\rightarrow\mathcal{G}$是$X$上的层同态，对$X$上任意点$P\in X,$有诱导同态$\varphi_{P}:\mathcal{F}_{P}\rightarrow\mathcal{G}_{P}$(这里$\mathcal{F}_{P}=dir.\lim\limits_{P\in U}\mathcal{F}(U)$),其定义为：设$t_{p}\in \mathcal{F}_{P},$则存在$X$上$P$的开邻域$P\in U,t^{'}\in \mathcal{F}(U)$使得$t^{'}|_{P}=t_{P}.$
+	$$
+	\varphi_{P}(t_{P}):=\varphi(U)(t^{'})_{P}.
+	$$
+	该定义与$U$的选取无关。事实上，若另有邻域$P\in W$及$t^{''}\in \mathcal{F}(W)$使得$t^{''}|_P=t_{P},$则$t^{''}|_{P}=t^{'}|_{P},$从而有$X$中$p$的开邻域$V\subset W\cap U$使得$t^{''}|_{V}=t^{'}|_{V}$.由$\varphi$是层同态，$$
+	\varphi(W)(t^{''})|_{V}=\varphi(V)(t^{''}|_{V})=\varphi(V)(t^{'}|_{V})=\varphi(U)(t^{'})|_{V}.
+	$$
+	这就说明$\varphi(U)(t^{'})_{P}=\varphi(W)(t^{''})_{P}$.\\
+	
+	\textbf{命题1：}设$X$是拓扑空间，$\mathcal{F}$是$X$上的预层(Presheaf)，则存在$X$上的一个层$\mathcal{F}^{+}$和层态射$\theta :\mathcal{F}\rightarrow \mathcal{F}^{+}$，使得对$X$上任意层$\mathcal{G}$及层态射$\phi:\mathcal{F}\rightarrow \mathcal{G}$,存在唯一的层态射$\psi:\mathcal{F}^{+}\rightarrow \mathcal{G}$使得$\phi=\psi \theta.$即下图交换
+	 $$
+	\xymatrix{
+	      \mathcal{F}\ar[rr]^{\theta}\ar[dr]_{\phi}& &\mathcal{F}^{+} \ar[dl]^{\exists !\psi}\\
+		           & \mathcal{G}&
+.}
+	$$
+	对任意$P\in X,$$\theta_{P}:\mathcal{F}_{P}\rightarrow \mathcal{F}^{+}_{P}$是同构。我们称$\mathcal{F}^{+}$是$\mathcal{F}$的\textbf{伴随层}。\\
+	\begin{proof}
+		对$X$的任意开集$U$,定义$\mathcal{F}^{+}(U)$是满足下列条件的所有函数
+	$s:U\rightarrow \amalg_{P\in X}\mathcal{F}_{P}$组成的集合：\\
+	(i)对任意$P\in U,$有$s(P)\in \mathcal{F}_{P}.$\\
+	(ii)对任意$P\in X,$存在$P$在$U$中的开邻域$U_{P}$，使得存在一固定的$t\in \mathcal{F}(U_{P})$对任意$Q\in U_{P}$满足$s(Q)=t_{Q}$.\\
+	可验证上述定义的$\mathcal{F}^{+}$是层，且$\mathcal{F}$到$\mathcal{F}^{+}$有自然的态射$\theta,$其定义为:任取$t\in \mathcal{F}(U),$对任意$Q\in U$定义
+	$(\theta(U)(t))(Q)=t_{Q}.$显然有$\theta(U)(t)\in \mathcal{F}^{+}(U)$.\\
+	在该典型态射下，由上述条件(ii)得到:对$X$上任意开集$U$，若$s\in \mathcal{F}^{+}(U),$则对任意$P\in U$,存在$P$在$U$中开邻域$U_{P}$及$t\in \mathcal{F}(U_{P})$使得$s(Q)=t_{Q}=\theta(t)(Q),$即$s|_{U_{P}}=\theta(t)$.令$P$跑遍$U$中的点，我们便得到:对任意$s\in \mathcal{F}^{+}(U),$存在$U$的开覆盖$\{U_{i}\}_{i\in I}$及$s_{i}\in \mathcal{F}(U_{i})$使得$\theta(s_{i})=s|_{U_{i}}$.而这就说明对任意$P\in X,\theta_{P}:\mathcal{F}_{P}\rightarrow \mathcal{F}^{+}_{P}$是满射，而单射是显然地，于是$\theta_{P}$是同构。\\
+	下面对任意态射$\phi:\mathcal{F}\rightarrow \mathcal{G}$定义$\psi:\mathcal{F}^{+}\rightarrow \mathcal{G}$。
+	对任意$X$中开集$U$，及$s\in \mathcal{F}^{+}(U)$,由上知，存在$U$的开覆盖$\{U_{i}\}_{i\in I}$及$s_{i}\in \mathcal{F}(U_{i})$使得$\theta(s_{i})=s|_{U_{i}}$,这里需注意到$\theta $是单射，由
+	$$\theta(s_{i}|U_{i}\cap U_{j})=\theta(s_{i})|_{U_{i}\cap U_{j}}=s|{U_{i}\cap U_{j}}=\theta(s_{j})|_{U_{i}\cap U_{j}}=\theta(s_{j}|_{U_{i}\cap U_{j}})$$
+	可得到$s_{i}|_{U_{i}\cap U_{j}}=s_{j}|_{U_{i}\cap U_{j}}.$\\
+	   定义$\psi(U_{i})(s|_{U_{i}})=\phi(U_{i})(s_{i})\in \mathcal{G}(U_{i}),$由$\phi$与$X$上层$\mathcal{F}$的限制映射可交换得到
+	$$\phi(U_{i})(s_{i})|_{U_{i}\cap U_{j}}=\phi(U_{i}\cap U_{j})(s_{i}|_{U_{i}\cap U_{j}})
+	= \phi(U_{i}\cap U_{j})(s_{j}|_{U_{i}\cap U_{j}})  =\phi(U_{j})(s_{j})|_{U_{i}\cap U_{j}}.$$
+	于是$\phi(U_{i})(s|_{U_{i}})(i\in I)$在$\{U_{i}\}_{i\in I}$的相交处是一致的。由此可定义出$U$上的一个截面$s^{'}\in \mathcal{G}(U)$，该截面就记为$s$在$\psi(U)$下的像$\psi(U)(s).$易验证由此定义出的$\psi$满足上述交换图，即$\phi=\psi\theta.$而由其构造过程知$\psi$是唯一的。\\
+\end{proof}
+
+\textbf{Remark:}上述命题说明任给态射$\phi :\mathcal{F}\rightarrow \mathcal{G}$则存在唯一地态射$\psi:\mathcal{F}^{+}\rightarrow \mathcal{G}$使得下图交换
+ $$
+\xymatrix{
+	\mathcal{F}\ar[rr]^{\theta}\ar[dr]_{\phi}& &\mathcal{F}^{+} \ar[dl]^{\exists !\psi}\\
+	& \mathcal{G}&
+	.}
+$$
+反过来，若给定层态射$\psi :\mathcal{F}^{+}\rightarrow \mathcal{G}$,由于$\mathcal{F}$可通过$\theta$嵌入$\mathcal{F}^{+}$,我们就可得到
+一个预层态射$\phi :\mathcal{F}\rightarrow \mathcal{G},$若有层态射$\varphi:\mathcal{F}^{+}\rightarrow \mathcal{G}$使得$\phi=\varphi \theta,$则由上述命题的唯一性知$\psi=\varphi.$\\
+
+设$X$是拓扑空间，$\psi:\mathcal{F}\rightarrow \mathcal{G}$是$X$上的两个层的态射,定义$X$上预层$ker\psi$:对于任意开集$U\subseteq X,$
+$$
+(ker\psi)(U):=ker(\psi(U)).
+$$
+可直接验证$ker\psi$是$X$上层，称$ker\psi$为态射$\psi$的核。
+用$im\psi$表示$X$上预层
+$$
+U\mapsto im(\psi(U))
+$$
+的伴随层,称作态射$\psi$的像。\\
+\textbf{命题2:}
+对于任意$P\in X,$
+$$
+ker(\psi_{P})=(ker\psi)_{P},$$
+$$
+im(\psi_{P})=(im\psi)_{P}.
+$$
+\begin{proof}
+	(i)$(ker\psi)_{P}\subseteq ker(\psi_{P})$是显然地。反过来，任取$\overline{(s,W)}\in ker(\psi_{P}),$我们有$\psi(W)(s)|_{P}=0,$故存在$P$的包含在$W$中的开邻域$U$使得$\psi(W)(s)|_{U}=0,$此即$\psi(U)(s|_{U})=0,$于是$(s|_{U},U)\in ker(\psi(U))$.故
+	$$
+	\overline{(s,W)}=\overline{(s|_{U},U)}\in ker(\psi(U))|_{P}\subseteq (ker\psi)_{P},
+	$$
+	这就说明$ker(\psi_{P}) \subseteq (ker\psi)_{P}.$从而两者相等。\\
+	(ii)需注意到伴随层在任一点处的stalk和原来预层在该处是stalk是一致的。于是$(im\psi)_{P}\subseteq im(\psi_{P})$是显然地。反过来，任取
+	$s_{P}\in im(\psi_{P}),$存在$t_{P}\in \mathcal{F}_{P}$使得$\psi_{P}(t_{P})=s_{P},$于是存在$X$上开集$U$及$t\in \mathcal{F}(U)$使得$(t,U)|_{P}=t_{P}$.于是$\psi(U)((t,U))|_{P}=\psi_{P}(t_{P})=s_{P},$注意到伴随层在任一点处的stalk和原来预层在该处是stalk是一致的,于是$s_{P}\in (im\psi)_{P}.$\\
+\end{proof}
+\textbf{推论：}$\psi:\mathcal{F}\rightarrow \mathcal{G}$是单射(满射)当且仅当对任意点$P\in X,\psi_{P}$是单射(满射).\\
+\begin{proof}
+	
+	\[ \begin{split}
+	\psi \ is\  injective&\Longleftrightarrow ker(\psi)=0\\
+	 &	\Longleftrightarrow ker(\psi)_{P}=0,\forall P\in X\\
+	 &	\Longleftrightarrow ker(\psi_{P})=0,\forall P\in X\\
+	 &\Longleftrightarrow 
+	 \psi_{P} \ is\ injective,\forall P\in X.
+	\end{split} \]
+满射是同样的方法
+
+	
+\[ \begin{split}
+\psi \ is\ surjective&\Longleftrightarrow im(\psi)=\mathcal{G}\\
+&	\Longleftrightarrow im(\psi)_{P}=\mathcal{G}_{P},\forall P\in X(for \ both \ sides\ are\ sheaves)\\
+&	\Longleftrightarrow im(\psi_{P})=\mathcal{G}_{P},\forall P\in X\\
+&\Longleftrightarrow 
+\psi_{P} \ is\ surjective,\forall P\in X.
+\end{split} \]
+
+\end{proof}
+\textbf{命题3：}对任意$X$上开集$U$,任意层$\mathcal{F},$记$\Gamma(U,\mathcal{F})=\mathcal{F}(U),$证明：$\Gamma(U,\cdot)$是左正合函子，即如果
+$$
+0\rightarrow\mathcal{F}^{'}\stackrel{\phi}{\rightarrow} \mathcal{F}\stackrel{\psi}{\rightarrow} \mathcal{F}^{''}
+$$是层的正合列，则
+$$0\rightarrow \Gamma(U,\mathcal{F}^{'})\stackrel{\phi(U)}{\longrightarrow}\Gamma(U,\mathcal{F})\stackrel{\psi(U)}{\longrightarrow}\Gamma(U,\mathcal{F}^{''})$$
+是群的正合列。\\
+\begin{proof}
+	由上一命题知对任意$P\in X,$
+	$$
+	0\rightarrow\mathcal{F}^{'}_{P}\stackrel{\phi_{P}}{\rightarrow} \mathcal{F}_{P}\stackrel{\psi_{P}}{\rightarrow} \mathcal{F}^{''}_{P}
+	$$
+	是正合列。
+可得到对任意$P\in U,\phi_{P}$是单射，从而$\phi(U)$是单射。
+下面只需证明$im(\phi(U))=ker(\psi(U)).$
+任取$s\in \Gamma(U,\mathcal{F}^{'})$
+对任意$P\in X,\psi_{P}(\phi_{P}(s_{P}))=0,$因此
+$\psi(\phi(s))_{P}=0,$这就说明$\psi(\phi(s))=0.$
+即$im(\phi(U))\subseteq ker(\psi(U)).$\\
+任取$t\in Ker\psi$，对任意$P\in U,$存在$s_{P}\in \mathcal{F}^{'}_{P}$使得$\phi_{P}(s_{P})=t_{P},$这就说明存在$U$的开覆盖$\{U_{i}\}_{i\in I}$及$s_{i}\in \Gamma(U_{i},\mathcal{F}^{'})$使得$\phi_{s_{i}}=t|_{U_{i}},$
+由于$\phi(s_{i}|_{U_{i}\cap U_{j}})=\phi(s_{j}|_{U_{i}\cap U_{j}})=t|_{U_{i}\cap U_{j}}$，而$\phi$是单射，故$s_{i}|_{U_{i}\cap U_{j}}=s_{j}|_{U_{I}\cap  U_{j}},$于是存在$s\in \Gamma(U,\mathcal{F}^{'})$使得$s|_{U_{i}}=s_{i},$从而$\phi(s)=t,$即
+$ker(\psi(U))\subseteq im(\phi(U)).$\\
+\end{proof}
+
+\textbf{Remark:}(i)$\Gamma(U,\cdot)$不是右正合的例子:设$X=\mathbb{C}-\{0\}$,$\mathcal{O}(U)$表示$U$上所有全纯函数组成的加法群，$\mathcal{O}^{*}(U)$表示$U$上所有非零全纯函数组成的乘法群。考虑态射$$
+exp:\mathcal{O}\rightarrow \mathcal{O}^{*},
+$$
+对任意$f\in \mathcal{O}(U),exp(f)=e^{2\pi if}\in \mathcal{O}^{*}(U).$由于对数函数$log$在$X=\mathbb{C}-\{0\}$上不是全纯函数，$z\in \mathcal{O}^{*}(X)$没有原像，故$\exp(X)$不是满射。局部地，对任意点$P\in X,exp_{P}:\mathcal{O}_{P}\rightarrow \mathcal{O}^{*}_{P}$是满射，故$exp:\mathcal{O}\rightarrow \mathcal{O}^{*}$是满射。\\
+(ii)如果对于$X$上任何两个开集$U,V$且$V\subseteq U,$限制映射$\mathcal{F}(U)\rightarrow \mathcal{F}(V)$是满射，
+则称$X$上层$\mathcal{F}$为flasque sheaf。
+可以证明上述命题中若$\mathcal{F}^{'}$是flasque sheaf，则$\mathcal{F}(U)\stackrel{\psi(U)}{\longrightarrow}\mathcal{F}^{''}(U)$是满射。\\
+
+
+	两个拓扑空间上的层可由其间的映射相互转化。\\
+   设$f:X\rightarrow Y$是连续映射。$\mathcal{F}$是$X$上的层，$\mathcal{F}$的像$f_{*}\mathcal{F}$(direct image)是$Y$上的层，其定义为,对于$Y$上的任意开集$V$,
+   $$
+   (f_{*}\mathcal{F})(V)=\mathcal{F}(f^{-1}(V)).
+   $$
+   对于$Y$上的层$\mathcal{G}$,定义$\mathcal{G}$的逆像$f^{-1}\mathcal{G}$为$X$上预层
+   $$
+   U\mapsto dir.\lim_{f(U)\subset V}\mathcal{G}(V) 
+   $$
+	的伴随层。\\
+	
+	对于$X$上的任意层$\mathcal{F}$,我们有典型的态射：
+	$$
+	f^{-1}f_{*}\mathcal{F}\rightarrow \mathcal{F}
+	$$
+	定义如下：由$f^{-1}f_{*}\mathcal{F}$是下述预层
+	$$
+	U\mapsto dir.\lim_{f(U)\subset V} f_{*}\mathcal{F}(V)=dir.\lim_{U\subset f^{-1}(V)} \mathcal{F}(f^{-1}(V))
+	$$
+	的伴随层，我们只需定义$U\mapsto dir.\lim_{U\subset f^{-1}(V)} \mathcal{F}(f^{-1}(V))$到$\mathcal{F}$的预层态射。
+我们定义
+$$dir.\lim_{U\subset f^{-1}(V)} \mathcal{F}(f^{-1}(V))\rightarrow  \mathcal{F}(U)$$是由限制映射$\mathcal{F}(f^{-1}(V))\rightarrow \mathcal{F}(U)$
+诱导的。这样就得到一个典型态射$f^{-1}f_{*}\mathcal{F}\rightarrow \mathcal{F}$.\\
+
+对于$Y$上任意层$\mathcal{G}$,也有典型态射
+$$
+f_{*}f^{-1}\mathcal{G}\rightarrow \mathcal{G}.
+$$
+其定义为:对于$Y$中任意开集$W$,由于$f(f^{-1}(W))\subset W,$我们有自然的映射
+$$
+\mathcal{G}(W)\rightarrow dir.\lim_{f(f^{-1}(W))\subset V} \mathcal{G}(V),
+$$
+该映射将$\mathcal{G}(W)$中的一个元素$(s,W)$映射为其在上述直极限中的代表类$\overline{(s,E)},$将该自然映射与态射
+$$dir.\lim_{f(f^{-1}(W))\subset V} \mathcal{G}(V)\rightarrow f^{-1}\mathcal{G}(f^{-1}(W))$$复合起来便得到映射
+$\mathcal{G}(W)\rightarrow f^{-1}\mathcal{G}(f^{-1}(W))=(f_{*}f^{-1}\mathcal{G})(W),$因此有层态射
+$\mathcal{G}\rightarrow f_{*}f^{-1}\mathcal{G}.$\\
+
+对于$X$上任意层$\mathcal{F}$及$Y$上任意层$\mathcal{G}$,我们可定义下述映射
+$$
+\alpha_{\mathcal{F},\mathcal{G}}:Hom(\mathcal{G},f_{*}\mathcal{F})\rightarrow Hom(f^{-1}\mathcal{G},\mathcal{F}).
+$$
+其定义为,对于任意态射$\phi:\mathcal{G}\rightarrow f_{*}\mathcal{F},$ $\alpha_{\mathcal{F},\mathcal{G}}(\phi)$为下述映射的复合
+$$f^{-1}\mathcal{G} \stackrel{f^{-1}\phi}{\longrightarrow}
+f^{-1}f_{*}\mathcal{F}\rightarrow\mathcal{F}.
+$$
+具体地，对于$X$上任意开集$U$,有下图
+$$
+\xymatrix{
+  &f^{-1}\mathcal{G}(U)\ar[r]^{f^{-1}\phi}& f^{-1}f_{*}\mathcal{F}(U) \ar[r]&\mathcal{F}(U)\\
+    U\rightarrow dir.\lim\limits_{f(U)\subset V}\mathcal{G}(V)\ar[rr]^{\phi}\ar[ru]^{associated}& &U\rightarrow dir.\lim\limits_{U\subset f^{-1}(V)}\mathcal{F}(f^{-1}(V))\ar[ur]_{restrictions}\ar[u]^{associated}& & 
+}
+$$
+注意到上图中映射$f^{-1}\phi$是由$\phi$诱导得到的.\\
+定义映射
+$$\beta_{\mathcal{F},\mathcal{G}}:Hom(f^{-1}\mathcal{G},\mathcal{F})\rightarrow Hom(\mathcal{G},f_{*}\mathcal{F})$$
+如下：对于任意
+$\psi:f^{-1}\mathcal{G}\rightarrow \mathcal{F},$定义$\beta_{\mathcal{F},\mathcal{G}}(\psi)$是下列映射的复合
+$$
+\mathcal{G}\rightarrow f_{*}f^{-1}\mathcal{G}\stackrel{f_{*}\psi}{\longrightarrow}f_{*}\mathcal{F},
+$$
+具体地，对于$Y$中任意开集$W$,
+$$
+\xymatrix{
+	& & f^{-1}\mathcal{G}(f^{-1}(W))=(f_{*}f^{-1}\mathcal{G})(W)\ar[dr]^{f_{*}\psi(W)=\psi(f^{-1}(W))} &\\
+\mathcal{G}(W)\ar[r] &dir.\lim\limits_{f(f^{-1}(W))\subset V}\mathcal{G}(V)\ar[ur]^{associated}\ar[rr]&&\mathcal{F}(f^{-1}(W))=f_{*}\mathcal{F}(W)
+}
+$$
+由命题一中态射$\psi:\mathcal{F}^{+}\rightarrow \mathcal{G}$的唯一性知有 
+对任意$(s,W)\in \mathcal{G}(W),$
+$$\beta_{\mathcal{F},\mathcal{G}}\alpha_{\mathcal{F},\mathcal{G}}(\phi)(s,W)=\phi(s,W),$$即
+$\beta_{\mathcal{F},\mathcal{G}}\alpha_{\mathcal{F},\mathcal{G}}$是恒等映射。也有
+$$\alpha_{\mathcal{F},\mathcal{G}}\beta_{\mathcal{F},\mathcal{G}}(\psi)=\psi,$$
+即$\alpha_{\mathcal{F},\mathcal{G}}\beta_{\mathcal{F},\mathcal{G}}$是恒等映射。\\
+
+对于一个环$A$,我们可定义其上的环层$\mathcal{O}_{SpecA},$其定义为：赋$SpecA$于Zariski拓扑,对于$SpecA$中的任何开集$U$,定义$\mathcal{O}_{SpecA}(U)$是满足下列条件所有函数$s:U\rightarrow \coprod_{\mathfrak{p}\in SpecA}A_{\mathfrak{p}}$组成的集合：\\
+(i)对于任意$\mathfrak{p}\in U,$有$s(\mathfrak{p})\in A_{\mathfrak{p}}.$\\
+(ii)对于任意$\mathfrak{p}\in U$.$U$中存在包含$\mathfrak{p}$的开邻域$U_{\mathfrak{p}}$,对任意$\mathfrak{q}\in U_{\mathfrak{p}},$存在$a,f\in A,f\notin \mathfrak{q},$使得$s(\mathfrak{q})=\frac{a}{f}\in A_{\mathfrak{q}}.$\\
+定义环层上限制映射为函数的限制映射。称$(SpecA,\mathcal{O}_{SpecA})$为$A$的谱$(Spectrum).$$\mathcal{O}
+_{SpecA}$常简记为$\mathcal{O}$.\\
+
+\textbf{Remark:}立即注意到上述定义与前文中伴随层定义极为相似，即$\mathcal{O}$或许为$SpecA$上某一预层的伴随层。事实上，对于$SpecA$中的任意开集$U$,定义$U$上常值函数集
+$$\{\frac{a}{f}:\mathfrak{p}\mapsto \frac{a}{f}\in A_{\mathfrak{p}}|a\in A,f\notin \mathfrak{p}\quad for \quad \forall \mathfrak{p}\in U . \},$$
+这就形成$SpecA$上的一个预层,而$\mathcal{O}_{SpecA}$是该预层的伴随层。\\
+
+\textbf{命题4：}(i)对于任意$\mathfrak{p}\in SpecA,$有典型同构$\mathcal{O}_{\mathfrak{p}}\cong A_{\mathfrak{p}}.$\\
+(ii)对于任意$f\in A,$有典型同构$\mathcal{O}(D(f))\cong A_{f}.$特别地，取$f=1,$得到$\mathcal{O}(SpecA)\cong A.$\\
+
+ 分析:对于(i)我们可利用命题1中预层在一点上的stalk和其伴随层在该点的stalk同构得到，而这只需要说明上述Remark中定义的预层在$\mathfrak{p}$处的stalk等同于$A_{\mathfrak{p}}.$令$$D(f)=SpecA-V((f))=\{\mathfrak{p}\in SpaecA|f\notin \mathfrak{p}\},$$
+ 则$D(f)$是$SpecA$中开集，且$D(f)(f\in A)$为$SpecA$的一组拓扑基。
+ 任取$f\notin \mathfrak{p},$则$\mathfrak{p}\in D(f)$.
+ $(\frac{a}{f},D(f))$在$\mathfrak{p}$
+ 的germ等同于$\frac{a}{f}\in A_{\mathfrak{p}}.$反过来，上述预层在$\mathfrak{p}$处的germ显然等同于$A_{\mathfrak{p}}$的一个子集.于是两者相等。于是$\mathcal{O}_{\mathfrak{p}}\cong A_{\mathfrak{p}}.$\\
+下面我们直接证明(i):对于$\mathfrak{p}$的任意邻域$U$，定义同态$\mathcal{O}(U)\rightarrow A_{\mathfrak{p}}$为$s\mapsto s(\mathfrak{p}).$该映射诱导态射
+$$
+\mathcal{O}_{\mathfrak{p}}\rightarrow A_{\mathfrak{p}}.
+$$
+利用上述分析，我们很容易得到该诱导态射是满射。下面证明该映射是单射。设$(s,U)\in \mathcal{O}_{U}$满足$s(\mathfrak{p})=0\in A_{\mathfrak{p}},$由定义，$U$中存在$\mathfrak{p}$的一个开邻域$U_{\mathfrak{p}}$,对任意$\mathfrak{q}\in U_{\mathfrak{p}}$,存在$a,\in A,f\in \mathfrak{q},s(\mathfrak{q})=\frac{a}{f}\in A_{\mathfrak{q}}.$由于$s(p)=0,$故存在$t\notin \mathfrak{p},$使得$at=0,$因对任意
+$\mathfrak{q}\in D(f)\cap D(t),$我们有$\frac{a}{f}=\frac{at}{ft}=0\in A_{\mathfrak{q}}.$显然$U_{\mathfrak{p}}\subseteq D(f),$因此
+$s|_{U_{\mathfrak{p}}\cap D(t)}=0,$注意到$U_{\mathfrak{p}}\cap D(t)$是$\mathfrak{p}$的开邻域，于是$\mathfrak{p}\rightarrow A_{\mathfrak{p}}$是单射。\\
+对于(ii),这里省略证明(详细证明请看扶磊《代数几何》Page19)，只说明其态射。定义态射$A_{f}\rightarrow\mathcal{O}(D(f))$为，对任意$\frac{a}{f^{k}}\in A_{f},$将其看作常值函数
+$$
+\frac{a}{f^{k}}:D(f)\rightarrow \coprod_{\mathfrak{p}\in SpecA}A_{\mathfrak{p}},\mathfrak{p}\mapsto \frac{a}{f^{k}}\in A_{\mathfrak{p}}.
+$$
+可证明该态射是双射，由此知$\mathcal{O}(D(f))$中元素均是常值函数。\\
+
+一个\textbf{环质空间(ringed space)}包含一个拓扑空间$X$及$X$上的环层$\mathcal{O}_{X}$，记为$(X,\mathcal{O}_{X}).$如果对任意的$P\in X,$$\mathcal{O}$在$P$处的stalk$\mathcal{O}_{X,P}$是局部环(即有唯一地极大理想)，则称$(X,\mathcal{O}_{X})$为局部环质空间(locally ringed space).\\
+设$(X,\mathcal{O}_{X})$和$(Y,\mathcal{O}_{Y})$是两个环质空间，$(X,\mathcal{O}_{X})$到$(Y,\mathcal{O}_{Y})$的态射包含一个连续映射$f:X\rightarrow Y$及层同态$f^{\sharp}:\mathcal{O}_{Y}\rightarrow f_{*}\mathcal{O}_{X}$，记为$(f,f^{\sharp}).$对于任意$P\in X,$ $f^{\sharp}$诱导了态射$\mathcal{O}_{Y,f(P)}\rightarrow (f_{*}\mathcal{O}_{X})_{f(P)}$,
+该映射与嵌入$(f_{*}\mathcal{O}_{X})_{f(P)}\rightarrow \mathcal{O}_{X,P}$的复合记为
+$$f^{\sharp}_{P}:\mathcal{O}_{Y,f(P)}\rightarrow \mathcal{O}_{X,P}.$$\\
+设$(X,\mathcal{O}_{X})$和$(Y,\mathcal{O}_{Y})$是两个局部环质空间，局部环质空间的态射是指一个环质态射$(f,f^{\sharp}):(X,\mathcal{O}_{X})\rightarrow (Y,\mathcal{O}_{Y})$，且满足对任意$P\in X,f^{\sharp}_{P}:\mathcal{O}_{Y,f(P)}\rightarrow \mathcal{O}_{X,P}$是局部态射
+(局部态射是两个局部环$A,B$的环同态$f:A\rightarrow B$，且满足$f^{-1}(\mathfrak{m}_{A})=\mathfrak{m}_{B}$)。\\
+
+\textbf{命题5：}设$\phi:A\rightarrow B$是环同态，则$\phi$自然地诱导一个局部环层空间的同态。
+$$
+(f,f^{\sharp}):(SpecB,\mathcal{O}_{SpecB})\rightarrow (SpecA,\mathcal{O}_{SpecA}).
+$$
+\begin{proof}
+	任给环同态$\phi :A\rightarrow B,$可定义态射$f:SpecB\rightarrow SpecA$为$\forall \mathfrak{q}\in SpecB,f(\mathfrak{q})=\phi^{-1}(\mathfrak{q})$.对于$A$中的任意理想$\mathfrak{a}$,设$\mathfrak{b}$是$\phi(\mathfrak{a})$在$B$中生成的理想，则$$
+	\mathfrak{q}\in f^{-1}(V(\mathfrak{a}))\Longleftrightarrow f(\mathfrak{q})\in V(\mathfrak{a})\Longleftrightarrow \phi^{-1}(\mathfrak{q})\supseteq \mathfrak{a}\Longleftrightarrow \mathfrak{q}\supseteq \mathfrak{b}\Longleftrightarrow \mathfrak{q}\in V(\mathfrak{b}).
+	$$
+	于是$f^{-1}(V(\mathfrak{a}))=V(\mathfrak{b}).$即$f$连续。\\
+	下面定义$f^{\sharp}.$任取$Spec{A}$中开集$V$,$\mathcal{O}_{SpecA}(V)$中任一截面$s:V\rightarrow \coprod_{\mathfrak{p}\in SpecA}A_{\mathfrak{p}}.$ $f^{\sharp}(V):\mathcal{O}_{SpecA}(V)\rightarrow f_{*}\mathcal{O}_{SpecB}(V)=\mathcal{O}_{SpecB}(f^{-1}(V)).$
+	注意到对于任意$\mathfrak{q}\in f^{-1}(V),$我们有$f(\mathfrak{q})=\phi^{-1}(\mathfrak{q})\in V.$\\
+	$\phi$诱导映射$\phi_{\mathfrak{q}}:A_{\phi^{-1}(\mathfrak{q})}\rightarrow B_{\mathfrak{q}},\phi_{\mathfrak{q}}(\frac{a}{s}):=\frac{\phi(a)}{\phi(s)},$显然下图交换
+	$$
+	\xymatrix{
+	A\ar[r]^{\phi}\ar[d]&B\ar[d]\\
+	A_{\phi^{-1}(\mathfrak{q})}\ar[r]^{\phi_{\mathfrak{q}}}&B_{\mathfrak{q}}
+}
+	$$
+	对任意$\mathfrak{q}\in f^{-1}(V),$定义$f^{\sharp}(V)$为
+	$$f^{\sharp}(V)(s)(\mathfrak{q}):=\phi_{\mathfrak{q}}(s(f(\mathfrak{q})))\in B_{\mathfrak{q}}.$$
+需验证$f^{\sharp}(V)(s)$满足定义(ii):由于$f(\mathfrak{q})\in V,$存在$f(\mathfrak{q})$在$V$中的开集$V_{f(\mathfrak{q})}$使得，对任意
+$\mathfrak{p}\in V_{f(\mathfrak{q})},$存在$a\in A,t\notin \mathfrak{p},s(\mathfrak{p})=\frac{a}{t}.$由此知$\mathfrak{q}$存在开邻域$f^{-1}(V_{f(\mathfrak{q})})$，任取$\mathfrak{q}^{'}\in f^{-1}(V_{f(\mathfrak{q})}),$
+$$f^{\sharp}(s)(\mathfrak{q}^{'})=\phi_{\mathfrak{q}^{'}}(s(f(\mathfrak{q}^{'})))=\frac{\phi(a)}{\phi(t)}.$$
+由$t\notin f(\mathfrak{q}^{'})=\phi^{-1}(\mathfrak{q}^{'})$得到$\phi(t)\notin \mathfrak{q}^{'}.$\\
+为证$f^{\sharp}_{\mathfrak{q}}:\mathcal{O}_{SpecA,f(\mathfrak{q})}\rightarrow \mathcal{O}_{SpecB,\mathfrak{q}}$是局部态射，只需注意下面图是交换的，
+$$
+\xymatrix{
+\mathcal{O}_{SpecA,f(\mathfrak{q})}\ar[r]^{f^{\sharp}_{\mathfrak{q}}}\ar[d]&\mathcal{O}_{SpecB,\mathfrak{q}}\ar[d]\\
+	A_{f(\mathfrak{q})}\ar[r]^{\phi_{\mathfrak{q}}}&B_{\mathfrak{q}}
+}
+$$
+其中竖直方向上是赋值映射,由命题4中(i)得该映射是同构，于是由$\phi_{\mathfrak{q}}$是局部映射，得到$f^{\sharp}_{\mathfrak{q}}$是局部映射。\\
+\end{proof}
+\textbf{命题6:}任意$(f,f^{\sharp}):(SpecB,\mathcal{O}_{SpecB})\rightarrow (SpecA,\mathcal{O}_{SpecA})$是由某个$A$到$B$的环同态用上述命题中的方法诱导的。
+\begin{proof}
+	由$\mathcal{O}_{SpecA}(SpecA)\cong A,\mathcal{O}_{SpecB}(SpecB)\cong B$,知存在环同态$\phi:A\rightarrow B$使下图交换
+$$	\xymatrix{
+	A\ar[r]^{\phi}\ar[d]&B\ar[d]\\
+	\mathcal{O}_{SpecA}(SpecA)\ar[r]^{f^{\sharp}}&\mathcal{O}_{SpecB}(SpecB),
+}
+$$	
+同样地，对任意$\mathfrak{q}\in Spec B$,我们可以定义环态射$\phi_{\mathfrak{q}}^{'}:A_{f(\mathfrak{q})}\rightarrow B_{\mathfrak{q}}$使下图交换
+$$\xymatrix{
+	\mathcal{O}_{SpecA,f(\mathfrak{q})}\ar[r]^{f^{\sharp}_{\mathfrak{q}}}\ar[d]&\mathcal{O}_{SpecB,\mathfrak{q}}\ar[d]\\
+		A_{f(\mathfrak{q})}\ar[r]^{\phi^{'}_{\mathfrak{q}}}\ar[r]&B_{\mathfrak{q}},
+}	$$
+由于$f^{\sharp}_{\mathfrak{q}}$是局部态射，$\phi^{'}_{\mathfrak{q}}$也是局部态射。\\
+注意到下面交换图
+$$
+\xymatrix{
+\mathcal{O}_{SpecA}(SpecA)\ar[r]^{f^{\sharp}}\ar[d]&\mathcal{O}_{SpecB}(SpecB)\ar[d]\\
+	\mathcal{O}_{SpecA,f(\mathfrak{q})}\ar[r]^{f^{\sharp}_{\mathfrak{q}}}&\mathcal{O}_{SpecB,\mathfrak{q}}.
+}
+$$
+与上面两个复合便得到交换图
+$$
+\xymatrix{
+A\ar[r]^{\phi}\ar[d]_{p_{A}}&B\ar[d]^{p_{B}}\\
+A_{f(\mathfrak{q})}\ar[r]^{\phi^{'}_{\mathfrak{q}}}\ar[r]&B_{\mathfrak{q}}
+}
+$$
+其中$p_{A}:A\rightarrow A_{f(\mathfrak{q})},p_{B}:B\rightarrow B_{\mathfrak{q}}$是典范态射，即$p_{A}(a)=\frac{a}{1},p_{B}(b)=\frac{b}{1}.$
+于是$$
+\phi^{-1}(\mathfrak{q})=\phi^{-1}p_{B}^{-1}(\mathfrak{q}B_{\mathfrak{q}})=p_{A}^{-1}(\phi^{'}_{\mathfrak{q}})^{-1}(\mathfrak{q}B_{\mathfrak{q}})=p_{A}^{-1}(f(\mathfrak{q})A_{f(\mathfrak{q})})=f(\mathfrak{q}),
+$$
+第三个等号是由于$\phi^{'}_{\mathfrak{q}}$是局部态射。因此$\phi^{-1}(\mathfrak{q})=f(\mathfrak{q}).$
+由对任意$a\in ,\phi^{'}_{\mathfrak{q}}(a)=\phi(a)$知，对任意$a,b\in A,$
+$\phi^{'}_{\mathfrak{q}}(\frac{a}{b})=\frac{\phi(a)}{\phi(b)}=\phi_{\mathfrak{q}}(\frac{a}{b}).$即$\phi^{'}_{\mathfrak{q}}=\phi_{\mathfrak{q}}.$\\
+对于$SpecA$的任意开集$V$及任意$\mathfrak{q}\in f^{-1}(V),$我们有下述交换图
+$$
+\xymatrix{
+\mathcal{O}_{SpecA}(V)\ar[r]^{f^{\sharp}}\ar[d]&\mathcal{O}_{SpecB}(f^{-1}(V))\ar[d]\\
+\mathcal{O}_{SpecA,f(\mathfrak{q})}\ar[r]^{f^{\sharp}_{\mathfrak{q}}}\ar[d]&\mathcal{O}_{SpecB,\mathfrak{q}}\ar[d]\\
+A_{\phi^{-1}(\mathfrak{q})}\ar[r]^{\phi_{\mathfrak{q}}}\ar[r]&B_{\mathfrak{q}}
+}
+$$
+其中竖直方向上为取值映射(分别为在$\phi^{-1}(\mathfrak{q})$及$\mathfrak{q}$处的取值)，于是任取$\mathcal{O}_{SpecA}(U)$中截面$s:V\rightarrow \coprod_{\mathfrak{p}\in SpecA}A_{\mathfrak{p}},$我们有
+$$
+f^{\sharp}(s)(\mathfrak{q})=\phi_{\mathfrak{q}}(s(\phi^{-1})(\mathfrak{q})).
+$$因此
+$(f,f^{\sharp})$由$\phi$诱导。
+\end{proof}
+上面两个命题说明$Hom(SpecB,SpecA)$(局部环质空间之间的态射)和$Hom_{ring}(A,B)$(环同态)之间存在一一对应。\\
+
+\textbf{定义:}若局部环层空间$(X,\mathcal{O}_{X})$同构于$(SpecA,\mathcal{O}_{SpecA})$，这里$A$是某个环，则称$(X,\mathcal{O}_{X})$是\textbf{仿射概型(Affine scheme)}。若局部环层空间$(X,\mathcal{O}_{X})$存在开覆盖$\{U_{i}\}_{i\in I}$使得，对任意$i,(U_{i},\mathcal{O}_{X}|_{U_{i}})$是仿射概型，则称$(X,\mathcal{O}_{X})$是\textbf{概型(Scheme)}。\\
+
+在上一命题中将$SpecB$换为任意概型其结论依然成立。我们下面用$Mor(X,Y)$表示$X$到$Y$的概型态射组成的集合。\\
+\textbf{命题7:}设$Y$是仿射概型，对于任意概型$X$,
+我们有两个集合之间的一一对应
+$$
+\rho:Mor(X,Y)\rightarrow Hom_{ring}(\mathcal{O}_{Y}(Y),\mathcal{O}_{X}(X)).
+$$
+\begin{proof}
+	任取$(f,f^{\sharp})\in Mor(X,Y)$，定义$\rho((f,f^{\sharp}))=f^{\sharp}(Y).$\\
+	设$X=\cup_{i}U_{i},$其中$U_{i}$是仿射开集。我们有下面交换图
+	$$
+	\xymatrix{
+Mor(X,Y)\ar[rr]^{\rho}\ar[d]_{\alpha}&&Hom(\mathcal{O}_{Y}(Y),\mathcal{O}_{X}(X))\ar[d]_{\beta}\\
+\prod_{i}Mor(U_{i},Y)\ar[rr]^{\gamma}&&\prod_{i}Hom(\mathcal{O}_{Y}(Y),\mathcal{O}_{X}(U_{i}))	
+}
+	$$
+由上述两命题$\gamma$是双射。
+由$\alpha$是单射知$\rho$是单射。任取$\varphi\in Hom(\mathcal{O}_{Y}(Y),\mathcal{O}_{X}(X));$ $\varphi$和限制映射
+$\mathcal{O}_{X}(X)\rightarrow \mathcal{O}_{X}(U_{i})$的复合用$\gamma$拉回的像记为$f_{i}\in Mor(U_{i},Y).$
+对于任何仿射开集$V\subseteq U_{i}\cap U_{j},$由于$f_{i}|_{V}$和$f_{j}|_{V}$在
+$Hom(\mathcal{O}_{Y}(Y),\mathcal{O}_{X}(V))$中有相同的像，故$f_{i}|_{V}=f_{j}|_{V},$于是
+$f_{i}|_{U_{i}\cap U_{j}}=f_{j}|_{U_{i}\cap U_{j}}$.这样我们就可以把$f_{i}$沾成一个态射$f\in Mor(X,Y)$.再由$\beta$是单射知
+$\rho(f)=\varphi.$即$\rho$是满射。
+\end{proof}
+
+
+设$(X,\mathcal{O}_{X})$是概型，$f\in \mathcal{O}_{X}(X),$用$X_{f}$表示$f$在$X$上点$P$处germ为可逆元的$P$点的全体。
+注意若$X$为仿射概型$SpecA,$则$\mathcal{O}_{SpecA}(SpecA)\cong A$,由前面可知$f$是常值映射，此时$X_{f}$即为$D(f).$\\
+关于$X_{f}$有以下性质:\\
+\textbf{命题8:}设$(X,\mathcal{O}_{X})$是概型,
+(i)对任意$f\in \mathcal{O}_{X}(X)$,$X_{f}$是开集。它是空集当且仅当$X$存在开覆盖$\{U_{i}\}_{i\in I}$使得$f|_{U_{i}}$是幂零。对任意$f,g\in \mathcal{O}_{X}(X),$我们有$X_{f}\cap X_{g}=X_{fg}.$\\
+(ii)设$(\phi ,\phi^{\sharp}):(X,\mathcal{O}_{X})\rightarrow (Y,\mathcal{O}_{Y})$是概型态射，$f\in \mathcal{O}_{Y}(Y),$则有
+$\phi^{-1}(Y_{f})=X_{\phi^{\sharp}(f)}.$\\
+(iii)设$X$能被有限个仿射开子概型$\{U_{i}\}_{i\in I}$覆盖，且对于任意$i,j\in I$,$U_{i}\cap U_{j}$能被有限个仿射开子概型覆盖.令$A=\mathcal{O}_{X}(X),$任取$f\in A$,有$\mathcal{O}(X_{f})\cong A_{f}.$\\
+证明:(i)设$X$有仿射开覆盖$\{U_{i}\}_{i\in I},U_{i}=SpecA_{i},$令$f_{i}=f|_{U_{i}},$则$X_{f}\cap U_{i}=D(f_{i})$为开集($\forall i\in I$)，于是$X_{f}$为开集。\\
+若$X_{f}$为空集，则$D(f_{i})=\emptyset,$由此知
+$f_{i}\in \sqrt{0},$即$f|_{U_{i}}=f_{i}$幂零.反过来也是显然地。\\
+对于任意$P\in X,(fg)_{P}$是可逆元当且仅当$f_{P},g_{P}$均是可逆元,于是$X_{f}\cap X_{g}=X_{fg}.$\\
+(ii)对于任意$P\in X$及$f\in \mathcal{O}_{Y}(Y),$由于$\phi_{P}^{\sharp}:\mathcal{O}_{Y,\phi(P)}\rightarrow \mathcal{O}_{X,P}$是局部态射，$f_{\phi(P)}$可逆当且仅当$(\phi^{\sharp}(f))_{P}$可逆，即$\phi(P)\in Y_{f}\Leftrightarrow P\in X_{\phi^{\sharp}(f)}$，此即$\phi^{-1}(Y_{f})=X_{\phi^{\sharp}(f)}.$\\
+(iii)限制映射$A=\mathcal{O}_{X}(X)\rightarrow \mathcal{O}_{X_{f}}$将$f$映射为可逆元，因此这就诱导态射$A_{f}\rightarrow \mathcal{O}_{X}(X_{f})$.下面证明这是同构.\\
+首先注意到，对任意$i,U_{i}=SpecA_{i}$，令$f_{i}$为$f$在限制映射$\mathcal{O}_{X}(X)\rightarrow \mathcal{O}_{X}(U_{i})=A_{i}$下的像。于是$X_{f}\cap U_{i}=D(f_{i})(D(f_{i})\subseteq U_{i}).$\\
+
+任取$s\in \mathcal{O}_{X}(X)$满足$s|X_{f}=0,$我们将证明存在正整数$n$使得$f^{n}s=0$在$\mathcal{O}_{X}(X)$中成立，这就等价于$A_{f}\rightarrow\mathcal{O}_{X}(X_{f})$是单射。\\
+ 由$s|_{X_{f}}=0$知:$s|_{U_{i}}$在限制映射$\mathcal{O}_{X}(U_{i})\rightarrow \mathcal{O}_{X}(U_{i}\cap X_{f})$的像为0.注意到下交换图
+ (命题4中(ii))
+ $$
+ \xymatrix{
+A_{i}\ar[r]\ar[d]_{\simeq}&(A_{i})_{f_{i}}\ar[d]^{\simeq}\\
+\mathcal{O}_{X}(U_{i}) \ar[r]&\mathcal{O}_{X}(U_{i}\cap X_{f})
+}
+ $$
+ 因此由$s|_{U_{i}\cap X_{f}}$得到存在正整数$n_{i}$使得$f_{i}^{n_{i}}s|_{U_{i}}=0$在$U_{i}$中成立。由$\{U_{i}\}_{i\in I}$是有限覆盖知存在正整数$n$使得$f_{i}^{n}s|_{U_{i}}=0$对任意$i$成立。于是$f^{n}s=0.$\\
+  下面我们证明对任意$t\in \mathcal{O}_{X}(X_{f})$,存在正整数$n$,使得$f^{n}t$为$\mathcal{O}_{X}(X)=A$中某一元素$s$在限制映射
+  $\mathcal{O}_{X}(X)\rightarrow \mathcal{O}_{X}(X_{f})$下的像。此时$\frac{s}{f^{n}}$在映射$A_{f}\rightarrow \mathcal{O}_{X}(X_{f})$下的像便为$t$,
+  这就证明$A_{f}\rightarrow \mathcal{O}_{X}(X_{f})$为满射.\\
+   
+   同样地，利用上面交换图可得：存在正整数$n$,使得对任意$i$,
+   $f^{n}_{i}t|_{U_{i}\cap X_{f}}$为$\mathcal{O}_{X}(U_{i})=A_{i}$中某一元素$t_{i}$
+   在限制映射$\mathcal{O}_{X}(U_{i})\rightarrow \mathcal{O}_{X}(U_{i}\cap X_{f})$下的像。注意到
+   $$
+   (t_{i}|_{U_{i}\cap U_{j}}-t_{j}|_{U_{i}\cap U_{j}})|_{U_{i}\cap U_{j}\cap X_{f}}=t_{i}|_{U_{i}\cap U_{j}\cap X_{f}}-t_{j}|_{U_{i}\cap U_{j}\cap X_{f}}=f_{i}^{n}t|_{U_{i}\cap U_{j}\cap X_{f}}-f_{j}^{n}t|_{U_{i}\cap U_{j}\cap X_{f}}=0
+   $$
+   因此类似单射中证明过程知存在正整数$m$，使得对任意$i,j\in I,$
+   $$
+   f^{m}(t_{i}|_{U_{i}\cap U_{j}}-t_{j}|_{U_{i}\cap U_{j}})=0.
+   $$
+   因此我们由$f^{m}_{i}t_{i}(i\in I)$得到$\mathcal{O}_{X}(X)=A$中一个元素$s$使得$s|_{X_{f}}=f^{m+n}t$.\\
+
+
+\end{document}
