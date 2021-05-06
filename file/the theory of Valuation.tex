@@ -1,0 +1,650 @@
+\documentclass[UTF8]{article}
+\usepackage{ctex}
+\usepackage[colorlinks=true]{hyperref}
+\title{\textbf{\huge{赋值论}}}
+\author{Lhzsl}
+\date{}
+\usepackage[b5paper,left=10mm,right=10mm,top=15mm,bottom=15mm]{geometry}
+\usepackage{amsthm,amsmath,amssymb}
+\usepackage{mathrsfs}
+\usepackage{tikz}
+\usepackage[all]{xy}
+\usetikzlibrary{cd}
+\usepackage{fancyhdr}
+\usepackage{color}
+\newtheorem{thm}{Theorem}[section]
+\newtheorem{defn}{Definition}[section]
+\newtheorem{cor}{Corollary}[section]
+\newtheorem{prop}{Proposition}[section]
+\newtheorem{exa}{Example}[section]
+\newtheorem{lem}{Lemma}[section]
+\newtheorem{Rem}{Remark}[section]
+\begin{document}
+	\maketitle
+	\section{局部域的结构}
+	%%\textbf{$Teichm\ddot{u}ller$提升}
+	\begin{prop}
+		设$K$是局部域，$\nu$是其上的标准对数赋值，$\pi$是素元，即$\nu(\pi)=1,\mathfrak{p}$是其素理想，o是赋值环 $q=|\kappa|=|o/\mathfrak{p}|$，$U^{(1)}=1+\mathfrak{p}$
+  是主单位群，那么
+  $$
+  K^{*}=(\pi)\times \mu_{q-1}\times U^{(1)}
+  $$	
+\end{prop}
+\begin{proof}
+事实上，只需证明$o^{*}=\mu_{q-1}\times U^{(1)}$。
+根据Hensel引理，$X^{p-1}-1$在$K$中分解为一次因式，因此$K$包含$\mu_{q-1}$,进而易知$o$包含$\mu_{q-1}$.
+考虑环同态  
+$$o^{*}\rightarrow \kappa^{*} ,u\mapsto u \ mod \ \mathfrak{p}$$
+该映射的核为$U^{(1)},$将$\mu_{q-1}$映满$\kappa^{*}$.于是$
+o^{*}=\mu_{q-1}\times U^{(1)}$
+
+\end{proof}
+特别地，首先以下默认$p$是奇素数，对于$p-$进数域$\mathbb{Q}_{p}$,由该命题我们可得到
+$$\mathbb{Z}_{p}^{*}=\mu_{p-1}\times (1+p\mathbb{Z}_{p}),$$于是
+任取$a\in \mathbb{Z}_{p}^{*}$，存在唯一的，记为$\omega(a)\in \mu_{p-1},<a>\in 1+p\mathbb{Z}_{p}$使得$a=\omega(a)<a>.$
+这里注意到$a\equiv \omega(a)\ mod \ p.$
+	显然有群同构$\mathbb{F}_{p}^{*}\cong \mu_{p-1}$.于是$\omega$可看作$\mathbb{F}_{p}^{*}$到$\mathbb{Z}_{p}^{*}$的群同态。
+	
+	
+	对于正整数$a\in\mathbb{Z}$且$p\nmid a$，我们想证明$\omega(a)=\lim\limits_{n\rightarrow \infty }a^{p^{n}}$.这就用到分解$a=\omega(a)<a>.$于是
+	$$
+	a^{p^{n}}=\omega(a)^{p^{n}}<a>^{p^{n}}=\omega(a)<a>^{p^{n}}
+	$$
+	这里$\omega(a)^{p^{n}}=\omega(a)$是由于$\omega{a}\in \mu_{p-1}$.再由于$<a>\in 1+p\mathbb{Z}_{p},$于是$\lim\limits_{n\rightarrow \infty}<a>^{p^{n}}=1.$(此处可使用以下引理\cite{wwl} P413引理10.9.3)
+	\begin{lem}
+		设交换环$A$具有理想降链$\mathfrak{a}_{1}\supset\mathfrak{a}_{2}\supset \cdots$使得$\mathfrak{a}_{n}\mathfrak{a}_{m}\subseteq \mathfrak{a}_{m+n}$而$p\in \mathfrak{a}_{1}$,
+		则对任意$a,b\in A$皆有
+		$$
+		a\equiv b\ (mod\ \mathfrak{a}_{m})\ \Longrightarrow 
+		a^{p^{n}}\equiv b^{p^{n}}\ \ (mod \ \mathfrak{a}_{m+n}).
+		$$
+	\end{lem}
+\section{局部类域论}
+下设$k$是局部域，$k$的剩余类域为$\mathbb{F}_{p},p=q^{f}$.取$k$的可分闭包$\bar{k}$(代数闭包中的可分闭包)，绝对Galois群记为$G=Gal(\bar{k}|k)$,设$\tilde{k}$是$k$在$\bar{k}$中的极大非分歧子扩张(即所有有限非分歧子扩张的并)
+关于非分歧扩张，有下述性质\cite{xkz}P155
+\begin{prop}
+	$F$是局部域，$F$的非分歧扩张集$\{E|F\}$到$\bar{F}$的可分扩张集$\{\bar{E}|\bar{F}\}$有格同构(即保持交及复合)$\mu:E\rightarrow \bar{E}$.
+\end{prop}
+\begin{prop}
+	设$F$是局部域,$F$的剩余类域是$q=p^{r}$元有限域，$p$是素数，则\\
+	(1)$F$的有限非分歧扩张集与$\bar{F}$的有限扩张集之间格同构(即保持交及复合)，且$F$的有限非分歧扩张$E|F$均为Galois扩张;\\	
+	(2)对任一固定的正整数$f$,$f$次非分歧扩张$E|F$存在且唯一，即$E=F(\xi)$,$\xi$是任意$q^{f}-1$次本原单位根.
+\end{prop}
+(1)的证明用到有限域扩张的唯一性及命题2.1.
+\begin{Rem}设$E|F$是Galois扩张，$T|F$是$E|F$的极大非分歧子扩张.由于非分歧子扩张的共轭(即\\
+	$\sigma(T)$其中$\sigma:T\rightarrow\mathbb{C}$为嵌入)仍是非分歧的，故$T|F$是Galois扩张。
+\end{Rem}
+非分歧扩张的Galois群同构于其剩余类域扩张的Galois群，于是
+$Gal(\tilde{k}|k)\cong Gal(\overline{\mathbb{F}}_{p}|\mathbb{F}_{p})$，其中$\overline{\mathbb{F}}_{p}$是
+$\mathbb{F}_{p}$的可分闭包。而$Gal(\overline{\mathbb{F}}_{p}|\mathbb{F}_{p})\cong \widehat{\mathbb{Z}}=\prod_{p}\mathbb{Z}_{p}$.
+事实上，我们有$Gal(\mathbb{F}_{q^{n}}|\mathbb{F}_{q})\cong \mathbb{Z}/n\mathbb{Z}$.该映射将Frobenius自同构$\phi\in Gal(\mathbb{F}_{q^{n}}|\mathbb{F}_{q})$映为$1\ mod \ n\mathbb{Z}$.两边同时取逆向极限就得到
+$$Gal(\overline{\mathbb{F}}_{p}|\mathbb{F}_{p})\cong \widehat{\mathbb{Z}}.$$
+该映射将$Gal(\overline{\mathbb{F}}_{p}|\mathbb{F}_{p})$中Frobenius元$\phi$映为$1\in \widehat{\mathbb{Z}}$，其中
+$\phi$的定义为$$
+\phi(x)=x^{p},\ for \ all \ x\in \overline{\mathbb{F}}_{p}.
+$$
+上述同构将子群$(\phi)=\{\phi^{n}|n\in \mathbb{Z}\}$映为$\widehat{\mathbb{Z}}$中稠密子集$\mathbb{Z}$.
+
+综上，$Gal(\tilde{k}|k)\cong\widehat{\mathbb{Z}}$.在上述同构中$Gal(\tilde{k}|k)$中元
+$$
+\phi(a)\equiv a^{q}\ mod \ \tilde{\mathfrak{p}}\ \ \forall \ a\in \tilde{o}
+$$
+对应到$1\in\widehat{\mathbb{Z}}$.其中$\tilde{\mathfrak{p}},\tilde{o}$分别是$\tilde{k}$的赋值环和极大理想。
+将上述同构和限制映射$G=Gal(\bar{k}|k)\rightarrow Gal{\tilde{k}|k}$复合起来，记为
+$$
+d:G\rightarrow \widehat{\mathbb{Z}}
+$$
+注意到$ker(d)=\{\sigma|_{\tilde{k}}=id_{\tilde{k}}\ |\sigma \in G\}$,即$ker(d)$的不动域为$\tilde{k}.$
+对于任何域中间域$k\subseteq K\subseteq \tilde{k}$，记$G_{K}=Gal(\bar{k}|K)$.
+用$I_{K}$表示$d:G_{K}\rightarrow \widehat{\mathbb{Z}}$的核，则
+$I_{K}=G_{K}\cap I=G_{K}\cap G_{\tilde{k}}=G_{K\tilde{k}}$.
+记$\widetilde{K}=K\tilde{k}.$则$\widetilde{K}|K$是极大非分歧扩张(利用上述命题2.2中(2),即有限非分歧扩张在一固定代数闭包下的唯一性).\\
+
+令$f_{K}=(\widehat{\mathbb{Z}}:d(G_{K})),e_{K}=(I:I_{K})$
+，则当$f_{K}$是有限时
+$$
+d_{K}=\frac{1}{f_{K}}d:G_{K}\rightarrow \widehat{\mathbb{Z}}
+$$
+为满射，且核为$I_{K}$,于是诱导出同构
+$$
+d_{K}:G_{K}/I_{K}=G_{K}/G_{\widetilde{K}}\cong G(\widetilde{K}|K)\rightarrow \widehat{\mathbb{Z}}.
+$$
+
+注意到由于可分性关于域扩张是传递的，$\bar{k}$也是$K$的可分闭包。
+$Gal(\widetilde{K}|K)$中Frobenius元定义为
+$$
+\phi_{K}(a)\equiv a^{|\bar{K}|}\ mod \ \tilde{\mathfrak{p}}\ \forall \ a\in \tilde{o} 
+$$
+其中$\tilde{\mathfrak{p}},\tilde{o}$分别是$\widetilde{K}$的赋值环和极大理想，$|\bar{K}|$是$K$的剩余类域的元素个数。
+于此可见$\phi_{K}|_{\tilde{k}}=\phi_{k}^{f}$,其中$
+f=\frac{|\bar{K}|}{|\bar{k}|},$即为剩余类域的扩张次数。
+由于$\phi_{K}$拓扑生成$G(\widetilde{K}|K)$，故$d(G_{K})=f\widehat{\mathbb{Z}}.$从而$f=f_{K}$，即$f_{K}$就表示$K|k$的剩余类域的扩张次数。
+于是$d_{K}(\phi_{K})=1\in \widehat{\mathbb{Z}}$.
+
+对于域扩张$L|K$,令
+$$f_{L|K}=\frac{f_{L}}{f_{K}},e_{L|K}=\frac{e_{L}}{e_{K}},$$则由上述讨论知$f_{L|K},e_{L|K}$分别是$L|K$的剩余类域次数和分歧指数。于是$[L:K]=e_{L|K}f_{L|K}.$
+
+设$L|K$是非分歧的，即$L\subseteq \widetilde{K},$则有限制映射
+$$G(\widetilde{K}|K)\rightarrow G(L|K)$$
+若$f_{K}< \infty $,称$\phi_{K}$的像记为$\phi_{L|K}$为$L|K$的Frobenius自同构。
+
+设$L|K$是代数扩张，则$L\cap \widetilde{K}$是$K$在$L$中极大非分歧扩张，由于$K$是局部域，故$\bar{L}|\bar{K}$是可分扩张，而极大非分歧子扩张对应于剩余类域的可分闭包，于是$[L\cap \widetilde{K}:K]=[\bar{L}:\bar{K}]=f_{L|K}$.
+
+下面假定$L|K$是Galois扩张，$f_{K}<\infty $,于是$\widetilde{L}|K$是Galois扩张($\widetilde{L}$是在$L$上添加一些本原单位根得到的)。注意到由于$G_{\widetilde{L}}=I_{L}\subseteq I_{K}$,故$d_{K}:G_{K}\rightarrow \widehat{\mathbb{Z}}$诱导出满同态
+$$
+d_{K}:G_{K}/G_{\widetilde{L}}\cong Gal(\widetilde{L}|K)\rightarrow \widehat{\mathbb{Z}}
+$$
+定义半群
+$$
+Frob(\widetilde{L}|K)=\{\sigma \in G(\widetilde{L}|K)|d_{K}(\sigma)\in \mathbb{N}\}.
+$$
+这里$\mathbb{N}$是自然数集，$0\notin \mathbb{N}$.
+\begin{prop}
+	若$L|K$是有限Galois扩张，则映射
+	$$
+	Frob(\widetilde{L}|K)\rightarrow G(L|K),\ \ \sigma \mapsto
+	\sigma|_{L},
+	$$
+	是满射。
+\end{prop}
+\begin{proof}
+	任取$\sigma\in G(L|K)$,取$\phi\in G(\widetilde{L}|K)$使得$d_{K}(\phi)=1,$则$\phi|_{\widetilde{K}}=\phi_{K}$且$\phi|_{L\cap \widetilde{K}}=\phi_{L\cap \widetilde{K}|K}$.将$\sigma$限制到$L|K$的极大非分歧子扩张$L\cap \widetilde{K}|K$上，由于$L|K$有限，$Gal(L\cap\widetilde{K}|K)\cong Gal(\overline{L\cap \widetilde{K}}|\overline{K})$由其$Frobenius$元$\phi|_{L\cap \widetilde{K}|K}$生成。故$\sigma|_{L\cap\widetilde{K}}=\phi_{L\cap \widetilde{K}|K}^{n},n\in \mathbb{N}$.
+	由$\widetilde{L}=L\widetilde{K}$得到
+	$$
+	G(\widetilde{L}|\widetilde{K})\cong G(L|L\cap \widetilde{K})
+	.$$
+	在上述同构中，取$\sigma \phi^{-n}|_{L}$的原像$\tau\in G(\widetilde{L}|\widetilde{K})$,令$\tilde{\sigma}=\tau\phi^{n}$,则
+	$$
+	\tilde{\sigma}|_{L}=\tau\phi^{n}|_{L}=\tau\phi^{-n}\phi^{n}
+	|_{L}=\sigma.$$
+	且$\tilde{\sigma}|_{\widetilde{K}}=\phi_{K}^{n}$.因此
+	$d_{K}(\tilde{\sigma})=n$,故$\tilde{\sigma}\in Frob(\widetilde{L}|K).$
+\end{proof}
+\begin{prop}
+	设$\tilde{\sigma}\in Frob(\widetilde{L}|K)$，用$\Sigma$表示$\tilde{\sigma}$的不动域，则\\
+	(i)$f_{\Sigma |K}=d_{K}(\tilde{\sigma}),$(ii)$[\Sigma:K]<\infty$,
+	(iii)$\widetilde{\Sigma}=\widetilde{L},$(iv)$\tilde{\sigma}=\phi_{\Sigma}$.
+\end{prop}
+\begin{proof}
+	(i)由定义$\tilde{\sigma}|_{\widetilde{K}}=\phi_{K}^{d_{K}(\tilde{\sigma})},$而$\Sigma\cap \widetilde{K}$是$\tilde{\sigma}|_{\widetilde{K}}$的固定域，
+	有域扩张$K\subseteq \Sigma\cap \widetilde{K}\subseteq \widetilde{K}$(由Remark 1,都是Galois扩张),于是$$[\Sigma\cap \widetilde{K}:K]=d_{K}(\tilde{\sigma}).$$
+	而前者也等于$f_{\Sigma\cap \widetilde{K}}$,于是
+	$$
+	f_{\Sigma|K}=d_{K}(\tilde{\sigma}).
+	$$
+	(ii)有域扩张$\widetilde{K}\subseteq \Sigma\widetilde{K}=\widetilde{\Sigma}=\widetilde{\Sigma}\subseteq \widetilde{L}$;因此
+	$$
+	e_{\Sigma|K}=(I_{K}:I_{\Sigma})=(G_{\widetilde{K}}:G_{\widetilde{\Sigma}})=|G(\widetilde{\Sigma}|\widetilde{K})|\leq |G(\widetilde{L}|\widetilde{K}).|
+	$$
+	再由$[\Sigma:K]=f_{\Sigma|K}e_{\Sigma|K}$知$[\Sigma:K]$有限。\\
+	(iii)无限$Galois$扩张$L|K$的Galois群有如下性质：\\
+	对于一个无限Galois群$G=Gal(L|K)$,若$H\leq G$,记$H'=Gal(L|K^{H})$,则$H'=\overline{H}$.\\
+	于是由于$\Sigma$是$\tilde{\sigma}$的固定域，$\Gamma=G(\widetilde{L}|\Sigma)=\overline{\tilde{\sigma}}.$ $\Gamma$是$procycle$群，对任意$n\in \mathcal{N}$,有$(\Gamma:\Gamma^{n})\leq n$.我们有限制满同态
+	$$
+	\Gamma=G(\widetilde{L}|\Sigma)\rightarrow G(\widetilde{\Sigma}|\Sigma)\cong \widehat{Z},
+	$$
+	于是该同态诱导双射
+	$\Gamma/\Gamma^{n}\cong \widehat{Z}/n\widehat{Z}$.
+	从而$\Gamma\rightarrow \widehat{Z}$也是双射，即两者相等，这蕴含$\widetilde{\Sigma}=\widetilde{L}.$\\
+	(iv)由定义，对任意域扩张$E|F$,$f_{\Sigma|K}=\frac{d_{K}}{d_{\Sigma}}$.于是
+	$$
+	f_{\Sigma|K}d_{\Sigma}(\tilde{\sigma})=d_{K}(\tilde{\sigma})=f_{\Sigma|K},
+	$$
+	因此$d_{\Sigma}(\tilde{\sigma})=1,$于是$\tilde{\sigma}=\phi_{\Sigma}.$
+\end{proof}
+
+下设$L|K$是有限Galois扩张
+\begin{defn}
+	互反映射定义为
+	$$
+	r_{\widetilde{L}|K}:Frob(\widetilde{L}|K)\rightarrow K^{*}/N_{L|K}{L}^{*}$$
+	$$
+		r_{\widetilde{L}|K}(\sigma)=N_{\Sigma|K}(\pi_{\Sigma})\ mod \ N_{L|K}{L}^{*}
+	$$
+	其中$\Sigma$是$\sigma$的固定域，$\pi_{\Sigma}\in \mathcal{O}_{\Sigma}$是其中素元。
+\end{defn}
+由上一命题知其中$\Sigma|K$是有限扩张，且$\sigma$在$\Sigma$是Frobenius自同构$\phi_{\Sigma}$.下面说明上述定义与$\Sigma$中素元$\pi_{\Sigma}$的选择无关。事实上，由上述命题知$[\Sigma:K]< \infty,$于是存在$\widetilde{L}|K$的有限子域扩张$M|K$使得$\Sigma\subseteq M,K\subseteq M.$于是$M|\Sigma$是非分歧扩张，任取$u\in U_{\Sigma}$,由$H^{0}(G(M|\Sigma),U_{M})=1$，存在$\epsilon\in U_{M}$使得$u=N_{M|\Sigma}(\epsilon)$,因此
+$$
+N_{\Sigma|K}(u)=N_{\Sigma|K}(N_{M|\Sigma}(\epsilon))=N_{M|K}(\epsilon)\in N_{M|K}M^{*}\subseteq N_{L|K}{L}^{*}.
+$$
+由于$\Sigma$中素元只相差一个单位，以上说明上述定义与$\Sigma$中素元$\pi_{\Sigma}$的选择无关。
+\begin{prop}
+	互反映射
+	$$
+	r_{\widetilde{L}|K}:Frob(\widetilde{L}|K)\rightarrow K^{*}/N_{L|K}{L}^{*}$$
+是乘性的。
+\end{prop}
+证明请看\cite{Ne}ChapterIV.propositon 5.5。\\
+由于$Frob(\widetilde{L}|K)\rightarrow G(L|K)$是满射，
+我们可得到下述命题
+\begin{prop}
+	对于有限Galois扩张$L|K$,存在典型态射
+	$$r_{L|K}:G(L|K)\rightarrow K^{*}/N_{L|K}L^{*}$$
+	$$r_{L|K}(\sigma)=N_{\Sigma|K}(\pi_{\Sigma})\ mod \ N_{L|K}L^{*},$$
+	这里任取$\tilde{\sigma}$是映射$Frob(\widetilde{L}|K)\rightarrow G(L|K)$下$\sigma$的原像，而$\Sigma$是$\tilde{\sigma}$的固定域，$\pi_{\Sigma}\in \mathcal{O}_{\Sigma}$是其中素元。称上述映射为$L|K$的互反同态。
+\end{prop}
+\begin{proof}
+	首先证明$r_{L|K}$与$\sigma$的原像$\tilde{\sigma}\in Frob(\widetilde{L}|K)$选取无关.为此，设$\tilde{\sigma}'\in Frob(\widetilde{L}|K)$是另一个原像，$\Sigma'$是固定域，$\pi_{\Sigma'}\in \mathcal{O}_{\Sigma'}$是素元。
+	
+	如果$d_{K}(\tilde{\sigma})=d_{K}(\tilde{\sigma}')$,则$\tilde{\sigma}|_{\widetilde{K}}=\tilde{\sigma}'_{\widetilde{K}}$,由于$\tilde{\sigma}_{L}=\tilde{\sigma}'_{L}=\sigma$，因此$\tilde{\sigma}=\tilde{\sigma}',$这种情况无需证明什么。
+	
+	若两者不等，不妨设$d_{K}(\tilde{\sigma})<d_{K}(\tilde{\sigma}')$,则存在$\tilde{\tau}\in Frob(\widetilde{L}|K)$使得$\tilde{\sigma}'=\tilde{\sigma}\tilde{\tau}$,且$\tilde{\tau}|_{L}=1$,因此$\tilde{\tau}$的固定域$\Sigma''$包含$L$,于是
+	$$
+	r_{\widetilde{L}|K}(\tilde{\tau})\equiv N_{\Sigma''|K}(\pi_{\Sigma''})=N_{L|K}(N_{\Sigma''|L}(\pi_{\Sigma''}))\in N_{L|K}L^{*}.
+	$$
+	即$r_{\widetilde{L}|K}(\tilde{\tau})\equiv1\ mod \ N_{L|K}L^{*}.$因此$r_{\widetilde{L}|K}(\tilde{\sigma}')=r_{\widetilde{L}|K}(\tilde{\sigma})r_{\widetilde{L}|K}(\tau)=r_{\widetilde{L}|K}(\tilde{\sigma})$.
+	
+	上述映射是同态源于该映射为是乘性，且：如果$\tilde{\sigma}_{1},\tilde{\sigma}_{2}\in Frob(\widetilde{L}|K)$是$\sigma_{1},\sigma_{2}\in G(L|K)$的两个原像，则$\tilde{\sigma}_{3}=\tilde{\sigma}_{1}\tilde{\sigma}_{2}$是$\sigma_{3}=\sigma_{1}\sigma_{2}$的原像。
+\end{proof}
+\begin{prop}
+	若$L|K$是有限非分歧扩张，则互反映射
+	$$r_{L|K}:G(L|K)\rightarrow K^{*}/N_{L|K}L^{*}$$
+	由
+	$$r_{L|K}(\varphi_{L|K})=\pi_{K}\ mod \ N_{L|K}L^{*},$$
+	给出，且为同构。
+\end{prop}
+\begin{proof}
+	此时$\widetilde{L}=\widetilde{K}$,由前面定义，$\varphi_{K}\in G(\widetilde{K}|K)$是$\varphi_{L|K}$的一个原像，其固定域为$K$,因此$$r_{L|K}(\varphi_{L|K})=\pi_{K}\ mod \ N_{L|K}L^{*}.$$
+	
+	同构由下述复合看出
+	$$
+	G(L|K)\rightarrow K^{*}/N_{L|K}L^{*}\rightarrow \mathbb{Z}/n\mathbb{Z},
+	$$
+	这里$n=[L:K]$,第二个映射由赋值$v_{K}:K^{*}\rightarrow \mathbb{Z}$给出。由于$L|K$是非分歧的，故$v_{K}(N_{L|K}L^{*})=nv_{L}(L^{*})\subseteq n\mathbb{Z}$.而对于任意$a\in K^{*},v_{K}(a)\equiv 0\ mod \ n\mathbb{Z}$,$a=u\pi_{K}^{dn}$,由$H^{0}(G(L|K),U_{L})=1$得到存在$\varepsilon\in U_{L}$使得$u=N_{L|K}(\varepsilon)$,因此
+	$a=N_{L|K}(\varepsilon\pi_{K}^{d})\equiv 1\ mod \ N_{L|K}L^{*}$.
+	上面三者的生成元$\varphi_{L|K},\pi_{K}\ mod \ N_{L|K}L^{*}$和$1\ mod \ n\mathbb{Z}$互相对应。
+\end{proof}
+
+\begin{lem}
+	设$\varphi,\sigma\in Frob(\widetilde{L}|K)$,且$d_{K}(\phi)=1,d_{K}(\sigma)=n$.如果$\Sigma$是$\sigma$的固定域，且$a\in \Sigma^{*}$,则
+	$$
+	N_{\Sigma|K}(a)=(N\circ\varphi_{n})(a)=(\varphi_{n}\circ N)(a).
+	$$
+	这里$N=N_{\widetilde{L}|\widetilde{K}}:\widetilde{L}^{*}\rightarrow \widetilde{K}^{*}$.注意到$[\widetilde{L}:\widetilde{K}]=[L\widetilde{k}:K\widetilde{k}]\leq [L:K]< \infty.$
+\end{lem}
+\begin{proof}
+	极大非分歧子扩张$\Sigma^{0}=\Sigma\cap \widetilde{K}|K$的扩张次数为$d_{K}(\sigma)=n.$其Galois群由Frobenius自同构$\varphi_{\Sigma^{0}|K}=\varphi_{K}|_{\Sigma^{0}}=\varphi|_{\widetilde{K}}|_{\Sigma^{0}}=\varphi|_{\Sigma^{0}}$生成。任意
+	$\sigma\in G(\widetilde{L}|K),n\in \mathbb{N}$,规定如下记号
+	$$
+	\sigma-1:\widetilde{L}^{*}\rightarrow\widetilde{L}^{*},\ \ \ a\mapsto a^{\sigma-1}=a^\sigma/a,$$
+	$$
+	\sigma_{n}:\widetilde{L}^{*}\rightarrow\widetilde{L}^{*}, \ \ \ a\mapsto a^{\sigma_{n}}=\prod_{i=0}^{n-1}a^{\sigma^{i}}. 
+	$$
+	用上面记号，$N_{\Sigma^{0}|K}=\varphi_{n}|_{\Sigma^{0^{*}}}$.另一方面，由于$\Sigma\widetilde{K}=\widetilde{L},\Sigma\cap \widetilde{K}=\Sigma^{0}$,因此
+	$$Gal(\widetilde{L}|\widetilde{K})\cong Gal(\Sigma|\Sigma\cap \widetilde{K})=Gal(\Sigma|\Sigma^{0}).$$
+	由此便得到$N_{\Sigma|\Sigma^{0}}=N|_{\Sigma^{*}}$.对任意$a\in \Sigma^{*}$,有
+	$$
+	N_{\Sigma|K}(a)=N_{\Sigma^{0}|K}(N_{\Sigma|\Sigma^{0}}(a))=N(a)^{\varphi_{n}}=N(a^{\varphi_{n}}).
+	$$
+	最后一个等号源于$\varphi Gal(\widetilde{L}|\widetilde{K})=Gal(\widetilde{L}|\widetilde{K})\varphi$.
+\end{proof}
+\begin{prop}
+	设$L|K$和$L'|K'$是有限Galois扩张，$K\subseteq K',L\subseteq L'$。设$\sigma\in G$,则有下交换图
+$$
+	\xymatrix{
+G(L'|K')\ar[rr]^{r_{L'|K'}}\ar[d]& &K'^{*}/N_{L'|K'}L'\ar[d]\\
+G(L|K)\ar[rr]^{r_{L|K}}& &K^{*}/N_{L|K}L'
+}
+\xymatrix{
+G(L|K)\ar[rr]^{r_{L|K}}\ar[d]^{\sigma^{*}}& & K^{*}/N_{L|K}L\ar[d]^{\sigma}\\
+G(L^{\sigma}|K^{\sigma})\ar[rr]^{r_{L^{\sigma}|K^{\sigma}}}& &K^{*\sigma}/N_{L^{\sigma}|K^{\sigma}}L^{\sigma}
+}$$
+其中，上面两图中左侧竖直箭头分别表示限制映射$\sigma\mapsto \sigma'|_{L}$,共轭$\tau\mapsto \sigma \tau\sigma^{-1}.$
+\end{prop}
+\begin{proof}
+	设$\sigma'\in G(L'|K'),\sigma=\sigma'|_{L}\in G(L|K)$,
+	如果$\tilde{\sigma}'\in Frob(\widetilde{L}'|K')$是$\sigma'$的一个原像，则$\tilde{\sigma}=\tilde{\sigma}'|_{\widetilde{L}}\in Frob(\widetilde{L}|K)$
+是$\sigma$的一个原像(由定义$d_{K}(\tilde{\sigma})=f_{K'|K}d_{K'}(\tilde{\sigma}')\in \mathbb{N}$).设$\Sigma'$是$\tilde{\sigma}'$的固定域，则$\Sigma=\Sigma\cap \widetilde{L}=\Sigma'\cap \widetilde{\Sigma}$是$\tilde{\sigma}$的固定域，从而
+$f_{\Sigma'|\Sigma}=[\Sigma'\cap \widetilde{\Sigma}:\Sigma]=[\Sigma:\Sigma]=1.$
+现设$\pi_{\Sigma'}\in \Sigma'^{*}$是$\Sigma'$的素元,则$\pi_{\Sigma}:=N_{\Sigma'|\Sigma}(\pi_{\Sigma'})$是$\Sigma^{*}$的素元，于是上面左边的交换图由下述等式看出$$
+N_{\Sigma|K}(\pi_{\Sigma})=N_{\Sigma|K}(N_{\Sigma'|\Sigma}(\pi_{\Sigma'})=N_{\Sigma'|K}(\pi_{\Sigma'})=N_{K'|K}(N_{\Sigma'|K'}(\pi_{\Sigma'})).
+$$
+
+另一方面，设$\tau\in G(L|K)$，设$\tilde{\tau}$是$\tau$在$Frob(\widetilde{L}|K)$中的一个原像，其固定域记为$\Sigma$. $\hat{\tau}\in G$是$\tilde{\tau}$到$\overline{k}$上一个提升，则$\Sigma^{\sigma}$是$\sigma\hat{\tau}\sigma^{-1}|_{\widetilde{L}^{\sigma}}$的固定域，并且若$\pi\in \Sigma^{*}$是$\Sigma$的一个素元，则$\pi^{\sigma}\in (\Sigma^{\sigma})^{*}$是$\Sigma^{\sigma}$的一个素元。
+
+
+\end{proof}
+
+设$G$为群，用$G^{'}$表示$G$的换位子群，$G^{ab}=G/G^{'}$.
+\begin{thm}
+	若$L|K$是有限Galois扩张，则下述映射
+	$$
+	r_{L|K}:G(L|K)^{ab}\rightarrow K^{*}/N_{L|K}L^{*} 
+	$$
+	为同构。
+\end{thm}
+\begin{proof}
+	如果$M|K$是$L|K$的Galois子扩张，则由前一命题知有下述交换正合列
+	$$
+	\xymatrix{
+1\ar[r]& G(L|M)\ar[r]\ar[d]^{r_{L|M}}&G(L|K)\ar[r]\ar[d]^{r_{L|K}}&G(M|K)\ar[r]\ar[d]^{r_{M|K}}&1\\
+&M^{*}/N_{L|M}L^{*}\ar[r]^{N_{M|K}}&K^{*}/N_{L|K}L^{*}\ar[r]^{id}&K^{*}/N_{M|K}M^{*}\ar[r]&1	
+}
+	$$
+我们利用该交换图完成命题的证明。
+为此，做下面的约化。\\
+(1)我们可假设$G(L|K)$是交换群。若不然，设$M=L^{ab}$是域扩张$L|K$的极大Abel子扩张，从而我们有$G(L|K)^{ab}=G(L|K)/G(L|M)=G(M|K)$(这里注意到$G(L|M)=G(L|K)^{ab}$是因为:对于群$G$,$N$是$G$的一个正规子群，则$G/N$是Abel群当且仅当$G^{'}\subseteq N $,再由Galois理论中的反序对应知上成立).对$M$应用上述交换图，若该命题在$Abel$扩张情形下成立，则上述交换图中右侧第二列$r_{M|K}$为同构，由此可知映射$r_{L|k}$的核为$G(L|M)$.从而
+$G(L|K)^{ab}\rightarrow K^{*}/N_{L|K}L^{*}$是单射。
+
+为证满射，对扩张次数用归纳法。
+首先$[L:K]=1$时显然成立。若$G(L|K)$是可解群，则$G^{'}\neq G$,从而上述定义的$M=L^{ab}\neq K$，于是$M=L$或者$[L:M]\leq [L:K]$,由假设(即任意扩张次数小于$[L:K]$的扩张$M|N$对应的$r_{M|N}$是满射)可知$r_{M|K}$和$r_{L|M}$是满射，由最开始的交换图可知$r_{L|K}$也是满射。一般情形下$G(L|K)$可能不是可解群，此时设$M$是$G(L|K)$的p-sylow子群的固定域。$M|K$可能不是$Galois$扩张，但我们仍可使用上述交换图中左侧方块，由归纳$r_{L|M}$是满射。
+下面说明$K^{*}/N_{L|K}L^{*}$(有限群:$(K^{*})^{n}\subseteq N_{L|K}L^{*}\subseteq K^{*},n=[L:K]$)的p-sylow子群落在$N_{M|K}$的像内。若对任意p成立，就说明$r_{L|K}$是满射。包含映射$K^{*}\rightarrow M^{*}$诱导态射
+$$
+i:K^{*}/N_{L|K}L^{*}\rightarrow M^{*}/N_{L|M}L^{*}，
+$$
+易知$N_{M|K}\circ i=[M:K]$.由于$([M:K],p)=1,S_{p}\stackrel{[M:K]}{\rightarrow} S_{p}$是满射，从而$S_{p}$在$N_{M|K}$的像内，于是也在$r_{L|K}$的像内。
+
+	(2)下面说明：证明了循环扩张时命题成立便能得到Abel扩张时命题也成立。 于是我们可假设$L|K$是循环扩张。令$M|K$遍历$L|K$的所有循环子扩张，则最上面交换图说明$r_{L|K}$的核包含于映射$G(L|K)\rightarrow \prod_{M}G(M|K)$的核中。由于$G(L|K)$是Abel群，故该映射是单射
+	(事实上，由有限Abel群结构定理，$G(L|K)=H_{1}\times H_{2}\times \cdots\times H_{r} $,其中$H_{i}(i=1,\cdots,r)$均为循环群，令$M_{i}=L^{\widehat{H_{i}}}$,其中$\widehat{H_{i}}=H_{1}\times\cdots \times H_{i-1}\times(1)\times H_{i+1}\times\cdots\times H_{r}.$则$L=L^{\widehat{H_{1}}}\cdots L^{\widehat{H_{r}}}$ \cite{lang} P268Corollary 1.16)，
+	进而由假设(若循环扩张时，命题成立，即$r_{M|K}$为同构，从而$r_{M|K}$是单射)和交换图右侧方框知$r_{L|K}$是单射。至于满射，由于$G(L|K)$是Abel群，从而也是可解群，于是选取$L|K$合适的循环子扩张$M|K$，类似(1)中对扩张次数归纳即可证明。
+	
+	(3)令$L|K$是循环扩张。可假定$f_{L|K}=1$,即$L|K$是完全分歧。为了看出这一点，令$M=L\cap \widetilde{K}$是$L|K$的极大非分歧子扩张，则$f_{L|M}=1$,且由以上命题知$r_{M|K}$是同构，在开始的交换图中由于第二行前三个群的阶分别为$[L:M],[L:K],[M:K]$(对于循环扩张$L|K,H^{0}(G(L|K),L^{*})=[L:K]$),于是$N_{M|K}$是单射，此时若$r_{L|M}$是同构，则$r_{L|K}$也是同构。\\
+	
+	现在设$L|K$是循环扩张且完全分歧，即$f|_{L|K}=1.$设$\sigma$是$G(L|K)$的生成元，由于$G(\widetilde{L}|\widetilde{K})=G(L\widetilde{K}|\widetilde{K})\cong G(L|\widetilde{K}\cap L)=G(L|K)$，故$\sigma$可看作$G(L\widetilde{K}|\widetilde{K})$的一个元素，因此$\tilde{\sigma}=\sigma\varphi_{L}\in Frob(\widetilde{L}|K)$是$\sigma\in G(L|K)$的一个原像，$d_{K}(\tilde{\sigma})=d_{K}(\varphi_{L})+d_{K}(\sigma)=0+f_{L|K}=1$(注意到由$d_{K}:G_{K}\rightarrow \widehat{Z}$诱导的映射$
+	\widetilde{d_{K}}:G_{K}/G_{\widetilde{L}}\rightarrow \widehat{Z}$的核为$G_{\widetilde{K}}/G_{\widetilde{L}}=Gal(\widetilde{L}|\widetilde{K})$,因$\sigma$保持$\widetilde{K}$不变，故$d_{K}(\sigma)=\widetilde{d_{K}}(\sigma)= 0$,)设$\Sigma|K$是$\tilde{\sigma}$的不动域，$f_{\Sigma|K}=d_{K}(\tilde{\sigma})=1,$因此$\Sigma\cap \widetilde{K}=K$设$M|K$是$\widetilde{L}|K$的包含$\Sigma$和$L$的有限Galois扩张，设$M^{0}=M\cap \widetilde{K}$是$M|K$的极大非分歧子扩张。
+	令$N=N_{M|M^{0}}$.注意到
+	$$
+	Gal(M|M^{0})\cong Gal(M|M\cap \widetilde{K})\cong Gal(M\widetilde{K}|\widetilde{K}) =Gal(\widetilde{M}|\widetilde{K}),
+	$$
+	且由于$f_{\Sigma|K}=f_{L|K}=1$,故类似上述引理2.1的证明
+	(即:$Gal(M|M^{0})\cong Gal(\widetilde{M}|\widetilde{K})\cong Gal(\widetilde{\Sigma}|\widetilde{K})\cong Gal(\Sigma|K)$,同样地，$Gal(M|M^{0})\cong Gal(L|K)$)可得
+	$N|_{\Sigma^{*}}=N_{\Sigma|K},N_{L^{*}}=N_{L|K}$.
+	
+	为了证明$r_{L|K}$是单射，我们须证明:如果$r_{L|K}(\sigma^{k})=1,$这里$0\leq k<n=[L:K]$,则$k=0$.
+	
+	为此，设$\pi_{\Sigma}\in \Sigma^{*},\pi_{L}\in L^{*}$是素元。由于$\Sigma,L\subseteq M\subseteq \widetilde{L}=\widetilde{\Sigma}=\widetilde{M}$,故$\pi_{\Sigma},\pi_{L}$也是$M$的素元，令$\pi_{\Sigma}^{k}=u\pi_{L}^{k},u\in U_{M}$,
+	得到$$
+	r_{L|K}(\sigma^{k})\equiv N(\pi^{k}_{\Sigma})\equiv
+N(u)\cdot N(\pi_{L}^{k})\equiv N(u)\ mod \ N_{L|K}L^{*}.$$
+从$r_{L|K}(\sigma^{k})=1,$我们可得$N(u)=N(v)$对某一$v\in U_{L}$成立，因此
+$N(u^{-1}v)=1.$从而由
+$$H^{-1}(G(M|M^{0}),M^{*})=1$$
+可知存在$a\in M^{*}$使得$u^{-1}v=a^{\sigma-1}$,在$M^{*}$中下述等式成立
+$$
+(\pi_{L}^{k}v)^{\sigma-1}=(\pi_{L}^{k}v)^{\tilde{\sigma}-1}=(\pi_{\Sigma}^{k}u^{-1}v)^{\tilde{\sigma}-1}=(a^{\sigma}-1)^{\tilde{\sigma}-1}=(a^{\tilde{\sigma}-1})^{\sigma-1},
+$$
+这就说明令$x=\pi_{L}^{k}va^{1-\tilde{\sigma}}$,则$\sigma(x)=x$,从而$x\in M_{0}$,现在$v_{M_{0}}\in \widehat{Z}$且$nv_{M^{0}}(x)=v_{M}(x)=k$,于是$k=0,$于是$r_{L|K}$是单射。满射性由$H^{0}(G(L|K),L^{*})=[L:K]$得到。
+	\end{proof}
+当$L|K$是有限Galois扩张时，用$(\ ,L|K)$表示上述同构的逆映射，该映射的核为
+$N_{L|K}L^{*}$.
+
+
+\begin{prop}
+	若$L|K,L'|K'$是有限Galois扩张，$K\subseteq K',L\subseteq L',$令$\sigma\in G$,则有下述交换图
+	$$
+	\xymatrix{
+{K'}^{*}\ar[rr]^{(\ ,L'|K')}\ar[d]_{N_{K'|K}}& &G(L'|K')^{ab}\ar[d]^{res}\\
+K^{*}\ar[rr]^{(\ ,L|K)}&&G(L|K)^{ab}	
+}
+$$
+这里$res$表示限制映射	
+\end{prop}
+该命题直接由命题2.8得出。\\
+\begin{prop}
+	设$L|K$是(局部域的)有限Galois扩张，$\forall a\in K^{*}$,有
+	$$(a,\widetilde{K}|K)=\varphi_{K}^{v_{K}(a)}$$
+	由此$d_{K}\circ (\ ,\widetilde{K}|K)=v_{K}$.
+\end{prop}
+\begin{proof}
+
+设$L|K$是$\widetilde{K}|K$的次数为$f$的子扩张，设$v_{K}(a)\equiv \ n\ mod \ f(0\leq n<f)$,即$v_{K}(a)=n+fz,n,z\in \mathbb{Z}$,于是$a\in K$可写为
+$a=u\pi_{K}^{n}b^{f}$,这里$u\in U_{K},b\in K^{*}$且$v_{K}(b)=z.$
+由上一命题可知
+$$
+(a,\widetilde{K}|K)_{L}=(a,L|K)=(u,L|K)(\pi_{K},L|K)^{n}(b,L|K)^{f}=\varphi_{L|K}^{n}=\varphi_{K}^{v_{K}(a)}|_{L}.
+$$
+这里用到了非分歧扩张的$H^{0}(G(L|K),U_{L})=1,|G(L|K)|=f$.于是
+$(a,\widetilde{K}|K)=\varphi_{K}^{v_{K}(a)}.$由此立即得到$d_{K}(\ ,\widetilde{K}|K)=v_{K}.$
+\end{proof}
+
+对域$K$,定义$K$上的一组拓扑基为：$\forall a\in K^{*}$,$a$的一组领域基为$\{aN_{L|K}L^{*}\}$,这里$L$取遍$K$的所有有限Galois扩张,称该拓扑为$K^{*}$的norm拓扑。\\
+\begin{prop}在上述拓扑下
+	\begin{enumerate}
+		\item $K^{*}$的开子群恰为有限指标的闭子群。
+		\item 赋值$v_{K}:K^{*}\rightarrow \widehat{\mathbb{Z}}$是连续的。
+       \item 如果$L|K$是有限扩张，$N_{L|K}:L^{*}\rightarrow K^{*}$连续。
+       \item $K^{*}$是Huasdorff当且仅当$K^{0}:=\cap_{L}N_{L|K}(L^{*})=\{0\}.$
+	\end{enumerate}
+\end{prop}
+\begin{proof}
+	(i)如果$N$是$K^{*}$的开子群，则由陪集分解可得
+	$$
+	N=K^{*}\backslash \cup_{aN\neq N}aN.
+	$$
+$N$是开集.$\Leftrightarrow$ $\forall b\in N$，存在有限Galois扩张$L|K$使得$bN_{L|K}L^{*}\subseteq N$. $\Leftrightarrow$ 若$a\in K^{*} ,$ $ \forall ab\in aN$,存在有限Galois扩张$L|K$使得$abN_{L|K}L^{*}\subseteq aN$. $\Leftrightarrow$ $aN$是开集.
+
+由于任意个开集的并仍为开集，由上可知$N$是闭集。由于$N$是子群，故$1\in N$,由$N$是开集，故存在$1$的一个邻域$N_{L|K}$使得$N_{L|K}\subseteq N$,这里$L|K$是有限Galois扩张。于是
+$$
+(K^{*}:N)\leq (K^{*}:N_{L|K}L^{*})\leq [L:K] .
+$$
+最后一个等号可由定理2.1看出。这就说明$N$关于$K^{*}$的指标有限。
+
+反之，若$N$是指标有限的闭子群，由于有限个闭集的并仍为闭集，由上述陪集分解可知$N$是开集。(一般地，拓扑群中开集也是闭集，有限指标的闭集是开集)
+
+(2)$f\widehat{\mathbb{Z}},f\in Z_{\geq 1}$形成$\widehat{\mathbb{Z}}$中$0$的一组邻域基，若$L|K$是$f$次非分歧扩张，则
+$$
+v_{k}(N_{L|K}L^{*})=fv_{L}L^{*}\subseteq f\widehat{\mathbb{Z}}.
+$$
+此即$v_{k}$是连续的。
+
+(3)设$N_{M|K}M^{*}$是$1\in K^{*}$的一个开邻域，则$$
+N_{L|K}(N_{ML|L}(ML)^{*})=N_{ML|K}(ML)^{*}=N_{M|K}(N_{ML|M}(ML)^{*})\subseteq N_{M|K}M^{*}.
+$$
+即$N_{L|K}$是连续的。
+
+(4)证明略。
+\end{proof}
+\begin{thm}
+	设$L|K$是有限Abel扩张，映射$$
+	L\mapsto N_{L}=N_{L|K}L^{*}
+	$$
+	给出了$K$的所有有限Abel扩张$L|K$组成的集合到$K^{*}$的所有开子群组成的集合的一一映射，并且
+	$$
+	L_{1}\subseteq L_{2}\Longleftrightarrow N_{L_{1}}\supseteq N_{L_{2}},\ 
+	N_{L_{1}L_{2}}=N_{L_{1}}\cap N_{L_{2}},\  N_{L_{1}\cap L_{2}}=N_{L_{1}}N_{L_{2}}.
+	$$
+	在上述一一对应下，$K^{*}$的子群$N$对应的域称为$N$的类域，且$Gal(L|K)\cong K^{*}/N$.
+\end{thm}
+\begin{proof}
+	如果$L_{1},L_{2}$是$K$的两个$Abel$扩张，则由域的传递公式可知$N_{L_{1}L_{2}}\subseteq N_{L_{1}}\cap N_{L_{2}}$.反之
+	$$
+	a\in N_{L_{1}}\cap N_{L_{2}}\Rightarrow (a,L_{i}|K)=1(i=1,2)
+	\Rightarrow (a,L_{1}L_{2}|K)=1\Rightarrow a\in N_{L_{1}L_{2}}.
+	$$
+	其中上面第一和第三个推出是由定理$2.1$中同构得出，第二个推出是由于
+	\[
+	\begin{split}
+		Gal(L_{1}L_{2}|K)&\longrightarrow Gal(L_{1}|K)\times Gal(L_{2}|K) \\
+		\sigma &\mapsto (\sigma|_{L_{1}},\sigma|_{L_{2}}).
+	\end{split}
+	\]
+	是单射。从而$N_{L_{1}L_{2}}=N_{L_{1}}\cap N_{L_{2}}.$
+	
+	因此，$$N_{L_{1}}\supseteq N_{L_{2}}\Longleftrightarrow N_{L_{2}}=N_{L_{1}}\cap N_{L_{2}}=N_{L_{1}L_{2}}\Longleftrightarrow
+	[L_{1}L_{2}:K]=[L_{2}:K]\Longleftrightarrow L_{1}\subseteq L_{2}.$$
+	由此可知$L\mapsto N_{L}$是单射。
+	
+若$N$是任何一个开子群，则存在有限次数域扩张$L|K$使得$N_{L}=N_{L|K}L^{*}\subseteq N$,记$L^{ab}$是$L|K$的极大Abel子扩张，则利用定理2.1可知$N_{L}=N_{L^{ab}}.$由此我们不妨设$L|K$是Abel扩张。
+
+  在同构映射$$
+  (\ ,L|K):K^{*}\longrightarrow Gal(L|K)
+  $$
+下，$N$的像$(N,L|K)$是$Gal(L|K)$的一个子群，即有中间域$K\subseteq L'\subseteq L$使得$(N,L|K)=Gal(L|').$
+映射$(\ ,L|K):K^{*}\longrightarrow Gal(L|K)$的核为$N_{L|K}L^{*}=N_{L}$,由于
+$N_{L}\subseteq N$,故$Gal(L|L')$的原像为$N$.注意到下面交换图
+$$
+\xymatrix{
+K^{*}\ar[rr]^{(\ ,L|K)}\ar[d]_{id}& &Gal(L|K)\ar[d]^{res}\\
+K^{*}\ar[rr]^{(\ ,L'|K)}& &Gal(L|L'). 
+}
+$$
+利用该交换图计算映射$(\ ,L'|K)$的核，$ker((\ ,L'|K))=Ker(res\circ (\ ,L|K))=
+(\ ,L|K)^{-1}(Gal(L|L'))=N.$
+而由定理2.1可直接看出该映射的核为$N_{L'}$,于是$N_{L'}=N$,从而$L\mapsto N_{L}$是满射。
+
+最后，$L_{1}\cap L_{2}\subseteq L_{i}(i=1,2)\Rightarrow N_{L_{1}\cap L_{2}}\supseteq N_{L_{i}},$因此$N_{L_{1}\cap L_{2}}\supseteq N_{L_{1}}N_{L_{2}}.$,但$N_{L_{1}}N_{L_{2}}$是开集，故$N_{L_{1}}N_{L_{2}}=N_{L}$($L|K$是有限Galois扩张),但$N_{L_{i}}$暗示$L\subseteq L_{1}\cap L_{2}$,故
+$$
+N_{L_{1}}N_{L_{2}}=N_{L}\supseteq N_{L_{1}\cap L_{2}}.
+$$	
+\end{proof}
+	设$K$是局部域，则互反律给出了$K$的Abel扩张的简单分类。
+\begin{thm}
+	映射$L\mapsto N_{L}=N_{L|K}L^{*}$给出了$K$的有限Abel扩张$L$和$K^{*}$的有限指标($(K^{*}:N)\leq \infty$)的子群$N$的1-1对应，而且
+	$$
+	L_{1}\subseteq L_{2}\Longleftrightarrow N_{L_{1}}\supseteq N_{L_{2}},\ 
+	N_{L_{1}L_{2}}=N_{L_{1}}\cap N_{L_{2}},\  N_{L_{1}\cap L_{2}}=N_{L_{1}}N_{L_{2}}.
+	$$
+\end{thm}
+\begin{proof}
+	由前面定理，我们仅需证明：$K^{*}$的子群$N$
+	$$
+	N\text{在norm拓扑下是开集.}\Longleftrightarrow N\text{在}K^{*}\text{中指标有限，且在赋值拓扑下是开集.}
+	$$
+	$\Rightarrow$:若$N$在norm拓扑下为开集，任取$a\in K^{*}$,存在$K$的有限Galois扩张$L|K$使得$aN_{L|K}L^{*}\subseteq N$,特别地,取$a=1,$可知由$K$的Galois扩张$L|K$使得$N_{L|K}\subseteq N\subseteq K^{*}$,由于$[K^{*}:N_{L|K}L^{*}]\leq [L:K]<\infty,$故$N$在$K^{*}$中指标有限。
+	在赋值拓扑下，$N$也是开集，这是由于$\forall a\in N,a\in aN_{L|K}U_{L}$,而$N_{L|K}U_{L}$为开集(原因:$N_{L|K}U_{L}$为紧群$U_{L}$在$U_{K}$中的像，故为闭集。由于$U_{K}^{n}=N_{L|K}U_{K}\subseteq N_{L|K}U_{L}\subseteq U_{K},n=[L:K]$,$(U_{K}:N_{L|K}U_{L})$有限，可知$N_{L|K}U_{L}$是$U_{K}$中开集，从而$N_{L|K}U_{L}$自身是开集)。
+	$\Leftarrow$我们只证明$char{K}\nmid n$的情形。设$N$为$K^{*}$中指数为$n=(K^{*}:N)$的开子群,则$K^{*n}\subseteq N$,只需证明$K^{*n}$包含形如$N_{L|K}L^{*}$($L|K$有限Galois扩张)的开子群。如此，$\forall a\in N,aN_{L|K}L^{*}\subseteq N$,由定义，$N$在norm拓扑下是开子群。
+	
+	 利用Kummer理论，我们可假设$K^{*}$包含$n-$次单位根群$\mu_{n}$.因为若不然，
+	 令$K_{1}=K(\mu_{n})$,若$K_{1}^{*n}$包含$N_{L_{1}|K}L_{1}^{*}$,设$L|K$
+是包含$L_{1}$的一个Galois扩张，则有$K\subseteq L_{1}\subseteq L$,于是
+$$
+N_{L|K}L^{*}=N_{K_{1}|K}(N_{L|K_{1}}L^{*})\subseteq N_{K_{1}|K}(N_{L_{1}|K_{1}}L_{1}^{*})\subseteq N_{K_{1}|K}(K_{1}^{*n})\subseteq K^{*n}.
+$$	
+故可设$\mu_{n}\subseteq K.$令$L=K(\sqrt[n]{K^{*}})$是指数为$n$的极大Abel扩张。利用双线性映射配对
+\[
+\begin{split}
+Gal(L|K)\times K^{*}/K^{*n}&\longrightarrow \mu_{n} \\
+(\sigma,x)&\mapsto \sigma(x)
+\end{split}
+\]
+知有下列同构
+$$K^{*}/K^{*n}\cong Gal(L|K)^{\wedge}=Hom(Gal(L|K),\mu_{n}).\qquad \qquad \ (*)$$
+且由
+$K^{*}/K^{*n}$有限知$Gal(L|K)$有限(上面这部分关于Kummer理论，详细证明与结论请看\cite{lang}chapter VI,section8),由于$K^{*}/K^{*n}\cong Gal(L|K)$有指数$n$,故
+$K^{*n}\subseteq N_{L|K}L^{*}$,$(*)$式暗示$$
+|K^{*}/K^{*n}|=|Gal(L|K)|=|K^{*}/N_{L|K}L^{*}|,$$因此$K^{*n}=N_{L|K}L^{*}.$
+\end{proof}
+上述证明过程也说明了下述命题
+\begin{prop}
+	如果$K$包含$n$次单位根群，$char(K)\nmid n$,则$L=K(\sqrt[n]{K^{*}})|K$是有限Abel扩张，且$N_{L|K}L^{*}=K^{*n},Gal(L|K)\cong K^{*}/K^{*n}.$
+\end{prop}
+上述定理2.3称为\textbf{存在定理}：对$K^{*}$的任意一个指标有限的开子群$N$，存在$Abel$扩张$L|K$使得
+$N_{L|K}L^{*}=N$,称$L$为$N$的“类域”。
+
+由于$U_{K}^{(n)}$为$1$在$K^{*}$中的一组邻域基，故$K^{*}$的任意开子群必包含一个$U_{K}^{(n)}$,记$U_{K}^{(0)}=U_{K}$,并定义
+\begin{defn}
+	设$L|K$是有限Abel扩张，$n$是使得$U_{K}^{(n)}\subseteq N_{L|K}L^{*}$成立的最小非负整数，则称理想$\mathfrak{f}=\mathfrak{p}_{K}^{n}$为$L|K$的\textbf{导子}(conductor)。
+\end{defn}
+\begin{prop}
+	有限Abel扩张$L|K$是非分歧的当且仅当它的导子$\mathfrak{f}=1.$
+\end{prop}
+\begin{proof}
+	若$L|K$非分歧，则由$H^{0}(Gal(L|K),U_{L})=1$知$U_{K}=N_{L|K}U_{L}\subseteq N_{L|K}L^{*}$,故$\mathfrak{f}=1.$
+	
+	反之,若$\mathfrak{f}=1,$则$U_{K}\subseteq N_{L|K}L^{*}$,令$n=(K^{*}:N_{L|K}L^{*})$(有限),则$\pi_{K}^{n}\in N_{L|K}L^{*}$.若$M|K$是$n$次非分歧扩张，则$N_{M|K}M^{*}$(非分歧扩张为Abel扩张，故由同构定理$|K^{*}/N_{M|K}M^{*}|=[M:K]=n,$再由非分歧扩张$M|K$的$H^{0}(Gal(M|K),U_{L})=1$知$(\pi_{K}^{n})\times U_{K}\in N_{M|K}M^{*}$,由局部域的结构$K^{*}=(\pi_{K})\times U_{K}$并结合指数，知$N_{M|K}M^{*}=(\pi_{K}^{n})\times U_{K}$),从而$N_{M|K}M^{*}\subseteq N_{L|K}L^{*}$,由反序性知$M\supseteq L,$即$L|K$非分歧。
+\end{proof}
+设$N$是$K^{*}$中有限指标开子集，则有$K$的有限Abel扩张$L$使得$N=N_{L|K}L^{*}$.记$f=(K^{*}:N_{L|K}L^{*})$,
+则$(\pi_{K}^{f})\times U_{K}^{(n)}\subseteq N=N_{L|K}L^{*}$对某一非负整数$n$成立($n$可取导子对应的指数),而$(\pi_{K}^{f})\times U_{K}^{(n)}$在赋值拓扑下为开，故$L$包含在群$(\pi_{K}^{f})\times U_{K}^{n}$的类域中。
+
+\begin{prop}
+	记$L=\mathbb{Q}_{p}(\mu_{p^{n}}),K=\mathbb{Q}_{p}$
+	域扩张$L|K$的范数群为$(p)\times U_{\mathbb{Q}_{p}}^{(n)}.$即$N_{L|K}(L)^{*}=(p)\times U_{\mathbb{Q}_{p}}^{(n)}.$
+\end{prop}
+\begin{proof}
+	$L|K$是$\varphi(p^{n})=p^{n-1}(p-1)$次完全分歧扩张，如果$\zeta$是$p^{n}$次本原单位根，则$1-\zeta$是$L$中素元，并且$N_{L|K}=p.$考虑指数映射
+	$$exp:\mathfrak{p}_{K}^{(v)}\rightarrow U_{K}^{(v)}$$
+	(p=2时，$v\geq 2;p\neq 2$时$v\geq 1$),则$exp$为同构。
+	
+	映射
+	\[
+\begin{split}
+ \mathfrak{p}_{K}^{v}&\rightarrow \mathfrak{p}_{K}^{v+s-1}\\
+ a&\mapsto p^{s-1}(p-1)a
+\end{split}	
+\]
+ 为同构(由$v_{K}(p^{s-1}(p-1))=s-1$,映射良好定义，考虑元素赋值即知为同构)。
+ 该映射诱导出同构
+ \[
+ \begin{split}
+ U_{K}^{(v)}&\rightarrow U_{K}^{(v+s-1)}\\
+ x&\mapsto x^{p^{s-1}(p-1)}.
+ \end{split}
+ \]
+ 
+	若$p\neq 2$,取上述$v=1,s=n$可知$(U_{K}^{(1)})^{p^{n-1}(p-1)}=U_{K}^{(n)}.$
+	
+	若$p=2,n>1$,则取$v=2,s=n-1$可知$(U_{K}^{(2)})^{2^{n-2}}=U_{K}^{(n)}.$
+	
+	于是，若$p\neq 2$,$U_{K}^{(n)}=N_{L|K}(U_{K}^{(1)})\subseteq N_{L|K}L^{*}$.对于$p=2$,观察到
+	$$\forall x\in \mathcal{O}_{K},x\equiv 1\ mod \ 4\Leftrightarrow x\equiv 1 \text{或}5\ mod \ 8.$$
+	$$
+	\Rightarrow U_{K}^{(2)}=U_{K}^{(3)}\cup 5U_{K}^{(3)}=(U_{K}^{(2)})^{2}\cup 5(U_{K}^{(2)})^{2}.
+	$$
+	注意到$(U_{K}^{(n+1)})^{2}=U_{K}^{(n)}(n\geq 1)$.于是
+	$$
+	U_{K}^{(n)}=(U_{K}^{(2)})^{2^{n-1}}\cup 5^{2^{n-2}}(U_{K}^{(2)})^{2^{n-1}}.
+	$$
+	令$L'=K(2+i),2+i$在$K$上极小多项式为$(x-2)^{2}+1=x^{2}-4x+5,$于是
+	$$
+	N_{L|K}(2+i)=N_{L'|K}(N_{L|L'}(2+i))=N_{L'|K}((2+i)^{2^{n-2}})=(N_{L'|K}(2+i))^{2^{n-2}}=5^{2^{n-2}}.
+	$$
+	这就推出$U_{K}^{(n)}\subseteq N_{L|K}L^{*}(p=2),$再由$N_{L|K}(1-\zeta)=p$可知$(p)\times U_{K}^{(n)}\subseteq N_{L|K}L^{*}.$由
+	$K^{*}=(p)\times \mu_{p-1}\times U_{K}^{(1)}$
+	可知$|K^{*}/(p)\times U_{K}^{(n)}|=p^{n-1}(p-1).$而同样有$|K^{*}/N_{L|K}L^{*}|=[L:K]=p^{n-1}(p-1)$,故$N_{L|K}L^{*}=(p)\times U_{K}^{(n)}.$
+\end{proof}
+\begin{cor}
+	每个有限Abel扩张$L|\mathbb{Q}_{p}$包含在域$\mathbb{Q}_{p}(\zeta)$中，这里$\zeta$是某一单位根，换句话说，极大Abel扩张$\mathbb{Q}_{p}^{ab}|\mathbb{Q}_{p}$是由$\mathbb{Q}_{p}$添加所有单位根生成的。
+\end{cor}
+\begin{proof}
+	首先有非负整数$f,n$使得$(p^{f})\times U_{\mathbb{Q}_{p}}^{(n)}\subseteq N_{L|\mathbb{Q}_{p}}L^{*}$,由反序性$L$包含在群
+	$$
+	(p^{f})\times U_{\mathbb{Q}_{p}}^{(n)}=((p^{f})\times U_{\mathbb{Q}_{p}})\cup((p)\times U_{\mathbb{Q}_{p}}^{(n)}).
+	$$
+	的类域$M$中，故$M$是$(p^{f})\times U_{\mathbb{Q}_{p}}$的类域和$(p)\times U_{\mathbb{Q}_{p}}^{(n)}$的类域$\mathbb{Q}_{p}(\mu_{p^{n}})$的合成，在命题2.13的证明中我们已看到形如$(p^{f})\times U_{\mathbb{Q}_{p}}$的类域为$\mathbb{Q}_{p}$上的$f$次非分歧扩张,局部域上有限非分歧存在且唯一，即添加$p^{f}-1$次本原单位根，于是$M=\mathbb{Q}_{p}(\mu_{p^{f}-1})$,于是$M=\mathbb{Q}_{p}(\mu_{(p^{f}-1)p^{n}}).$
+\end{proof}
+下面是著名的\textbf{Kronecker-Weber}定理。
+\begin{thm}
+	如果$K|\mathbb{Q}$是有限Abel扩张，则$K\subseteq \mathbb{Q}(\zeta_{n})$对某一正整数$n$成立。
+\end{thm}
+\begin{proof}
+	设素数$p$为在$K|\mathbb{Q}$上分歧的素数，$K_{p}$为$K$关于$p$上素理想的完备化，则$K_{p}|\mathbb{Q}_{p}$是Abel扩张(局部域的有限扩张是循环扩张).
+	从而由上面推论$K_{p}\subseteq \mathbb{Q}_{p}(\zeta_{n_{p}})$.取$e_{p}$使
+	$p^{e_{p}}||n_{p}$，令$$
+	n=\prod_{p,ramifies}p^{e_{p}},
+	$$
+	这里$p$取遍在$K|\mathbb{Q}$上分歧的素数。断言$K\subseteq \mathbb{Q}(\zeta_{n}).$令$L=K(\zeta_{n})=K\cdot\mathbb{Q}(\zeta_{n})$,由于Abel扩张的合成仍为Abel扩张，故$L|\mathbb{Q}$是Abel扩张。
+	对于任意素数$p$,$p$在$L|\mathbb{Q}$上非分歧当且仅当$p$在$K|\mathbb{Q}$上和在$\mathbb{Q}(\zeta_{n})|\mathbb{Q}$上均非分歧。
+	由此结合$n$的构造，便得到$p$在$L|\mathbb{Q}$上分歧当且仅当$p$在$K|\mathbb{Q}$上分歧。
+	用$\mathfrak{p}$和$\mathcal{P}$表示素数$p$在$K$和$L$上的素理想，用$L_{p},K_{p}$表示相应的完备化，则$$L_{p}=K_{p}(\zeta_{n})\subseteq \mathbb{Q}_{p}(\zeta_{n},\zeta_{n_{p}})= \mathbb{Q}_{p}(\zeta_{p^{e_{p}}n'}),(n',p)=1.$$
+	设$I_{p}$是$p$在$L|\mathbb{Q}$上的惯性群，则$I_{p}$与$p$在$L_{p}|\mathbb{Q}_{p}$上的惯性群$I_{p}'$有相同的阶数,
+	$I_{p}'$的阶数为分歧指数，由域扩张链
+	$$\mathbb{Q}_{p}\subseteq \mathbb{Q}_{p}(\zeta_{p^{e_{p}}})\subseteq L_{p}\subseteq \mathbb{Q}_{p}(\zeta_{p^{e_{p}}n'})$$
+	知分歧指数为$\phi(p^{e_{p}}).$
+	%$$
+	%I_{p}\cong Gal(L_{p}|\mathbb{Q}_{p}(\zeta_{p^{e_{p}}})) \cong %Gal(\mathbb{Q}_{p}(\zeta_{p^{e_{p}}})|\mathbb{Q}_{p})
+	%.$$
+	故$|I_{p}|=|I_{p}'|=|\phi(p^{e_{p}}).$
+	用$I\subseteq Gal(L|\mathbb{Q})$表示所有$I_{p}$($p$分歧)在$Gal(L|\mathbb{Q})$中生成的子群,由于$Gal(L|\mathbb{Q})$是Abel群，故
+	$$
+	|I|\leq  \prod |I_{p}|=\prod \phi(p^{e^{p}})=\phi(n)=[\mathbb{Q}(\zeta_{n}):\mathbb{Q}].
+	$$
+	设$F$是$I$的固定域，则$F|\mathbb{Q}$是非分歧扩张(即$\mathbb{Q}$中所有有限素数在$F$上非分歧)，于是$F=\mathbb{Q}.$故$I=Gal(L|\mathbb{Q}),$
+	因此$$
+	[L:\mathbb{Q}]=|I|\leq [\mathbb{Q}(\zeta_{n}):\mathbb{Q}].
+	$$
+	由于$$
+	\mathbb{Q}(\zeta_{n})\subseteq  K(\zeta_{n})=L,
+	$$
+	故上述第一个包含是相等，于是$K\subseteq \mathbb{Q}(\zeta_{n}).$
+	
+\end{proof}
+
+	  \begin{thebibliography}{99}
+		\bibitem{Ne} Neukirch:
+		Algebraic Number Theory.
+		\bibitem{wwl} 李文威：代数学方法，卷一：基础架构.
+		\bibitem{xkz}张贤科：代数数论导引.
+		\bibitem{lang}Serge lang:Algebra.
+		\bibitem{fkq}冯克勤：代数数论.
+	\end{thebibliography}
+\end{document}
