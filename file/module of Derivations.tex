@@ -1,0 +1,257 @@
+\documentclass[UTF8]{article}
+\usepackage{ctex}
+\usepackage[colorlinks=true]{hyperref}
+\title{\textbf{\huge{微分模}}}
+\author{Lhzsl}
+\date{}
+\usepackage[b5paper,left=10mm,right=10mm,top=15mm,bottom=15mm]{geometry}
+\usepackage{amsthm,amsmath,amssymb}
+\usepackage{mathrsfs}
+\usepackage{tikz}
+\usepackage[all]{xy}
+\usetikzlibrary{cd}
+\usepackage{fancyhdr}
+\usepackage{color}
+\newtheorem{thm}{Theorem}[section]
+\newtheorem{defn}{Definition}[section]
+\newtheorem{cor}{Corollary}[section]
+\newtheorem{prop}{Proposition}[section]
+\newtheorem{exa}{Example}[section]
+\newtheorem{lem}{Lemma}[section]
+\newtheorem{Rem}{Remark}[section]
+\begin{document}
+	\maketitle
+	设$A$是环，$M$是一个$A-$模，从$A$到$M$的一个\textbf{导数}是指一个映射
+	$D:A\rightarrow M$满足：
+	$$D(a+b)=D(a)+D(b),D(ab)=aD(b)+bD(a)$$
+	对任意$a,b\in A$成立。
+	所有这样的导数组成的集合记为$Der(A,M)$。规定$(D+D')a=Da+D'a,(aD)b=a(Db),\forall a,b \in A,$则$Der(A,M)$具有$A-$模结构。
+	
+	若$A$透过映射$f:k\rightarrow A$成为$k-$代数，若导数$D\in Der(A,M)$满足$D\circ f=0$，则称$D$为$k-$导数，所有这些$k-$导数组成的集合记为$Der_{k}(A,M)$，它是$Der(A,M)$的$A-$子模。对任意
+	$D\in $ \\
+	$Der(A,M)$,易知
+	$D(1)=D(1)+D(1)$，从而$D(1)=0,$由此,若将$A$看作$\mathbb{Z}-$模，则$Der(A,M)=Der_{\mathbb{Z}}(A,M).$
+	
+	特别地，若$M=A$,则简记$Der_{k}(A,A)$为$Der_{k}(A).$
+	
+	设$A$是一个$k-$代数，$N$为$A-$模，则直和$A\oplus N$具有$k-$模结构，定义$A\oplus N$中元素的乘法为：
+	$$
+	(a,x)(a',x')=(aa',ax'+a'x),\forall a,a'\in A,x,x'\in N.
+	$$
+	则$A\oplus N$成为$k-$代数，用$A*N$表示该$k-$代数。
+	
+	
+	一般地，给定$k-$代数组成的范畴中交换图
+	$$
+	\xymatrix{
+B\ar[r]^{f}&A\\
+&C\ar[lu]^{h}\ar[u]^{g}	
+}
+	$$
+这里将$g$看作固定的,称$h$是$g$的一个\textbf{提升}。用$N$表示$B$的理想$Kerf$,若$h':C\rightarrow B$是$g$的另一个提升，则$(h-h')(C)\subseteq N$，从而$h-h'$可看作从$C$到$N$的映射。若$N^2=0$,则$N$是一个$f(B)\cong B/N-$模：若$a\in f(B)$,取$a$的一个原像$b$，对于任意$n\in N$，定义$an:=bn$,由于$N^2=0$，该定义与$a$的原像选取无关，从而是良好定义的。
+进一步由映射$g:C\rightarrow f(B)\subseteq A$,$N$可看作$C-$模。
+
+断言：$h-h':C\rightarrow N$是$C$到$C-$模$N$的一个$k-$导数。
+$$
+\xymatrix{
+N\ar@{^{(}->}[rr]& &B\ar[rr]^{f}&&A\\
+& &&&C\ar[ullll]^{h-h'}\ar[ull]_{h,h'}\ar[u]_{g}
+}
+$$
+\begin{proof}
+由于$h,h':C\rightarrow B$均为$k-$代数范畴里的态射，故自然有$h\circ (k\rightarrow C)=k\rightarrow B=h'\circ (k\rightarrow C)$，即$(h-h')\circ (k\rightarrow C)=0.$
+剩下便只需证明：$(h-h')(ab)=a(h-h')b+b(h-h')a$对任意$a,b\in C$成立。
+这里只需注意$C$中元素$a,b$是如何作用在$N$上。用上述作用的定义，$a$的作用，即相当于取$g(a)$在$f$下的任意一个原像去作用，对$b$同样是。于是
+\[
+\begin{split}
+&a(h-h')b+b(h-h')a\\
+&=h(a)(h-h')b+h'(b)(h-h')(a)\\
+&=h(ab)-h'(ab)\\
+&=(h-h')(ab).
+\end{split}
+\]
+上述式中，$h(a),h'(b)$分别为$g(a),g(b)$在$f$下的一个原像。由上式看出，$h-h'$确实为$C$到$C-$模$N$的一个$k-$导数。
+\end{proof}
+设$k$是环，$A$为$k-$代数，用$\mathscr{M}_{A}$表示$A-$范畴，则$M\mapsto Der_{k}(A,M)$为$\mathscr{M}_{A}$到自身的协变函子。下面说明该函子为可表函子.
+即存在$A-$模$M_{0}$及导数$d\in Der_{k}(A,M_{0})$满足下面泛性质：\\
+对任意$A-$模$M$,
+导数$D\in Der_{k}(A,M)$，存在唯一的$A-$线性映射$f:M_{0}\rightarrow M$，使得$D=f\circ d$.即有下交换图
+$$
+\xymatrix{
+& &M_{0}\ar@{.>}[dd]^{\exists !f}\\
+A\ar[rru]^{d}\ar[rrd]_{D}& &\\
+&&M
+}
+$$
+
+\begin{proof}
+	证明是构造性的。定义$\mu:A\otimes_{k}A\rightarrow A$为$\mu(x\otimes y)=xy$；则$\mu$是$k-$代数同态。令
+	$$I=Ker\mu,\ \ \Omega_{A/k}=I/I^2,\ \ B=(A\otimes_{k}A)/I^2;$$
+	则$\mu$诱导处出同态$\mu':B\rightarrow A$且有下述$k-$代数正合列
+	$$
+	0\rightarrow \Omega_{A/k}\rightarrow B\stackrel{\mu'}{\rightarrow}A\rightarrow 0
+	$$
+	该正合列是分裂的(split)。事实上，定义映射$\lambda_{i}:A\rightarrow B,i=1,2$为
+	$$
+	\lambda_{1}(a)=a\otimes 1\ mod \ I^2\ ,\lambda_{2}(a)=1\otimes a\ mod \ I^2,
+	$$
+	这两个映射均为$1_{A}:A\rightarrow A$的提升。
+	$$
+	\xymatrix{
+	I/I^{2}\ar@{^{(}->}[rr]& &(A\otimes_{k}A)/I^{2}\ar[rr]^{\mu'}&&A\\
+	& &&&A\ar[ullll]^{d=\lambda_{1}-\lambda_{2}}\ar[ull]_{\lambda_{1},\lambda_{2}}\ar[u]_{id_{A}}
+}
+	$$
+	故$d=\lambda_{2}-\lambda_{1}$是$A$到$\Omega_{A/k}$的一个导数。下面说明$(\Omega_{A/k},d)$满足前面所说的泛性质。
+	
+	若$D\in Der_{k}(A,M)$，定义$\varphi:A\otimes_{k} A\rightarrow A*M$为
+	$\varphi(x\otimes y)=(xy,xDy)$,可验证$\varphi$保持乘法，将$\varphi$ $k-$线性扩充到整个$A\otimes_{k}A$上，则得到$k-$代数同态$\varphi$,
+	注意到$$
+	\mu(\sum x_{i}\otimes y_{i})=\sum x_{i} y_{i}=0\Rightarrow \varphi(\sum x_{i}\otimes y_{i})=(0,\sum x_{i}y_{i});
+	$$
+	故$\varphi$将$I$映到$M$(此处将$M$看作$A*M$的一个子代数)，由$A*M$中乘法定义知,在$A*M$中$M^2=0$,故我们便得到映射$f:I/I^2\rightarrow \Omega_{A/k}\rightarrow M$.
+	$$
+	\xymatrix{
+A\ar[r]^{d}\ar[rdd]&\Omega_{A/k}\ar@{.>}[d]\ar@{^{(}->}[r]&A\otimes_{k} A\ar[ld]^{\varphi}\\
+	&A*M\ar[d]^{\pi}& \\
+	&M&
+}
+	$$
+	其中$\pi$为$A*M$到第二个分量的投射，而$f$即为竖直方向上两个映射的合成。
+	
+	对于$a\in A$，
+	\[
+	\begin{split}
+	f(da)&=f(1\otimes a-a\otimes 1\ mod \ I^2 )=\varphi(1\otimes a)-\varphi(a\otimes 1)\\
+	&=Da-a\cdot D(1)=Da,
+	\end{split}
+	\]
+	于是$D=f\circ d$.
+	
+	定义$A$在$\Omega_{A/k}$上的作用为$a\in A$作用在$A\otimes_{k} A$上即为$1\otimes 1$乘以$A\otimes_{k}A$中元素(等价地，用$1\otimes a$去乘:$a\otimes 1-1\otimes a\in I$,$I$中元素作用在$\Omega_{A/k}$上为零)，由此$\Omega_{A/k}$具有$A-$模结构。若$\xi=\sum x_{i}\otimes y_{i}\ mod \ I^2\in \Omega_{A/k}$,则$a\xi=\sum ax_{i}\otimes y_{i}\ mod \ I^2$,因此
+	$f(a\xi)=\sum ax_{i}Dy_{i}=af(\xi)$,故$f$是$A-$线性的。
+	
+	对于$a,a'\in A$,
+	$a\otimes a'=(a\otimes 1)(1\otimes a'-a'\otimes 1)+aa'\otimes 1,$
+	于是，若$\omega=\sum x_{i}\otimes y_{i}\in I$,则
+	$$\omega= \sum (x_{i}\otimes 1)(1\otimes y_{i}-y_{i}\otimes 1)+x_{i}y_{i}\otimes 1$$
+	$$
+	=\sum x_{i}dy_{i}+(\sum x_{i}y_{i}\otimes 1)
+	=\sum x_{i}dy_{i}.
+	$$
+	故$\Omega_{A/k}$作为$A-$模由$\{da|a\in A\}$生成。
+	满足$D=f\circ d$的$A-$线性映射$f$的唯一性是显然的。
+\end{proof}
+称上面构造的$A-$模$\Omega_{A/k}$为$A$在$k$上的\textbf{微分模(module of differentials)}或称\textbf{K$\ddot{a}$hler differentials}.称$da\in \Omega_{A/k}$为$a\in A$的微分(differential).用$d_{A/k}$表示$d:A\rightarrow\Omega_{A/k}$.从定义知有同构
+$$
+ Hom_{A}(\Omega_{A/k},M)\cong Der_{k}(A,M)
+$$
+$$
+f\mapsto f\circ d_{A/k}.
+$$
+设$A$为$k-$代数，若$A$具有下列泛性质：
+对任意$k-$代数$C$,$C$的理想$N$,$N^2=0,$及任意$k-$代数同态$u:A\rightarrow C/N$,存在$u$的提升$v:A\rightarrow C$,$v$是$k-$代数同态。换句话说，若有交换图
+$$
+\xymatrix{
+A\ar[r]^{u}&C/N\\
+k\ar[u]\ar[r]&C\ar[u]
+}
+$$
+则存在$v$使得下图交换
+$$
+\xymatrix{
+A\ar[rd]^{v}\ar[r]^{u}&C/N\\
+k\ar[u]\ar[r]&C\ar[u],
+}
+$$
+则称$A$为\textbf{0-smooth}(over k).若至多存在一个$v$,则称$A$为\textbf{0-unramified} over k。若$A$同时为0-smooth，0-unramified ，则称$A$为\textbf{0-etale}.
+
+  $\Omega_{A/k}=0\Leftrightarrow A$是0-unramified.
+
+$\Rightarrow )$若$u$存在两个提升$v_{1},v_{2}$，由前面证明过程知，$d=v_{1}-v_{2}:A\rightarrow N$是导数，从而存在$f\in Hom_{A}(\Omega_{A/k},N)$使得$v_{1}-v_{2}=f\circ d_{A/k}$,但此时$d_{A/k}=0,$故$v_{1}-v_{2}=0$，即$v_{1}=v_{2}$，矛盾！
+
+$\Leftarrow )$
+利用$\Omega_{A/k}$的构造过程，取$C=(A\otimes_{k}A)/I^{2},N=I/I^{2}$，这里$I=Ker(A\otimes_{k}A\rightarrow A)$,
+由于$A$是$0-unramified $,故上面构造的$\lambda_{1}=\lambda_{2}$，从而$d_{A/k}=0,$于是$\Omega_{A/k}=0.$
+\begin{thm}
+	设有环同态$k\stackrel{f}{\rightarrow }A\stackrel{g}{\rightarrow}B$,则有$B-$模正合列
+	$$
+\Omega_{A/k}\otimes_{A}B\stackrel{\alpha}{\rightarrow}\Omega_{B/k}\stackrel{\beta}{\rightarrow}\Omega_{B/A}\rightarrow 0,
+	$$
+	这里$\alpha,\beta$分别为$\alpha(d_{A/k}a\otimes b)=bd_{B/k}g(a),\beta(d_{B/k}b)=d_{B/A}b,$其中$a\in A,b\in B$.进一步，若$B$在$A$上是0-smooth，则有分裂正合列
+	$$
+	0\rightarrow \Omega_{A/k}\otimes_{A}B\stackrel{\alpha}{\rightarrow}\Omega_{B/k}\stackrel{\beta}{\rightarrow}\Omega_{B/A}\rightarrow 0.
+	$$
+\end{thm}
+下述证明过程不短，但原理简单。
+\begin{proof}
+	一般地，想要证明$B-$模序列
+	$$
+	N'\stackrel{\alpha}{\rightarrow}N\stackrel{\beta}{\rightarrow}N''
+	$$
+	是正合的，只需证明,对任意$B-$模$T$，诱导序列
+	$$
+		Hom_{B}(N',T)\stackrel{\alpha^*}{\leftarrow}Hom_{B}(N,T)\stackrel{\beta^*}{\leftarrow}Hom_{B}(N'',T)
+	$$
+	是正合的。
+	事实上，取$T=N''$,则得到$\alpha^{*}\beta^{*}(1_{T})=0,$故$\beta\alpha=0;$取$T=N/Im\alpha$,则可知$Ker\beta =Im\alpha$.
+	
+	由上分析，我们只需证明
+	$$
+	0\rightarrow Hom_{B}(\Omega_{B/A},T)\stackrel{\beta^*}{\rightarrow}Hom_{B}(\Omega_{B/k},T)\stackrel{\alpha^*}{\rightarrow}Hom_{B}(\Omega_{A/k}\otimes_{A}B,T)
+	$$
+	是正合列。
+	
+	对于$A-$模$M$，$B-$模$T$,我们有同构
+	$\Phi:Hom_{B}(M\otimes_{A}B,T)\cong Hom_{A}(M,T)$:任取$\psi\in Hom_{B}(M\otimes_{A}B,T)$,定义$\Phi(\psi)(m):=\psi(m\otimes 1),m\in M$。
+	对任意$a\in A,$
+	$$\Phi(\psi)(am)=\psi(am\otimes 1)=\psi(m\otimes g(a)1)
+	=\psi(g(a)(m\otimes 1))
+	$$
+	$$=g(a)\psi(m\otimes 1):=a\psi(m\otimes 1)=a\Phi(\psi)(m).$$
+	这里只需注意到$B$通过环同态$g:A\rightarrow B$
+	成为$A-$模。此即$\Phi(\psi)\in Hom_{A}(M,T)$.
+	
+	任取$\varphi\in Hom_{A}(M,T)$,定义$\Phi^{-1}(\varphi)(m\otimes x):=x\cdot \varphi(m).$可验证$\Phi^{-1}$与$\Phi$互逆，故由上述同构。
+	
+	于是$Hom_{B}(\Omega_{A/k}\otimes_{A}B,T)\cong Hom_{A}(\Omega_{A/k},T).$
+	利用微分模的典型同态，我们有
+	$$
+	\xymatrix{
+	0\ar[r]&Hom_{B}(\Omega_{B/A},T)\ar[r]^{\beta*}\ar[d]&Hom_{B}(\Omega_{B/k},T)\ar[r]^{\alpha*}\ar[d]&Hom_{B}(\Omega_{A/k}\otimes_{A}B,T)\ar[d]\\
+0\ar[r]&Der_{A}(B,T)\ar[r]^{\beta'}&Der_{k}(B,T)\ar[r]^{\alpha'}&Der_{k}(A,T)
+}$$
+其中竖直方向均为同构，$\alpha',\beta'$定义为使上图交换的映射.$Der_{A}(B,T)$中任意元素可表示为$f\circ d_{B/A}$,其中$f\in Hom_{B}(\Omega_{B/A},T),$由$\beta^*$定义可知
+$$\beta'(f\circ d_{A/B})=f\circ \beta \circ d_{B/k}.$$
+	对任意$h\circ d_{B/k}\in Der_{k}(B,T),h\in Hom_{B}(\Omega_{B/k},T)$,上面交换图最右侧竖线实际是映射
+	$$Hom_{B}(\Omega_{A/k}\otimes_{A}B,T)\rightarrow Hom_{A}(\Omega_{A/k},T)\rightarrow Der_{k}(A,T)$$
+	的合成，于是
+	$$\alpha'(h\circ d_{B/k})=h\circ \alpha (d_{A/k}(\cdot)\otimes 1).$$
+	
+首先注意到$\beta\circ \alpha=0.$事实上，由定义，任取$d_{A/k}a\otimes b \in \Omega_{A/k}\otimes_{A}B,\beta\circ\alpha (d_{A/k}a\otimes b)=bd_{B/A}g(a)=0$(注意到$d_{B/A}\circ g=0$)。由此易知$\alpha'\circ \beta'=0.$
+
+
+下证$
+ Ker\alpha'\subseteq Im\beta'.
+$设$h\in Hom_{B}(\Omega_{B/k},T)$,且$0=h\circ \alpha(d_{A/k}a\otimes 1)=h\circ d_{B/k}g(a)$对任意$a\in A$成立。于是$(h\circ d_{B/k})\circ g=0$,
+易知$h\circ d_{B/k}:B\rightarrow T$是导数，进一步由定义$h\circ d_{B/k}\in Der_{A}(B,T),$
+于是存在$f\in Hom_{B}(\Omega_{B/A},T)$,使得$h\circ d_{B/k}=f\circ d_{B/A}=f\circ \beta(d_{B/k})$.
+于是
+$$
+h\circ \alpha(d_{A/k}a\otimes 1)=h\circ d_{B/k}d(a)=f\circ \beta d_{B/k}g(a)=f\circ \beta \circ \alpha(d_{A/k}a\otimes 1),\forall a\in A.
+$$
+此即$Ker\alpha'\subseteq Im\beta'$.
+这便证明了定理中第一个正合列。
+
+现在设$B$在$A$上是0-smooth.取$D\in Der_{k}(A,T)$,考虑如下交换图
+$$
+\xymatrix{
+B\ar[r]^{1_{B}}&B\\
+A\ar[u]^{g}\ar[r]^{\varphi}&B*T\ar[u]
+}
+$$
+这里$\varphi(a)=(ga,Da)$.由假设在上图中可添加一映射$h:B\rightarrow B*T$使之仍然交换。可将$h$表示为$h(b)=(b,D'b)$,则$D=D'\circ g,$且由$B*T$中乘法定义知$D':B\rightarrow T$是导数，故有线性映射$\alpha':\Omega_{B/k}\rightarrow T$使得$D'=\alpha'\circ d_{B/k}$.
+
+现取$T$为$\Omega_{A/k}\otimes B$,$D$为$D(a)=d_{A/k}(a)\otimes 1$,则$D=d_{A/k}(\cdot)\otimes 1=D'\circ g=\alpha'\circ d_{B/k}\circ g=\alpha'\circ \alpha(d_{A/k}(\cdot)\otimes 1).$即$\alpha'\circ \alpha=1$.即上面第二个正合列是分裂的。
+\end{proof} 
+\end{document}
