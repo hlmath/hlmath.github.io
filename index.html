@@ -150,6 +150,72 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://hlmath.github.io/2021/07/17/residue-theorem/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="hlmath">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="hlmath">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/07/17/residue-theorem/" class="post-title-link" itemprop="url">residue theorem</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2021-07-17 13:16:57 / Modified: 13:17:51" itemprop="dateCreated datePublished" datetime="2021-07-17T13:16:57+08:00">2021-07-17</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>命题:设$K$是域，$f(x<em>{1},\cdots,x</em>{n})\in K[x<em>{1},\cdots,x</em>{n}]$是$n$元多项式，对于任意$K$中$n$个元素$a<em>{1},\cdots,a</em>{n}\in K,$存在$f<em>{i}\in K[x</em>{1},\cdots,x_{2}](i=1,\cdots,n),c\in K$使得</p>
+<script type="math/tex; mode=display">
+    f(x_{1},\cdots,x_{n})=f_{1}\cdot(x_{1}-a_{1})+\cdots+f_{n}\cdot(x_{n}-a_{n})+c.</script><p>证明:对$f(x<em>{1},\cdots,x</em>{n})$的次数(即$f$中所有单项式的最高次数)归纳.</p>
+<p>若$deg(f)=1,$即$f$有形式</p>
+<script type="math/tex; mode=display">f(x_{1},\cdots,x_{n})=\sum_{i=1}^{n}b_{i}x_{i}+c_{0},</script><p>则</p>
+<script type="math/tex; mode=display">f(x_{1},\cdots,x_{n})=\sum_{i=1}^{n}b_{i}(x_{i}-a_{i})+(\sum_{i=1}^{n}a_{i}b_{i}+c_{0}).</script><p>即$n=1$时命题成立.\<br>    下面设$n=k$时命题成立。若$deg(f)=k+1,$则$f$首先可以写成形式$f=x<em>{1}f</em>{1}+\cdots+x<em>{n}f</em>{n}+c<em>{0},$其中$deg(f</em>{i})\leq k,i=1,\cdots,n$.根据归纳法，存在$f<em>{i,j}\in K[x</em>{1},\cdots,x<em>{n}](i,j=1\cdots,n),c</em>{i}\in K$使得$f<em>{i}=\sum</em>{j=1}^{n}f<em>{i,j}\cdot(x</em>{j}-a<em>{j})+c</em>{i}$<br>    于是</p>
+<script type="math/tex; mode=display">f=\sum_{i=1}^{n}x_{i}(\sum_{j=1}^{n}f_{i,j}(x_{j}-a_{j}))+\sum_{i=1}^{n}x_{i}c_{i}+c_{0}</script><script type="math/tex; mode=display">=\sum_{j=1}^{n}(\sum_{i=1}^{n}x_{i}f_{i,j})(x_{j}-a_{j})+\sum_{j=1}^{n}c_{j}(x_{j}-a_{j})+\sum_{k=1}^{n}a_{k}c_{k}+c_{0}</script><script type="math/tex; mode=display">=\sum_{j=1}^{n}(\sum_{i=1}^{n}x_{i}f_{i,j}+c_{j})(x_{j}-a_{j})+\sum_{k=1}^{n}a_{k}c_{k}+c_{0}.</script><p>令</p>
+<script type="math/tex; mode=display">g_{j}=\sum_{i=1}^{n}x_{i}f_{i,j}+c_{j}(j=1,\cdots,n),c=\sum_{k=1}^{n}a_{k}c_{k}+c_{0}.</script><p>则$f=\sum<em>{j=1}^{n}g</em>{j}(x<em>{j}-a</em>{j})+c.$归纳成立.</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="https://hlmath.github.io/2021/01/31/limit/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -408,7 +474,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">3</span>
+          <span class="site-state-item-count">4</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
