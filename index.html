@@ -150,6 +150,72 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://hlmath.github.io/2021/10/01/usemathjax/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="hlmath">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="hlmath">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/10/01/usemathjax/" class="post-title-link" itemprop="url">Wordpress中使用mathjax</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2021-10-01 19:41:18 / Modified: 19:53:49" itemprop="dateCreated datePublished" datetime="2021-10-01T19:41:18+08:00">2021-10-01</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>1.安装插件mathjax-latex。</p>
+<p>2.下载mathjax并上传至网站目录，并解压在合适的目录下(可以在wp-content下解压)。<a target="_blank" rel="noopener" href="https://github.com/mathjax/MathJax/archive/refs/tags/2.7.5.tar.gz"><font color=blue >2.75版链接</font> </a></p>
+<p>3.在mathjax-latex设置中选择使用本地源，Custom MathJax location中路径为</p>
+<blockquote>
+<p>wp-content/MathJax/MathJax.js</p>
+</blockquote>
+<p>4。在mathjax/config/default.js中去掉inlineMath中单美元符号的的注释，就可以使用通常的行内公式了。</p>
+<p>例如 .在mathjax2.75版本中，在第284行去掉单美元符号的注释.</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="https://hlmath.github.io/2021/10/01/PARI/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -636,7 +702,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">5</span>
+          <span class="site-state-item-count">6</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
