@@ -20,19 +20,20 @@
     var CONFIG = {"hostname":"hlmath.github.io","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="求极限   \lim\limits_{n\rightarrow \infty}\sum_{k&#x3D;1}^{n}\frac{1}{\sqrt{k(n-k+1)}}.">
+  <meta name="description" content="PARI使用介绍本文介绍利用PARI&#x2F;GP程序计算数域的一些代数量，代码主要参考[1]-[3].    PARI&#x2F;GP官网为http:&#x2F;&#x2F;pari.math.u-bordeaux.fr，可安装后使用，也可在浏览器直接使用.">
 <meta property="og:type" content="article">
-<meta property="og:title" content="一道求极限题">
-<meta property="og:url" content="https://hlmath.github.io/2021/01/31/limit/index.html">
+<meta property="og:title" content="PARI简介">
+<meta property="og:url" content="https://hlmath.github.io/2021/10/01/PARI/index.html">
 <meta property="og:site_name" content="hanglove">
-<meta property="og:description" content="求极限   \lim\limits_{n\rightarrow \infty}\sum_{k&#x3D;1}^{n}\frac{1}{\sqrt{k(n-k+1)}}.">
+<meta property="og:description" content="PARI使用介绍本文介绍利用PARI&#x2F;GP程序计算数域的一些代数量，代码主要参考[1]-[3].    PARI&#x2F;GP官网为http:&#x2F;&#x2F;pari.math.u-bordeaux.fr，可安装后使用，也可在浏览器直接使用.">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2021-01-31T07:43:33.000Z">
-<meta property="article:modified_time" content="2022-05-16T14:59:12.066Z">
+<meta property="article:published_time" content="2021-10-01T09:38:25.000Z">
+<meta property="article:modified_time" content="2023-02-16T07:02:26.404Z">
 <meta property="article:author" content="hang">
+<meta property="article:tag" content="PARI">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="https://hlmath.github.io/2021/01/31/limit/">
+<link rel="canonical" href="https://hlmath.github.io/2021/10/01/PARI/">
 
 
 <script id="page-configurations">
@@ -45,7 +46,7 @@
   };
 </script>
 
-  <title>一道求极限题 | hanglove</title>
+  <title>PARI简介 | hanglove</title>
   
 
 
@@ -170,7 +171,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://hlmath.github.io/2021/01/31/limit/">
+    <link itemprop="mainEntityOfPage" href="https://hlmath.github.io/2021/10/01/PARI/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -183,7 +184,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          一道求极限题
+          PARI简介
         </h1>
 
         <div class="post-meta">
@@ -193,14 +194,14 @@
               </span>
               <span class="post-meta-item-text">Posted on</span>
 
-              <time title="Created: 2021-01-31 15:43:33" itemprop="dateCreated datePublished" datetime="2021-01-31T15:43:33+08:00">2021-01-31</time>
+              <time title="Created: 2021-10-01 17:38:25" itemprop="dateCreated datePublished" datetime="2021-10-01T17:38:25+08:00">2021-10-01</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-05-16 22:59:12" itemprop="dateModified" datetime="2022-05-16T22:59:12+08:00">2022-05-16</time>
+                <time title="Modified: 2023-02-16 15:02:26" itemprop="dateModified" datetime="2023-02-16T15:02:26+08:00">2023-02-16</time>
               </span>
 
           
@@ -214,21 +215,90 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <blockquote>
-<p>求极限 </p>
+        <h1 id="PARI使用介绍"><a href="#PARI使用介绍" class="headerlink" title="PARI使用介绍"></a>PARI使用介绍</h1><p>本文介绍利用PARI/GP程序计算数域的一些代数量，代码主要参考[1]-[3].<br>    PARI/GP官网为<a target="_blank" rel="noopener" href="http://pari.math.u-bordeaux.fr/">http://pari.math.u-bordeaux.fr</a>，可安装后使用，也可在浏览器直接使用.<br><a id="more"></a>    </p>
+<p>1.计算$\mathbb{Q}$添加一个多项式的根生成的域的类群.例如多项式为 <script type="math/tex">T = x^6-3\cdot x^5 + 5\cdot x^3-3\cdot x + 1 .</script><br>输入<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">T &#x3D; x^6 - 3*x^5 + 5*x^3 - 3*x + 1;</span><br><span class="line">F &#x3D; bnfinit(T);\\ the number field Q[x]&#x2F;(T)</span><br><span class="line">F.cyc</span><br></pre></td></tr></table></figure><br>输出<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">%2 &#x3D; []</span><br></pre></td></tr></table></figure><br>表示类群是平凡的.</p>
+<p>输入<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">T &#x3D; x^4 + 13*x^2 - 12*x + 52;</span><br><span class="line">F &#x3D; bnfinit(T); \\ F &#x3D; Q[x]&#x2F;(T), together with class group</span><br><span class="line">F.cyc</span><br><span class="line"> %3 &#x3D; [14] \\ output: Cl_F ~ Z&#x2F;(14) </span><br></pre></td></tr></table></figure><br>上面最后一行$\%3=14$表示输出结果,其中$3$表示第几个程序，不用关心，$14$表示输出结果：类群是$14$阶循环群.<br>    注意加”;”时程序不会输出，不加”;”才能输出结果。在PARI中双斜杠“$\setminus\setminus$”表示注释。</p>
+<blockquote>
+<p><code>一般来说,借助多项式T,可用 nfiniy() 函数生成一个域，但若考虑域代数结构时，一般用包含类群，单位群的 bnfinit() 函数。</code></p>
+</blockquote>
+<p>PARI还可计算分歧指数,如下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">T&#x3D;x^6-3*x^5+5*x^3-3*x+1;</span><br><span class="line">F&#x3D;bnfint(T);</span><br><span class="line">P2 &#x3D; idealprimedec(F,2)[1]; \\ a prime above 2</span><br><span class="line">[P2.e,P2.f]  \\ ramification index and residue degree</span><br><span class="line">%1&#x3D;[3,2]  \\ e(P&#x2F;p)&#x3D;3,f(P&#x2F;p)&#x3D;2</span><br><span class="line">bnflogef(F,P2)</span><br><span class="line">%2&#x3D;[6,1]  </span><br></pre></td></tr></table></figure><br>上面$[6,1]$表示对数分歧指数，剩余类次数为$\widetilde{e}(P/p)=6,\widetilde{f}(P/p)=1.$</p>
+<p>2.计算$\mathbb{Q}$添加两个多项式的根生成域的子群，例如计算<script type="math/tex">\mathbb{Q} (\sqrt{-41},\xi_{9}+\xi_{9}^{-1})</script>的理想类群</p>
+<p>程序如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">T &#x3D; polcompositum(x^2+41, x^3-3*x+1, 2);</span><br><span class="line">F&#x3D;bnfinit(T);</span><br><span class="line">F.cyc</span><br><span class="line">%4&#x3D;[72,3] &#x2F;&#x2F;Cl(F) ~ Z&#x2F;(72) +Z&#x2F;(3) </span><br></pre></td></tr></table></figure><br>类群为$CL(F)\cong \mathbb{Z}/(72)\oplus \mathbb{Z}/(3)$.</p>
+<p>3.计算对数类群.若$K$是一个数域，$l$是固定的素数，设<script type="math/tex">\mathfrak{p}_{1},\cdots,\mathfrak{p}_{s}</script>表示$l$上的素数.用<script type="math/tex">\widetilde{Cl}_{K}</script>表示$K$的关于素数$l$的对数类群，用<script type="math/tex">\widetilde{Cl}(l)</script>表示所有在$l$上的素理想所在对数理想类在对数类群中生成的子群.<br>    用$Cl’$表示商群<script type="math/tex">Cl_{K}/<[\mathfrak{p}_{1}],\cdots,[\mathfrak{p}_{s}]></script>的$l-sylow$子群.<br>    定义映射</p>
+<script type="math/tex; mode=display">\theta:\widetilde{Cl}\rightarrow Cl',\sum_{\mathfrak{p}}m_{\mathfrak{p}}\mapsto \prod_{\mathfrak{p}\nmid l}\mathfrak{p}^{(1/\lambda_{\mathfrak{p}})m_{\mathfrak{p}}.}</script><p>其中<script type="math/tex">\lambda_{\mathfrak{p}}=\frac{\widetilde{e_{\mathfrak{p}}}}{e_{\mathfrak{p}}}.</script><br>则有正合列</p>
 <script type="math/tex; mode=display">
-\lim\limits_{n\rightarrow \infty}\sum_{k=1}^{n}\frac{1}{\sqrt{k(n-k+1)}}.</script></blockquote>
-<a id="more"></a>
-<p>解：由</p>
-<script type="math/tex; mode=display">
-\sum_{k=1}^{n}\frac{1}{\sqrt{\frac{k}{n}(1-\frac{k-1}{n})}}\leq \sum_{k=1}^{n}\int_{\frac{k-1}{n}}^{\frac{k}{n}}\frac{dx}{\sqrt{x(1-x)}}=\int_{0}^{1}\frac{dx}{\sqrt{x(1-x)}}=\pi</script><script type="math/tex; mode=display">
-\sum_{k=1}^{n}\frac{1}{\sqrt{\frac{k}{n}(1-\frac{k-1}{n})}}=\sum_{k=1}^{n}\frac{1}{\sqrt{\frac{k}{n}(1+\frac{2}{n}-\frac{k+1}{n})}}</script><script type="math/tex; mode=display">
-\geq \sum_{k=1}^{n}\int_{\frac{k}{n}}^{\frac{k+1}{n}}\frac{dx}{\sqrt{x(1+\frac{2}{n}-x)}}=\int_{\frac{1}{n}}^{1+\frac{1}{n}}\frac{dx}{\sqrt{x(1+\frac{2}{n}-x)}}</script><script type="math/tex; mode=display">
-=\int_{\frac{1}{n}}^{1+\frac{2}{n}}\frac{dx}{\sqrt{x(1+\frac{2}{n}-x)}}-\int_{0}^{1+\frac{1}{n}}\frac{dx}{\sqrt{x(1+\frac{2}{n}-x)}}-\int_{1+\frac{1}{n}}^{1+\frac{2}{n}}\frac{dx}{\sqrt{x(1+\frac{2}{n}-x)}}</script><script type="math/tex; mode=display">
-=\int_{0}^{1}\frac{dt}{\sqrt{t(1-t)}}-2\int_{0}^{\frac{1}{n}}\frac{dx}{\sqrt{x(1+\frac{2}{n}-x)}}(t=\frac{x}{1+\frac{2}{n}})</script><script type="math/tex; mode=display">
-\geq \pi-\frac{2}{\sqrt{1+\frac{1}{n}}}\int_{0}^{\frac{1}{n}}\frac{1}{\sqrt{x}}dx=\pi-\frac{2}{\sqrt{1+\frac{1}{n}}}\frac{2}{\sqrt{n}}=\pi-\frac{4}{\sqrt{n+1}}</script><p>于是</p>
-<script type="math/tex; mode=display">
-\pi-\frac{4}{\sqrt{n+1}}\leq \sum_{k=1}^{n}\frac{1} {\sqrt{k(n-k+1)}}=\sum_{k=1}^{n}\frac{1}{\sqrt{\frac{k}{n}(1-\frac{k-1}{n})}}\leq \pi</script><p>从而极限是$\pi$.</p>
+0\rightarrow \widetilde{Cl}(l)\rightarrow \widetilde{Cl}\stackrel{\theta}{\rightarrow }Cl'\rightarrow Coker\theta \rightarrow 0.</script><p>PARI中对函数\textbf{bnflog}输入一个数域$F$及一个素数$l$,其返回值为$(\widetilde{Cl},\widetilde{Cl}(l),Cl’),$<br>例如输入<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">T&#x3D;x^3+6*x-1;</span><br><span class="line">F&#x3D;bnfinit(T);</span><br><span class="line">bnflog(F,3)</span><br><span class="line">%5&#x3D; [[], [], []]</span><br></pre></td></tr></table></figure><br>表明3-对数类群及其他两个群都是平凡的.</p>
+<p>下设$F$是一个代数数域，一些PARI命令如下.</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>PARI代码</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>F=bnfinit(T)</td>
+<td>用不可约多项式T生成域：F= Q[x]/(T)</td>
+</tr>
+<tr>
+<td>F.cyc</td>
+<td>代数数域F的类数</td>
+</tr>
+<tr>
+<td>F.zk</td>
+<td>数域F的整基,输出结果中含有一个变量，表示定义域F的多项式T的一个根</td>
+</tr>
+<tr>
+<td>F.disc</td>
+<td>数域F的判别式</td>
+</tr>
+<tr>
+<td>left(F.tu)</td>
+<td>数域F单位群的单位根部分</td>
+</tr>
+<tr>
+<td>left(F.fu)</td>
+<td>数域F单位群的自由部分部分，输出为基本单位(输出结果中含有一个变量，表示定义域F的多项式T的一个根)</td>
+</tr>
+<tr>
+<td>polisirreducible(f)</td>
+<td>判断整数环上首一多项式f是否为不可约多项式，若是：返回1;否则，返回0</td>
+</tr>
+<tr>
+<td>dec = idealprimedec(K,5);#dec</td>
+<td>数域K中在5上素理想的个数;此时若再输入[pr1,pr2]=dec,则pr1,pr2分别表示5上的第一个和第二个素理想,pr1.f,pr1.e分别表示其剩余类域扩张次数和分歧指数</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>poldisc(f)</td>
+<td>多项式f的判别式</td>
+</tr>
+<tr>
+<td>polroots(f)</td>
+<td>多项式f的根</td>
+</tr>
+<tr>
+<td>polrootsreal(f,{[a, b]})</td>
+<td>多项式f(在区间[a,b]中)的实根</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>当然PARI还有许多功能，可见网站中Help/community下的Tutorials页面。</p>
+<h3 id="参考资料："><a href="#参考资料：" class="headerlink" title="参考资料："></a>参考资料：</h3><p>1.PARI官网.<a target="_blank" rel="noopener" href="http://pari.math.u-bordeaux.fr/Events/PARI2019b/talks/TAN.pdf">Algebraic number theory with GP</a>.<br>2.PARI官网.<a target="_blank" rel="noopener" href="http://pari.math.u-bordeaux.fr/pub/pari/manuals/2.13.0/refcard.pdf">PARI基本的函数</a>.<br>3.Karim Belabas,Jean-Francois Jaulent,.<a target="_blank" rel="noopener" href="https://hal.archives-ouvertes.fr/hal-01419870/document">The logarithmic class group package in PARI/GP</a></p>
 
     </div>
 
@@ -237,6 +307,9 @@
     
 
       <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/PARI/" rel="tag"># PARI</a>
+          </div>
 
         
 
@@ -244,12 +317,12 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2021/01/31/creatmathjax/" rel="prev" title="hexo中使用mathjax的方法">
-      <i class="fa fa-chevron-left"></i> hexo中使用mathjax的方法
+    <a href="/2021/07/17/residue-theorem/" rel="prev" title="多元多项式的带余除法">
+      <i class="fa fa-chevron-left"></i> 多元多项式的带余除法
     </a></div>
       <div class="post-nav-item">
-    <a href="/2021/07/17/residue-theorem/" rel="next" title="多元多项式的带余除法">
-      多元多项式的带余除法 <i class="fa fa-chevron-right"></i>
+    <a href="/2021/10/01/usemathjax/" rel="next" title="Wordpress中使用mathjax">
+      Wordpress中使用mathjax <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -309,6 +382,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#PARI%E4%BD%BF%E7%94%A8%E4%BB%8B%E7%BB%8D"><span class="nav-number">1.</span> <span class="nav-text">PARI使用介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99%EF%BC%9A"><span class="nav-number">1.0.1.</span> <span class="nav-text">参考资料：</span></a></li></ol></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
