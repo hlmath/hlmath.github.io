@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"hlmath.github.io","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="最近在我的 J4125 (Debian) 宿主机上重新部署了之前闲置的 Hexo 博客。为了追求极简、易迁移以及跨设备写作的便利性，我抛弃了传统的本地环境安装，转向了 Docker (Dockge) + CloudDrive2 的全套容器化解决方案。 这套方案不仅保持了宿主机系统的纯净，还完美打通了手机、Windows 电脑和服务器之间的数据壁垒，今天把整个折腾的过程和踩坑经验记录下来。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="在 Debian 上使用 Dockge 优雅部署 Hexo 博客，并借助 CloudDrive2 实现跨端写作">
+<meta property="og:url" content="https://hlmath.github.io/2026/09/18/debian-move/index.html">
+<meta property="og:site_name" content="Dreamer">
+<meta property="og:description" content="最近在我的 J4125 (Debian) 宿主机上重新部署了之前闲置的 Hexo 博客。为了追求极简、易迁移以及跨设备写作的便利性，我抛弃了传统的本地环境安装，转向了 Docker (Dockge) + CloudDrive2 的全套容器化解决方案。 这套方案不仅保持了宿主机系统的纯净，还完美打通了手机、Windows 电脑和服务器之间的数据壁垒，今天把整个折腾的过程和踩坑经验记录下来。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2026-09-18T10:00:00.000Z">
+<meta property="article:modified_time" content="2026-09-18T12:42:47.095Z">
+<meta property="article:author" content="hang">
+<meta property="article:tag" content="Hexo">
+<meta property="article:tag" content="Docker">
+<meta property="article:tag" content="Dockge">
+<meta property="article:tag" content="HomeLab">
+<meta property="article:tag" content="CloudDrive2">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://hlmath.github.io/2026/09/18/debian-move/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>在 Debian 上使用 Dockge 优雅部署 Hexo 博客，并借助 CloudDrive2 实现跨端写作 | Dreamer</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Dreamer</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-book">
+
+    <a href="/book" rel="section"><i class="fa fa-sticky-note fa-fw"></i>笔记</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://hlmath.github.io/2026/09/18/debian-move/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="hang">
+      <meta itemprop="description" content="给我一往无前的勇气">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Dreamer">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          在 Debian 上使用 Dockge 优雅部署 Hexo 博客，并借助 CloudDrive2 实现跨端写作
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2026-09-18 10:00:00 / 修改时间：12:42:47" itemprop="dateCreated datePublished" datetime="2026-09-18T10:00:00+00:00">2026-09-18</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%8A%98%E8%85%BE%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index"><span itemprop="name">折腾笔记</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>最近在我的 J4125 (Debian) 宿主机上重新部署了之前闲置的 Hexo 博客。为了追求极简、易迁移以及跨设备写作的便利性，我抛弃了传统的本地环境安装，转向了 <code>Docker (Dockge) + CloudDrive2</code> 的全套容器化解决方案。</p>
+<p>这套方案不仅保持了宿主机系统的纯净，还完美打通了手机、Windows 电脑和服务器之间的数据壁垒，今天把整个折腾的过程和踩坑经验记录下来。</p>
+<a id="more"></a>
+<h2 id="为什么选择-Docker-而不是本地安装-Node-js？"><a href="#为什么选择-Docker-而不是本地安装-Node-js？" class="headerlink" title="为什么选择 Docker 而不是本地安装 Node.js？"></a>为什么选择 Docker 而不是本地安装 Node.js？</h2><p>对于极客玩家来说，“万物皆可 Docker” 绝不是一句空话。把 Hexo 塞进 Docker 容器里有两大无可替代的好处：</p>
+<ol>
+<li><strong>环境隔离</strong>：完全不需要在 Debian 上安装 Node.js 及其各种零碎的依赖包，宿主机永远保持干净。</li>
+<li><strong>极速迁移</strong>：未来换服务器，只需要把映射出来的数据文件夹（Volume）打包带走。在新机器上一键拉起，连各种配置和环境变量都丝毫不差。</li>
+</ol>
+<h2 id="核心部署：通过-Dockge-一键拉起-Hexo"><a href="#核心部署：通过-Dockge-一键拉起-Hexo" class="headerlink" title="核心部署：通过 Dockge 一键拉起 Hexo"></a>核心部署：通过 Dockge 一键拉起 Hexo</h2><p>我使用了 <strong>Dockge</strong> 这个优秀的 Docker Compose 可视化面板来管理项目。</p>
+<p>在 Dockge 中新建一个名为 <code>hexo</code> 的项目，使用官方提供的极简 Node.js 镜像，并在启动时自动执行依赖安装和系统初始化。</p>
+<h3 id="docker-compose-yml-配置如下："><a href="#docker-compose-yml-配置如下：" class="headerlink" title="docker-compose.yml 配置如下："></a>docker-compose.yml 配置如下：</h3><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">version:</span> <span class="string">&#x27;3.8&#x27;</span></span><br><span class="line"><span class="attr">services:</span></span><br><span class="line">  <span class="attr">hexo:</span></span><br><span class="line">    <span class="attr">image:</span> <span class="string">node:lts-alpine</span></span><br><span class="line">    <span class="attr">container_name:</span> <span class="string">hexo_server</span></span><br><span class="line">    <span class="attr">restart:</span> <span class="string">unless-stopped</span></span><br><span class="line">    <span class="attr">volumes:</span></span><br><span class="line">      <span class="comment"># 将容器内的 /app 映射到宿主机的当前 data 目录</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">./data:/app</span></span><br><span class="line">    <span class="attr">working_dir:</span> <span class="string">/app</span></span><br><span class="line">    <span class="attr">ports:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">&quot;4000:4000&quot;</span></span><br><span class="line">    <span class="comment"># 这段命令会自动判断：如果没有博客文件就自动初始化，如果有就直接启动服务</span></span><br><span class="line">    <span class="attr">command:</span> <span class="string">sh</span> <span class="string">-c</span> <span class="string">&quot;apk add --no-cache git &amp;&amp; npm install -g hexo-cli &amp;&amp; if [ ! -f _config.yml ]; then hexo init . ; fi &amp;&amp; npm install &amp;&amp; hexo server&quot;</span></span><br></pre></td></tr></table></figure>
+<p>点击部署后，Dockge 就会自动把运行环境和 Hexo 本体建立起来。</p>
+<blockquote>
+<p><strong>💡 旧博客迁移提示</strong>：<br>如果你像我一样，本地已经有以前废弃的 Hexo 源码，可以直接把旧源码（<code>_config.yml</code>、<code>source</code> 文件夹、<code>themes</code> 文件夹、<code>package.json</code> 等）直接丢进 <code>data</code> 目录里。<br><strong>⚠️ 核心警告</strong>：千万不要上传旧电脑里的 <code>node_modules</code> 文件夹！Alpine 容器底层架构不同，强行上传会导致报错。容器启动时会根据你的 <code>package.json</code> 自动下载最匹配的依赖包。</p>
+</blockquote>
+<h2 id="跨端写作的魔法：CloudDrive2-变身-WebDAV-服务器"><a href="#跨端写作的魔法：CloudDrive2-变身-WebDAV-服务器" class="headerlink" title="跨端写作的魔法：CloudDrive2 变身 WebDAV 服务器"></a>跨端写作的魔法：CloudDrive2 变身 WebDAV 服务器</h2><p>环境搭好了，怎么写文章最方便？每次连 SSH 进服务器写显然反人类。如果把数据直接挂载到阿里云盘等网盘，又会因为 Hexo 高频的底层文件监听（用于网页热重载），极易触发网盘 API 风控。</p>
+<p><strong>我的终极方案是：数据依然留在本地 SSD，用 CloudDrive2 给它开 WebDAV 共享！</strong></p>
+<h3 id="第一步：打通-CloudDrive2-与-Hexo-目录"><a href="#第一步：打通-CloudDrive2-与-Hexo-目录" class="headerlink" title="第一步：打通 CloudDrive2 与 Hexo 目录"></a>第一步：打通 CloudDrive2 与 Hexo 目录</h3><p>既然 CloudDrive2 也是用 Docker 部署的，我们需要修改 CD2 的 <code>docker-compose.yml</code>，给它开一扇“窗户”看到 Hexo 的文件夹：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">volumes:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">./Config:/CloudNAS:shared</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">/mnt/CloudDrive:/mnt/CloudDrive:shared</span></span><br><span class="line">  <span class="comment"># 【新增下面这一行】，将宿主机的 Hexo 源码目录暴露给 CD2</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">/opt/stacks/hexo/data/source:/HexoSource</span></span><br></pre></td></tr></table></figure>
+<h3 id="第二步：在-CD2-中挂载本地目录"><a href="#第二步：在-CD2-中挂载本地目录" class="headerlink" title="第二步：在 CD2 中挂载本地目录"></a>第二步：在 CD2 中挂载本地目录</h3><ol>
+<li>打开 CloudDrive2 的网页后台。</li>
+<li>添加存储 -&gt; 选择 <strong>本地文件夹 (Local Folder)</strong>。</li>
+<li>路径直接选择刚刚映射进来的 <code>/HexoSource</code>。</li>
+<li>在 CD2 的设置中开启 WebDAV 服务。</li>
+</ol>
+<p><strong>效果达成</strong>：此时，整个 Hexo 的 <code>source</code> 目录已经通过 WebDAV 暴露了出来。</p>
+<ul>
+<li>在 Windows 上：你可以用 RaiDrive 将其映射为本地 Z 盘，直接用 Typora 写文章。</li>
+<li>在手机上：可以用 Obsidian 等支持 WebDAV 的 App 随时随地记录灵感。</li>
+<li><strong>零网盘风控，零数据延迟，完美跨端！</strong></li>
+</ul>
+<h2 id="最后一步：日常的发布流"><a href="#最后一步：日常的发布流" class="headerlink" title="最后一步：日常的发布流"></a>最后一步：日常的发布流</h2><p>当在本地或手机上通过 WebDAV 把文章写好并保存后，Hexo 后台会自动重载，可以在浏览器通过 <code>http://服务器IP:4000</code> 实时预览。</p>
+<p>当你确认无误准备发布到 GitHub Pages 时，只需要在部署 Hexo 之前，在 <code>_config.yml</code> 底部配置好 GitHub 仓库地址和 Token：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">deploy:</span></span><br><span class="line">  <span class="attr">type:</span> <span class="string">git</span></span><br><span class="line">  <span class="attr">repo:</span> <span class="string">https://ghp_你的Token@github.com/用户名/用户名.github.io.git</span></span><br><span class="line">  <span class="attr">branch:</span> <span class="string">main</span></span><br></pre></td></tr></table></figure>
+<p>最后，打开 Dockge 网页后台，进入 Hexo 容器的终端（bash），输入终极咒语：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo clean &amp;&amp; hexo deploy -g</span><br></pre></td></tr></table></figure>
+<p>静待 1 分钟，全新的文章就已经在全球生效了！这就是独属于 HomeLab 玩家的快乐！</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Hexo/" rel="tag"># Hexo</a>
+              <a href="/tags/Docker/" rel="tag"># Docker</a>
+              <a href="/tags/Dockge/" rel="tag"># Dockge</a>
+              <a href="/tags/HomeLab/" rel="tag"># HomeLab</a>
+              <a href="/tags/CloudDrive2/" rel="tag"># CloudDrive2</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2023/09/06/record/" rel="prev" title="record">
+      <i class="fa fa-chevron-left"></i> record
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E9%80%89%E6%8B%A9-Docker-%E8%80%8C%E4%B8%8D%E6%98%AF%E6%9C%AC%E5%9C%B0%E5%AE%89%E8%A3%85-Node-js%EF%BC%9F"><span class="nav-number">1.</span> <span class="nav-text">为什么选择 Docker 而不是本地安装 Node.js？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A0%B8%E5%BF%83%E9%83%A8%E7%BD%B2%EF%BC%9A%E9%80%9A%E8%BF%87-Dockge-%E4%B8%80%E9%94%AE%E6%8B%89%E8%B5%B7-Hexo"><span class="nav-number">2.</span> <span class="nav-text">核心部署：通过 Dockge 一键拉起 Hexo</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#docker-compose-yml-%E9%85%8D%E7%BD%AE%E5%A6%82%E4%B8%8B%EF%BC%9A"><span class="nav-number">2.1.</span> <span class="nav-text">docker-compose.yml 配置如下：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%B7%A8%E7%AB%AF%E5%86%99%E4%BD%9C%E7%9A%84%E9%AD%94%E6%B3%95%EF%BC%9ACloudDrive2-%E5%8F%98%E8%BA%AB-WebDAV-%E6%9C%8D%E5%8A%A1%E5%99%A8"><span class="nav-number">3.</span> <span class="nav-text">跨端写作的魔法：CloudDrive2 变身 WebDAV 服务器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC%E4%B8%80%E6%AD%A5%EF%BC%9A%E6%89%93%E9%80%9A-CloudDrive2-%E4%B8%8E-Hexo-%E7%9B%AE%E5%BD%95"><span class="nav-number">3.1.</span> <span class="nav-text">第一步：打通 CloudDrive2 与 Hexo 目录</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC%E4%BA%8C%E6%AD%A5%EF%BC%9A%E5%9C%A8-CD2-%E4%B8%AD%E6%8C%82%E8%BD%BD%E6%9C%AC%E5%9C%B0%E7%9B%AE%E5%BD%95"><span class="nav-number">3.2.</span> <span class="nav-text">第二步：在 CD2 中挂载本地目录</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%80%E5%90%8E%E4%B8%80%E6%AD%A5%EF%BC%9A%E6%97%A5%E5%B8%B8%E7%9A%84%E5%8F%91%E5%B8%83%E6%B5%81"><span class="nav-number">4.</span> <span class="nav-text">最后一步：日常的发布流</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">hang</p>
+  <div class="site-description" itemprop="description">给我一往无前的勇气</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">9</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2026</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">hang</span>
+</div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,969 @@
+\documentclass[UTF8]{article}
+\usepackage{ctex}
+\usepackage[colorlinks=true]{hyperref}
+\title{\textbf{\huge{群的上同调}}}
+\author{Lhzsl}
+\date{}
+\usepackage[b5paper,left=10mm,right=10mm,top=15mm,bottom=15mm]{geometry}
+\usepackage{amsthm,amsmath,amssymb}
+\usepackage{mathrsfs}
+\usepackage{tikz}
+\usepackage[all]{xy}
+\usetikzlibrary{cd}
+\usepackage{fancyhdr}
+\usepackage{color}
+\newtheorem{thm}{Theorem}[section]
+\newtheorem{defn}{Definition}[section]
+\newtheorem{cor}{Corollary}[section]
+\newtheorem{prop}{Proposition}[section]
+\newtheorem{exa}{Example}[section]
+\newtheorem{lem}{Lemma}[section]
+\newtheorem{Rem}{Remark}[section]
+
+\begin{document}
+	\maketitle
+	\tableofcontents
+	\newpage
+	\section{Abel范畴上的同调代数}
+	\subsection{基本定义与定理}
+	加法范畴$\mathcal{A}$中一个\emph{上链复形}是指$\mathcal{A}$中一个态射链
+	$$
+	\cdots\rightarrow X^{n-1}\stackrel{d^{n-1}}{\rightarrow} X^{n}\stackrel{d^{n}}{\rightarrow}X^{n+1}\rightarrow \cdots
+	$$
+	满足$d^{n}d^{n-1}=0,\forall n\in \mathbb{Z}$.将此上链复形记为$X^{\bullet}=(X^{n},d^{n})_{n\in \mathbb{Z}}.$
+	
+	复形之间的\emph{链映射}(又称复形态射)$f^{\bullet}:X\rightarrow Y$是指$f^{\bullet}=(f^{n})_{n\in \mathbb{Z}},$其中每个$f^{n}:X^{n}\rightarrow Y^{n}$均是$\mathcal{A}$中态射，满足
+		$$
+		f^{n+1}d_{X}^{n}=d_{Y}^{n}f^{n},\ \ \forall n\in \mathbb{Z},
+		$$
+		即有如下交换图
+$$
+\xymatrix{
+	\cdots \ar[r]&X^{n-1}\ar[r]^{d_{X}^{n-1}}\ar[d]_{f^{n-1}}&X^{n}\ar[r]^{d_{X}^{n}}\ar[d]_{f^{n}}&X^{n+1}\ar[r]\ar[d]_{f^{n+1}}&\cdots \\
+	\cdots\ar[r]&Y^{n-1}\ar[r]^{d_{Y}^{n-1}}&Y^{n}\ar[r]^{d_{Y}^{n}}&Y^{n+1}\ar[r]&\cdots
+}
+$$
+也将$f^{\bullet}$简记为$f$.两个链映射$(f^{n})_{n\in \mathbb{Z}}:X\rightarrow Y$与$(g^{n})_{n\in \mathbb{Z}}:X\rightarrow Y$相等是指$f^{n}=g^{n},\forall n\in \mathbb{Z}$.
+
+用$C(\mathcal{A})$记$\mathcal{A}$上的\emph{上链复形范畴}，其对象就是$\mathcal{A}$上所有上链复形，$Hom_{C(\mathcal{A})}(X,Y)$是复形$X$到复形$Y$的所有链映射作成的集合。
+\begin{lem}
+	(\cite{zh}引理3.1.2)设$\mathcal{A}$是Abel范畴，则$C(\mathcal{A})$也是Abel范畴.链映射的序列$0\rightarrow X\stackrel{u}{\rightarrow}Y\stackrel{v}{\rightarrow}Z\rightarrow 0$是$C(\mathcal{A})$中的短正合列当且仅当对每个$n\in \mathbb{Z},0\rightarrow X^{n}\stackrel{u^{n}}{\rightarrow}Y^{n}\stackrel{v^{n}}{\rightarrow}Z^{n}\rightarrow 0$均是$\mathcal{A}$中短正合列。
+\end{lem}
+ 
+ 设$\mathcal{A}$是Abel范畴.对于$\mathcal{A}$上的上链复形$X=(X^{n},d^{n})_{n\mathbb{Z}}$和任一$n\mathbb{Z}$,因为$d^{n}d^{n-1}=0,\forall n\mathbb{Z},$故由典范单态射$Imd^{n-1}\hookrightarrow Kerd^{n}$.定义复形$X$的\emph{n次上同调对象}为
+ $$
+ H^{n}(X):=Kerd^{n}/Imd^{n-1}.
+ $$
+ 
+下面定理被称为同调代数基本定理，即从一个短正合列可得到关于同调群的长正合列(\cite{zh}定理3.2.1)	
+\begin{thm}
+(同调代数基本定理)设$\mathcal{A}$是Abel范畴，$0\rightarrow X\stackrel{u}{\rightarrow}
+ Y\stackrel{v}{\rightarrow} Z\rightarrow 0$是上链复形的短正合列。则有$\mathcal{A}$中长正合列
+ $$
+ \cdots\rightarrow H^{n}(X)\stackrel{H^{n}(u)}{\longrightarrow}H^{n}(Y)\stackrel{H^{n}(v)}{\longrightarrow}H^{n}(Z)\stackrel{c^{n}}{\longrightarrow}H^{n+1}(X)\stackrel{H^{n+1}(u)}{\longrightarrow}H^{n+1}(Y)\longrightarrow\cdots
+ $$
+ 其中连接态射$c$是自然的：即，若有$C(\mathcal{A})$中交换图
+ $$
+ \xymatrix{
+0\ar[r]&X\ar[r]^{u}\ar[d]_{f}&Y\ar[r]^{v}\ar[d]_{g}&Z\ar[r]\ar[d]_{h}&0 \\
+0\ar[r]&X^{'}\ar[r]^{u'}&Y^{'}\ar[r]^{v'}&Z'\ar[r]&0 
+}
+ $$
+ 其中上下两行均为$\mathcal{A}$上复形的短正合列，则有$\mathcal{A}$中长正合列的交换图
+ $$
+ \xymatrix{
+ \cdots\ar[r]& H^{n}(X)\ar[r]^{H^{n}(u)}\ar[d]_{H^{n}(f)}&H^{n}(Y)\ar[r]^{H^{n}(v)}\ar[d]_{H^{n}(g)}&H^{n}(Z)\ar[r]^{c^{n}}\ar[d]_{H^{n}(h)}&H^{n+1}(X)\ar[r]^{H^{n+1}(u)}\ar[d]_{H^{n+1}(f)}&H^{n+1}(Y)\ar[r]\ar[d]_{H^{n+1}(g)}&\cdots \\
+ \cdots\ar[r]& H^{n}(X')\ar[r]^{H^{n}(u')}&H^{n}(Y')\ar[r]^{H^{n}(v')}&H^{n}(Z')\ar[r]^{c'^{n}}&H^{n+1}(X')\ar[r]^{H^{n+1}(u')}&H^{n+1}(Y')\ar[r]&\cdots
+}
+ $$
+\end{thm}
+上述定理证明主体是使用“蛇引理”完成的，连接态射的自然性也是利用蛇引理连接态射的自然性得到，而后者的证明用到了“态射范畴”。
+\begin{defn}
+范畴$\mathcal{A}$中对象$P$称为投射对象，如果存在态射图
+$$
+\xymatrix{
+&P\ar[d]^{f}\ar@{.>}[ld]_{g}& \\
+X\ar[r]^{\pi}&Y\ar[r]&0
+}
+$$
+其中$\pi$是任意满态射，$f$是任意态射，均存在$g$使得$\pi g=f.$如果对于$\mathcal{A}$中对象$M$,均存在$\mathcal{A}$的投射对象$P_{0}$和$\mathcal{A}$中满态射$P_{0}\twoheadrightarrow M$,则称$\mathcal{A}$有足够多投射对象。
+\end{defn}
+
+\begin{defn}
+	范畴$\mathcal{A}$中对象$I$称为内射对象，如果存在态射图
+	$$
+	\xymatrix{
+		0\ar[r]&X\ar[r]^{\sigma}\ar[d]_{f}&Y\ar@{.>}[ld]^{g}\\
+		&I&
+	}
+	$$
+	其中$\sigma$是任意单态射，$f$是任意态射，均存在$g$使得$g\sigma =f.$如果对于$\mathcal{A}$中对象$M$,均存在$\mathcal{A}$的内射对象$I^{0}$和$\mathcal{A}$中单态射$M \hookrightarrow I^{0}$,则称$\mathcal{A}$有足够多内射对象。
+\end{defn}
+
+设$\mathcal{A}$是具有足够多投射对象的Abel范畴，$M$是$\mathcal{A}$中任一对象，称形如
+$$
+\cdots\rightarrow P_{2}\stackrel{d_{1}}{\rightarrow}P_{1}\stackrel{d_{0}}{\rightarrow}P_{0}\stackrel{\pi}{\rightarrow}M\rightarrow 0
+$$
+的正合列为$M$的一个\emph{投射分解},其中每个$P_{i}$均是$\mathcal{A}$中投射对象。方便起见，我们简记上述投射分解为$P\stackrel{\pi}{\rightarrow}M\rightarrow 0$.称复形$\cdots\rightarrow P_{2}\stackrel{d_{1}}{\rightarrow}P_{1}\stackrel{d_{0}}{\rightarrow}P_{0}\rightarrow 0$为$M$的一个\emph{删项投射分解}。
+
+由定义知若$\mathcal{A}$是具有足够多投射对象的Abel范畴，则$\mathcal{A}$中任一对象$M$的投射分解总存在。
+
+在Abel范畴$\mathcal{A}$中，称正合列
+$$
+0\rightarrow A\stackrel{a}{\rightarrow}B\stackrel{b}{\rightarrow}C\rightarrow 0
+$$
+是\emph{可裂正合列}(split exact),若存在态射$f:B\rightarrow A\oplus C$使得下图交换
+$$
+\xymatrix{
+0\ar[r]&A\ar[d]^{id}\ar[r]&B\ar[d]^{f}\ar[r]&C\ar[d]^{id}\ar[r]&0\\
+0\ar[r]&A\ar[r]^{i}&A\oplus C\ar[r]^{p}&C\ar[r]&0
+}
+$$
+其中$A\oplus C$是$A,C$的直和，$i:A\rightarrow A\oplus C$是自然嵌入，$p:A\oplus C\rightarrow C$是投影。
+
+称$\mathcal{A}$上复形的链映射序列$0\rightarrow P'\stackrel{f}{\rightarrow}P\stackrel{g}{\rightarrow}P''\rightarrow 0
+$是链可裂短正合列，如果对于每个$n\in\mathbb{Z},0\rightarrow P'^{n}\stackrel{f^{n}}{\rightarrow}P^{n}\stackrel{g^{n}}{\rightarrow}P''^{n}\rightarrow 0$均是$\mathcal{A}$中可裂短正合列.
+下面是一个重要的引理(\cite{zh}引理3.4.4)
+\begin{lem}
+	(马蹄引理)设$\mathcal{A}$是具有足够多投射对象的Abel范畴，$0\rightarrow X\stackrel{f}{\rightarrow}Y\stackrel{g}{\rightarrow}Z\rightarrow 0
+	$是$\mathcal{A}$中短正合列。设$P'\stackrel{\pi'}{\rightarrow}X\rightarrow 0$和$P''\stackrel{\pi''}{\rightarrow}Z\rightarrow 0$分别是$X$和$Z$的一个投射分解，则存在$Y$的一个投射分解$P\stackrel{\pi}{\rightarrow}Y\rightarrow0$使得$P_{n}=P_{n}'\oplus P_{n}'',\forall n\geq 0,$且有如下行与列均为正合列的交换图
+	$$
+	\xymatrix{
+     	&\vdots\ar[d]            & \vdots \ar@{.>}[d]  & \vdots\ar[d]  &   \\
+0\ar[r]&P_{1}'\ar[r]^{i}\ar[d]^{d_{0}'}&P_{1}'\oplus P_{1}''\ar[r]^{p}\ar@{.>}[d]^{d_{0}}&P_{1}''\ar[r]\ar[d]^{d_{0}''}& 0\\
+0\ar[r]&P_{0}'\ar[r]^{i}\ar[d]^{\pi'}&P_{0}'\oplus P_{0}''\ar[r]^{p}\ar@{.>}[d]^{\pi}&P_{0}''\ar[r]\ar[d]^{\pi''}& 0\\
+0\ar[r]&X\ar[r]^{f}\ar[d]&Y\ar[r]^{g}\ar@{.>}[d]&Z\ar[r]\ar[d]&0\\
+&0&0&0&
+}
+$$
+其中$i,p$分别是自然的嵌入，投射。从而有复形的链可裂短正合列$0\rightarrow P'\rightarrow P\rightarrow P''\rightarrow 0$使得$P\rightarrow Y\rightarrow 0$是$Y$的一个投射分解。
+	\end{lem}
+对于内射分解有同样的结论，这里暂且省略(见\cite{zh}第3.4节).
+
+设$\mathcal{A}$和$\mathcal{B}$是两个Abel范畴，$F:\mathcal{A}\rightarrow\mathcal{B}$是范畴之间的加法函子，若对于$\mathcal{A}$中任一正合列$0\rightarrow X\stackrel{f}{\rightarrow}Y\stackrel{g}{\rightarrow}Z\rightarrow 0$,$\mathcal{B}$中有正合列$0\rightarrow FX\stackrel{Ff}{\longrightarrow}FY\stackrel{Fg}{\longrightarrow}FZ$,则称$F$是\textbf{左}正合函子；若$\mathcal{B}$中有正合列$ FX\stackrel{Ff}{\longrightarrow}FY\stackrel{Fg}{\longrightarrow}FZ\longrightarrow 0$,则称$F$是\textbf{右}正合函子。
+
+\begin{exa}
+	在Abel范畴$\mathcal{A}$中，$N$是$\mathcal{A}$中对象，$Ab$表示Abel群范畴。则$Hom_{\mathcal{A}}(-,N):\mathcal{A}\rightarrow Ab$是左正合反变函子，$Hom_{\mathcal{A}}(N,-):\mathcal{A}\rightarrow Ab$是左正合(共变)函子。
+	
+	设$R$是环，$R-Mod$表示$R-$模范畴，$M$是右$R-$模，则$M\otimes_{R}-:R-Mod\rightarrow Ab$是右正合函子。
+\end{exa}
+\subsection{导出函子}
+下面对一般的加法函子定义导出函子.一般地，不管函子是共变或反变，我们只考虑左正合函子的右导出函子，右正合函子的左导出函子.
+
+下面我们讨论反变加法函子的右导出函子，其它情形类似。
+
+设$\mathcal{A}$和$\mathcal{B}$是两个Abel范畴，$\mathcal{A}$中有足够多投射对象。$F:\mathcal{A}\rightarrow\mathcal{B}$是反变加法函子.对$\mathcal{A}$中任一对象$M$,取$M$的一个投射分解
+$$
+\cdots\rightarrow P_{2}\stackrel{d_{1}}{\rightarrow}P_{1}\stackrel{d_{0}}{\rightarrow}P_{0}\stackrel{\pi}{\rightarrow}M\rightarrow 0
+$$
+得到$M$的一个删项投射分解
+$$
+P:\cdots\rightarrow P_{n+1}\stackrel{d_{n}}{\longrightarrow}P_{n}\stackrel{d_{n-1}}{\longrightarrow}P_{n-1}\rightarrow \cdots\rightarrow P_{1}\stackrel{d_{0}}{\longrightarrow}P_{0}\rightarrow 0
+$$
+和复形
+$$
+FP:0\stackrel{Fd_{-1}}{\longrightarrow} FP_{0}\stackrel{Fd_{0}}{\longrightarrow}FP_{1}\rightarrow\cdots\rightarrow P_{n-1}\stackrel{Fd_{n-1}}{\longrightarrow}  FP_{n}\stackrel{Fd_{n}}{\longrightarrow}FP_{n+1}\rightarrow\cdots
+$$
+定义$$(R^{n}F)(M):=H^{n}(FP)=KerFd_{n}/ImFd_{n-1},\ \ \ \forall n\geq 0.$$
+下面要说明该定义是良好的，即$R^{n}F(M)$与$M$的投射分解的选取无关。为此，需要下面比较定理(\cite{zh}定理3.4.2)
+首先定义链映射的同伦
+\begin{defn}
+	设$f:X\rightarrow Y$和$g:X\rightarrow Y$是$\mathcal{A}$中上复形的两个链映射。称$f,g$同伦是指：存在$\mathcal{A}$中一组态射$s^{n}:X^{n}\rightarrow Y^{n-1},\forall n\in \mathbb{Z}$,使得$f^{n}-g^{n}=d_{Y}^{n-1}s^{n}+s^{n+1}d_{X}^{n},\forall n\in\mathbb{Z}.$并称$s=(s^{n})_{n\in\mathbb{Z}}$是链映射$f$到链映射$g$的一个同伦。记作$f\stackrel{s}{\sim}g.$
+\end{defn}
+不难验证，一个链映射$f:X\rightarrow Y$可诱导出上同调对象之间的态射$H^{n}(f):H^{n}(X)\rightarrow H^{n}(Y)$，进一步$H^{n}:C(\mathcal{A})\rightarrow \mathcal{A}$是一个加法函子(\cite{zh}引理3.1.3)。
+
+可以证明两个同伦的链映射诱导相同的上同调对象之间的态射,即若有$f,g:X\rightarrow Y$ 且$f\stackrel{s}{\sim}g$，则$H^{n}(f)=H^{n}(g):H^{n}(X)\rightarrow H^{n}(Y).$(\cite{zh}命题3.3.2).
+\begin{thm}
+	(比较定理) 设$\mathcal{A}$是有足够多投射对象的Abel范畴，$f:M\rightarrow N$是$\mathcal{A}$中态射，$P\stackrel{\pi}{\rightarrow}M\rightarrow0$是$M$的一个投射分解，$\cdots\rightarrow Q_{n}\rightarrow \cdots\rightarrow Q_{0}\stackrel{\pi'}{\rightarrow}N\rightarrow 0$是正合列($Q_{i}$未必是投射对象),$Q$是删除$N$后得到的复形.则存在链映射$\alpha:P\rightarrow Q$,使得下图交换
+	$$
+	\xymatrix{
+	\cdots\ar[r]&P_{n+1}\ar[r]^{d_{n}}\ar@{.>}[d]^{\alpha_{n+1}}&P_{n}\ar[r]^{d_{n-1}}\ar@{.>}[d]^{\alpha_{n}}&\cdots\ar[r]&P_{1}\ar[r]^{d_{0}}\ar@{.>}[d]^{\alpha_{1}}&P_{0}\ar[r]^{\pi}\ar@{.>}[d]^{\alpha_{0}}&M\ar[r]\ar[d]^{f}&0\\
+	\cdots\ar[r]&Q_{n+1}\ar[r]^{d_{n}'}&Q_{n}\ar[r]^{d_{n-1}'}&\cdots\ar[r]&Q_{1}\ar[r]^{d_{0}'}&Q_{0}\ar[r]^{\pi'}&N\ar[r]&0
+}
+	$$
+	即$f\pi=\pi'\alpha$.进一步，如果还有链映射$\beta:P\rightarrow Q$使得上图也交换(即$f\pi=\pi'\beta$)，则$\alpha$与$\beta$同伦.
+\end{thm}
+对于$M$的两个投射分解
+$$
+P\stackrel{\pi}{\rightarrow}M\rightarrow0 \ \text{和}\ Q\stackrel{\pi'}{\rightarrow}M\rightarrow0,
+$$
+在上面比较定理中取$N=M,f=id_{M}$,就得到链映射$\alpha:P\rightarrow Q,$满足$\pi'\alpha_{0}=\pi,$以及链映射$\beta:Q\rightarrow P$,满足$\pi\beta_{0}=\pi'$.从而有连个链映射
+$$
+\beta\alpha:P\rightarrow P\ \text{和}\ Id_{P}:P\rightarrow P
+$$
+满足$\pi\beta_{0}\alpha_{0}=\pi$和$\pi Id_{0}=\pi$.故由比较定理得到$\beta\alpha\sim Id_{P}$,同样得到$\alpha\beta\sim Id_{Q}.$因此$$H^{n}(\alpha)H^{n}(\beta)=H^{n}(\alpha\beta)=H^{n}(Id_{Q})=Id_{H^{n}(Q)}$$,
+$$H^{n}(\beta)H^{n}(\alpha)=H^{n}(\beta\alpha)=H^{n}(Id_{P})=Id_{H^{n}(P)}.$$从而$H^{n}(\alpha)$与$H^{n}(\beta)$是同构映射。即
+$H^{n}(P)\cong H^{n}(Q),\forall n\geq 0.$
+\begin{defn}
+	对于链映射$f:X\rightarrow Y$，若存在链映射$g:Y\rightarrow X$使得$gf\sim Id_{X},fg\sim Id_{Y}.$则称$X$与$ Y$是同伦等价。
+\end{defn}
+上面分析说明，
+\begin{lem}在Abel范畴中,若$X,Y$是同论等价，则$H^{n}(X)\cong H^{n}(Y),\forall
+ n\geq 0.$
+\end{lem}
+回到上面导出函子的定义，设$P,Q$是$M$的两个删项投射分解，则由上分析$P,Q$同伦等价，从而因$F$是加法函子，$FP,FQ$也是同伦等价，上同调对象同构。
+
+这就说明导出函子的定义中
+$R^{n}F(M)$
+与$M$的投射分解选取无关。
+
+关于$R^{n}F$在态射上的作用，定义如下(见\cite{zh}第三章3.5节)：我们必须一次性选定$\mathcal{A}$中每个对象的投射分解。设$f:M\rightarrow M'$是$\mathcal{A}$中态射，$P\stackrel{\pi}{\rightarrow}M\rightarrow 0$和$Q\stackrel{\pi'}{\rightarrow}M'\rightarrow 0$分别为$M$和$M'$的投射分解(一次性选好的)。由比较定理，存在链映射$\alpha:P\rightarrow Q$满足$f\pi=\pi'\alpha_{0}.$从而有链映射$F\alpha:FQ\rightarrow FP$.定义
+$$
+(R^{n}F)f:=H^{n}F\alpha:H^{n}FQ\rightarrow H^{n}FP,\ \ \forall n\geq 0. \eqno{(*)}
+$$
+则可证$(R^{n}F)f$与$P\rightarrow Q$的链映射的选取无关。事实上，由比较定理，所有这些链映射是同伦的，$F$作用后仍同伦，而同伦的链映射诱导相同的上同调对象之间的态射。
+
+在定义$(R^{n}F)f$中，注意到(*)式中$Q,P$都是一次性选定的一个投射分解，即映射$(R^{n}F)f$的始对象和终对象(通俗说“定义域”，“值域”)都是确定的。而在定义$(R^{n}F)M$时是任取$M$的一个投射分解，显然对于函子$F:\mathcal{A}\rightarrow \mathcal{B}$的导出函子
+$R^{n}F:\mathcal{A}\rightarrow \mathcal{B}$,任给$\mathcal{A}$中态射$f:M\rightarrow M'$,$R^{n}f$应该是$(R^{n}f)M$到$(R^{n}f)M'$的映射。事实上，我们已经说明取$M$的不同投射分解,所得到的$(R^{n}f)M$都是同构的。因此我们的担心不是问题。
+
+称一系列的反变函子$R^{n}F:\mathcal{A}\rightarrow\mathcal{B},\forall n\geq 0$是$F$的\emph{第$n$次右导出函子}.
+
+有了导出函子，我们便可从短正合列得到长正合列。
+\begin{thm}
+设$\mathcal{A}$和$\mathcal{B}$是Abel范畴，且$\mathcal{A}$有足够多内射对象，$F:\mathcal{A}\rightarrow \mathcal{B}$是反变加法函子，则右导出函子$R^{n}F:\mathcal{A}\rightarrow\mathcal{B}$有下述性质(见\cite{zh}定理3.5.1，这里只列举其中前三条,第四条是连接态射的自然性)
+\begin{itemize}
+	\item 如果$F$左正合，则$R^{0}F\cong F.$
+	\item 如果$M$是投射对象，则$(R^{n}F)M=0,\forall n\geq 1.$
+	\item 设$0\rightarrow X\stackrel{f}{\longrightarrow}Y\stackrel{g}{\longrightarrow}Z\rightarrow 0$是$\mathcal{A}$中正合列。则$\mathcal{B}$中有长正合列
+\end{itemize}
+$$
+0\rightarrow (R^{0}F)Z\stackrel{(R^{0}F)g}{\rightarrow}(R^{0}F)Y\stackrel{(R^{0}F)f}{\rightarrow}(R^{0}F)X\stackrel{c^{0}}{\rightarrow}(R^{1}F)Z\rightarrow \cdots$$
+
+$$\rightarrow(R^{n}F)Z\stackrel{(R^{n}F)g}{\rightarrow}(R^{n}F)Y\stackrel{(R^{n}F)f}{\rightarrow}(R^{n}F)X\stackrel{c^{n}}{\rightarrow}(R^{n+1}F)Z\rightarrow \cdots.
+$$
+\end{thm}
+\begin{proof}
+	只写出第三条的证明。
+	
+	
+	设$P_{X}\rightarrow X\rightarrow0$和$P_{Y}\rightarrow Y\rightarrow 0$分别为$X$和$Y$的投射分解.由马蹄引理，$Y$有投射分解$P_{Y}\rightarrow Y\rightarrow0$且有$\mathcal{A}$上复形的链可裂短正合列$0\rightarrow P_{X}\rightarrow P_{Y}\rightarrow P_{Z}\rightarrow0$.加法函子$F$将$\mathcal{A}$中链可裂短正合列变为$\mathcal{B}$中链可裂短正合列(不必将正合列便为正合列)。因此$$
+	0\rightarrow FP_{Z}\rightarrow FP_{Y}\rightarrow FP_{Z}\rightarrow 0
+	$$
+	也是$\mathcal{B}$上复形的链可裂短正合列。应用同调代数基本定理即得到同调群的长正合列，由导出函子的定义知结论成立。
+\end{proof}
+\begin{exa}
+	设$\mathcal{A}$是具有足够多投射对象的Abel范畴,$N$是$\mathcal{A}$中对象,则$Hom_{\mathcal{A}}(-,N):\mathcal{A}\rightarrow Ab$是左正合反变函子，它的第n次右导出函子$R^{n}Hom_{\mathcal{A}}(-,N)$通常记为$Ext^{n}_{\mathcal{A}}(-,N)$.对于$\mathcal{A}$中对象$M$,记
+	$$Ext_{\mathcal{A}}^{n}(M,N):=Ext_{\mathcal{A}}^{n}(-,N)(M).$$
+\end{exa}
+\begin{exa}
+	设$\mathcal{A}$是具有足够多内射对象的Abel范畴,$M$是$\mathcal{A}$中对象,则$Hom_{\mathcal{A}}(M,-):\mathcal{A}\rightarrow Ab$是左正合函子，它的第n次右导出函子$R^{n}Hom_{\mathcal{A}}(M,-)$通常记为
+	$ext^{n}_{\mathcal{A}}(M,-)$.对于$\mathcal{A}$中对象$N$,记
+	$$ext_{\mathcal{A}}^{n}(M,N):=ext_{\mathcal{A}}^{n}(M,-)(N).$$
+\end{exa}
+当$\mathcal{A}$是具有足够多内射对象且有足够多投射对象的Abel范畴时，可证明
+对$\mathcal{A}$中对象$M,N$,有
+Abel群同构(\cite{zh}命题3.6.3)
+$$
+Ext_{\mathcal{A}}^{n}(M,N)\cong ext_{\mathcal{A}}^{n}(M,N),\forall n\geq 0.
+$$
+\newpage
+\section{群的上同调}
+\subsection{群的上同调定义}
+本章若无说明,群$G$默认为是有限群。
+
+
+设$G$是群，$\Lambda=\mathbb{Z}[G]$是群环，一个左\emph{$G-$模}总是指一个左$\Lambda-$模。若$A$是一个左$G-$模，我们可以赋予$A$于右模结构。
+即令:$a\cdot g:=g^{-1}\cdot a,\forall g\in G,a\in A.$
+
+设$A,B$是加法Abel群。若$A,B$都是$G-$模，所有$A$到$B$的Abel群同态组成的群记为$Hom(A,B)$,所有$G-$模同态组成的群记为$Hom_{G}(A,B)$.若对任意$\varphi\in Hom(A,B),g\in G,$定义$(g\cdot \varphi)(a):=g\cdot \varphi(g^{-1}a)(a\in A)$,则$Hom(A,B)$成为一个$G-$模。
+
+ 对任意$G-$模$A$,用$A^{G}$表示$A$中所有在$G$作用下不变的元素组成的集合，进一步，$A^{G}$是$A$的子群,也是被$G$固定的最大$A$的子模。
+ 
+ 若$A,B$是$G-$模，易验证
+ $$
+ Hom_{G}(A,B)=(Hom(A,B))^{G}; \eqno{(1.1)}
+ $$
+ 特别地
+ $$
+ Hom_{G}(\mathbb{Z},A)=(Hom(\mathbb{Z},A))^{G}\cong A^{G},
+ $$
+ 这里$\mathbb{Z}$是指平凡$G-$模。
+ 由此，设有$G-$模正合列
+ $$
+ 0\rightarrow A\rightarrow B\rightarrow C\rightarrow 0, \eqno{(1.2)}
+ $$
+ 由于$Hom$函子是左正合的,故有Abel群(没要求作为$G-$模)正合列
+ $$0\rightarrow A^{G}\rightarrow B^{G}\rightarrow C^{G}.$$
+ 
+ 若$X$是任意Abel群，则有$G-$模$Hom(\Lambda,X)$,我们称这种形式的$G-$模为\emph{上诱导(co-induced)}模.
+ 
+ 函子$A^{G}$的\emph{上同调扩张(cohomological extension)}是指一系列的函子$H^{q}(G,A)(q=0,1,\cdots),$满足：
+ \begin{itemize}
+ 	\item[(1)] $H^{0}(G,A)=A^{G}$;
+\item[(2)] 
+ 对于形如(1.2)的正合列,有\emph{函子性}的连接态射
+ $$
+ \delta:Hom^{q}(G,C)\rightarrow H^{q+1}(G,A)
+ $$
+ 使得序列
+ $$
+ \cdots\rightarrow H^{q}(G,A)\rightarrow H^{q}(G,B)\rightarrow H^{q}(G,C)\stackrel{\delta}{\rightarrow}H^{q+1}(G,A)\rightarrow \cdots \eqno{(1.3)}
+ $$
+ 是正合列;
+ \item[(3)]
+ 对于上诱导模$A$,满足$H^{q}(G,A)=0,\forall q\geq 1$.
+  \end{itemize}
+\begin{thm}
+	函子$A^{G}$的上同调扩张在等价的意义下是唯一存在的。
+\end{thm}
+
+该定理确定的群$H^{q}(G,A)$称为$G-$模$A$的\emph{上同调群}.
+
+\begin{proof}
+	存在性:取定平凡$G-$模$\mathbb{Z}$的一个投射分解(模范畴中存在充分多投射对象):
+	$$
+	\cdots\rightarrow P_{1}\rightarrow P_{0}\rightarrow\mathbb{Z}\rightarrow 0.
+	$$
+	故有删项投射分解导出的复形$K^{\bullet}=Hom_{G}(P^{\bullet},A)$,即：
+	$$
+	0\rightarrow Hom_{G}(P_{0},A)\rightarrow Hom_{G}(P_{1},A)\rightarrow\cdots.
+	$$
+	定义$H^{q}(G,A)=H^{q}(K^{\bullet})$,下面一一验证：
+	\begin{itemize}
+		\item[(1)] 有短正合列
+		$$
+		0\rightarrow ImP_{1}\rightarrow  P_{0}\rightarrow \mathbb{Z}\rightarrow 0,
+		$$ 
+		由于$Hom_{G}(-,A)$左正合,故有正合列
+		$$
+		0\rightarrow A^{G}\rightarrow Hom_{G}(P_{0},A)\stackrel{d_{0}}{\longrightarrow} Hom_{G}(ImP_{1},A),
+		$$
+		由此，$H^{0}(G,A)=kerd_{0}=A^{G}$.
+		\item[(2)] 设有正合列(1.2),则有复形正合列(因$P_{n}(n\geq 0)$是投射模)
+		$$
+		0\rightarrow Hom_{G}(P^{\bullet},A)\rightarrow Hom_{G}(P^{\bullet},B)\rightarrow Hom_{G}(P^{\bullet},C)\rightarrow 0.
+		$$
+		由\emph{同调代数基本定理}知有连接态射
+		$$\delta:H^{q}(G,C)\rightarrow H^{q+1}(G,A)$$
+		满足上面长正合列(1.3).
+		\item[(3)] 若$A$是上诱导模.设$A=Hom(\Lambda,X)$,这里$X$是Abel群，则对于任意$G-$模$B$有
+		$$
+		Hom_{G}(B,A)\cong Hom(B,X).
+		$$
+		同构由$\varphi \mapsto \varphi':b\mapsto \varphi(b)(1)$给出,这里$1$是$G$的单位元。
+		
+		验证：单射:设$\varphi,\psi\in Hom_{G}(B,A)$满足$\varphi'=\psi'$,即对任意$b\in B,\varphi(b)(1)=\psi(b)(1)$,为证$\varphi=\psi$,只需证明对任意$b\in B,g\in G$,有
+		$$\varphi(b)(g)=\psi(b)(g).$$
+		对任意$g\in G,b\in B,x\in \Lambda$,由$G-$模$A$的定义知
+		$$
+		[g\cdot \varphi(b)](x)=g\cdot[\varphi(b)(g^{-1}x)],
+		$$
+		另一方面,因$\varphi$是$G-$模同态，故
+		$g\cdot \varphi(b)=\varphi(gb)$.因此
+		$$
+		\varphi(gb)(x)=[g\cdot\varphi(b)](x).
+		$$
+		结合上面两式，并令$x=1$得到
+		$$
+		\varphi(b)(g^{-1})=g^{-1}[\varphi(gb)(1)],\ \ \forall b\in B,g\in G.
+		$$
+		这就能推出:若对$\forall b\in B,\varphi(b)(1)=\psi(b)(1)$,则$\varphi(b)(x)=\psi(b)(x),\forall b\in B,x\in \Lambda.
+		$从而$\varphi=\psi$.
+		满射性:暂略。
+		
+		因此复形$K^{\bullet}$变为
+		$$
+		0\rightarrow Hom(P_{0},X)\rightarrow Hom(P_{1},X)\rightarrow \cdots.
+		$$
+		其中除$Hom(P_{0},X)$项外，其余处均正合(因$P_{n}(n\geq 0)$是投射模).
+		故$H^{q}(G,A)=0,q\geq 1.$
+	\end{itemize}
+	唯一性：对于任意$G-$模$A$，考虑$G-$模$A^{*}=Hom(\Lambda,A).$存在自然的单射$A\rightarrow A^{*},a\mapsto \varphi_{a}$满足$\varphi_{a}(g)=ga,g\in G$.故有$G-$模正合列
+	$$
+	0\rightarrow A\rightarrow A^{*}\rightarrow A'\rightarrow 0 \eqno{(1.4)}
+	$$
+	这里$A'=A^{*}/A$;因$A^{*}$是上诱导的，故由(1.3)知
+	$$
+	\delta:H^{q}(G,A')\rightarrow H^{q+1}(G,A),\ \ q\geq 1
+	$$
+	是同构,且
+	$$
+	H^{1}(G,A)\cong Coker(H^{0}(G,A^{*})\rightarrow H^{0}(G,A')).
+	$$
+	由此知$H^{q}(G,A)$能从$H^{0}$递归的构造出来,且在等价(同构)的意义下是唯一的。
+\end{proof}
+\subsection{标准复形}
+在上节定理2.1中，我们用到了$\mathbb{Z}$的投射分解，由唯一性知，上同调群$H^{q}(G,A)$与投射分解选取无关。本节就来构造一个“标准”的投射分解。
+
+对于$i\geq 0$,令$P_{i}=\mathbb{Z}[G^{i+1}]$,即$P_{i}$是基为$G\times\cdots\times G$((i+1)个)自由$\mathbb{Z}-$模.$G$对基的作用定义为(由此诱导了$G$对$\Lambda$的作用)：
+$$
+s(g_{0},g_{1},\cdots,g_{i})=(sg_{0},sg_{1},\cdots,sg_{i}).
+$$
+态射$d_{i}:P_{i}\rightarrow P_{i-1}(i\geq 1)$定义如下
+$$
+d(g_{0},\cdots,g_{i})=\sum_{j=0}^{i}(-1)^{j}(g_{0},\cdots,g_{j-1},g_{j+1},\cdots,g_{i}), \eqno{(2.1)}
+$$
+而$\varepsilon:P_{0}\rightarrow \mathbb{Z}$定义为$\sum_{k}a_{k}g_{k}\mapsto \sum_{k}a_{k}$.
+则$$
+\cdots\stackrel{d_{2}}{\rightarrow} P_{1}\stackrel{d_{1}}{\rightarrow}P_{0}\stackrel{\varepsilon}{\rightarrow}\mathbb{Z}\rightarrow 0 \eqno{(2.2)}
+$$
+是正合列.
+
+事实上,任取$s\in G,$定义$h:P_{i}\rightarrow P_{i+1}$为
+$$
+h(g_{0},g_{1},\cdots,g_{i})=(s,g_{0},\cdots,g_{i}).
+$$
+可验证$d_{i+1}h+hd_{i}=1(i\geq 1)$,再结合$d_{i}d_{i+1}=0$,便得到
+$Imd_{i+1}=Kerd_{i}(i\geq 1)$.
+在$P_{0}$处，显然有$Imd_{1}\subseteq Ker\varepsilon$,反之，任取$\sum_{k}a_{k}g_{k}\in P_{0}$,若$\varepsilon(\sum_{k}a_{k}g_{k})=0,$则$\sum_{k}a_{k}=0$,从而
+$$
+\sum_{k}a_{k}g_{k}=\sum_{k}a_{k}(g_{k}-1_{G})\in Imd_{1}.
+$$
+在$\mathbb{Z}$处正合性是显然地。由上投射分解(2.2)我们可得到复形$K^{i}=Hom_{G}(P_{i},A)_{i\geq 0}$.任取$f\in K^{i}=Hom_{G}(P_{i},A),$
+$f$完全由其在$\Lambda$的基$G^{i+1}$上的取值决定，故$f$可看作一个$G^{i+1}\rightarrow A$的\emph{函数},且满足
+$$
+f(sg_{0},sg_{1},\cdots,sg_{i})=s\cdot f(g_{0},g_{1},\cdots,g_{i}).\eqno{(*)}
+$$
+由此$f$实际上由其在形如$(1,g_{1},g_{1}g_{2},\cdots,g_{1}g_{2}\cdots g_{i})$的元素上的取值所决定。若令
+$$
+\varphi(g_{1},\cdots,g_{i})=f(1,g_{1},g_{1}g_{2},\cdots,g_{1}g_{2}\cdots g_{i}),
+$$
+(反之,$f(g_{0},g_{1}\cdots,g_{i})=g_{0}\cdot \varphi(g_{0}^{-1}g_{1},g_{1}^{-1}g_{2},\cdots,g_{i-1}^{-1}g_{i})$)
+由此，我们有一一对应
+\[
+\begin{split}
+Hom_{G}(P_{i},A)&\rightarrow Mor(G^{i},A)\\
+f&\mapsto \varphi,
+\end{split}
+\]
+其中$Mor(G^{i},A)$表示所有$G^{i}$到$A$的函数组成的集合.这样做的好处是在$Mor(G^{i},A)$中我们不必考虑条件(*).
+由上一一对应，我们将研究复形$K^{\bullet}$的问题化为了研究
+$$
+0\longrightarrow Mor(G^{0},A)\stackrel{d_{0}^{*}}{\longrightarrow} Mor(G^{1},A)\stackrel{d_{1}^{*}}{\longrightarrow}\cdots Mor(G^{i},A)\stackrel{d_{i}^{*}}{\longrightarrow}Mor(G^{i+1},A)\stackrel{d_{i+1}^{*}}{\longrightarrow}\cdots
+$$
+其中$d_{i}^{*}$是由$d_{i}$诱导的，经计算(请验证),对于$\varphi\in Mor(G^{i},A)$,
+\[
+\begin{split}
+(d_{i}^{*}\varphi)(g_{1},\cdots,g_{i+1})
+=&g_{1}\cdot \varphi(g_{2},\cdots,g_{i+1})+\sum_{j=1}^{i}\varphi(g_{1},\cdots,g_{j}g_{j+1},\cdots,g_{i+1})+\\
+&\ (-1)^{i+1}\varphi(g_{1},\cdots,g_{i}).
+\end{split}
+\]
+这样就可看出1-上链(1-cocycle)是满足
+$$
+\varphi(gg')=g\cdot\varphi(g')+\varphi(g)
+$$
+的函数$\varphi:G\rightarrow A$,称这样的函数为\emph{交叉态射(crossed homomorphism)}.
+若存在$a\in A$,使得$\varphi(g)=ga-a$,则$\varphi$是\emph{上边界(coboundary)}.
+特别地，若$G$对$A$是平凡作用
+则$$
+H^{1}(G,A)=Hom(G,A).
+$$
+
+为了后文应用，我们给出(1.3)中$$
+\delta:H^{0}(G,C)\rightarrow H^{1}(G,A)
+$$
+的明确描述。实际上，该连接映射是由蛇形引理得到的，故我们只需写出蛇形引理中的元素对应即可。任取$c\in H^{0}(G,C)=C^{G}$,取$c$在$B$中的一个原像$b\in B$,则$d_{0}^{*}b$是函数$s\mapsto sb-b$,因在$C$中$(B\rightarrow B)sb-b=sc-c=c-c=0.$故$sb-s\in A$,由此$d_{0}^{*}b\in H^{1}(G,A)$.若令取$c$的一个原像$b'$,则$a:=b-b'\in A$.从而$d_{0}^{*}b=d_{0}^{*}b'+d_{0}^{*}a$,
+由此知,$db$在$H^{1}(G,A)$的类$\overline{db}$与$b$的选取无关.
+\subsection{群同调}
+若$A,B$是$G-$模，用$A\otimes B$表示$A,B$在$\mathbb{Z}$上的张量积，$A\otimes_{G}B$表示它们在$\Lambda$上的张量积。$A\otimes B$有自然的$G-$模结构,定义为$g(a\otimes b)=(ga)\otimes (gb)$.
+
+定义态射$\Lambda\rightarrow\mathbb{Z},\sum_{g}a_{g}g\mapsto \sum_{g}a_{g}$,用$I_{G}$表示该态射的核。则$I_{G}$是$\Lambda$的理想，且由$s-1(s\in G)$生成。有正合列
+$$
+0\rightarrow I_{G}\rightarrow\Lambda \rightarrow \mathbb{Z}\rightarrow 0,  \eqno{(3.1)}
+$$
+对于任意$G-$模$A$,(3.1)在$\Lambda$张量上$A$得到
+$$
+I_{G}\otimes_{G} A\rightarrow\Lambda\otimes_{G} A \rightarrow \mathbb{Z}\otimes_{G} A\rightarrow 0,
+$$
+其中$I_{G}\otimes_{G} A$在$\Lambda\otimes_{G} A =A$中的像为$I_{G}A$(并没有说$I_{G}\otimes_{G} A\cong I_{G}A$,若$A$是平坦$G-$模,则有同构),故有同构
+$$
+\mathbb{Z}\otimes_{G} A\cong A/I_{G}A.
+$$
+我们用$A_{G}$表示$G-$模$A/I_{G}A$.这是被$G$作用平凡的$A$的最大商模。
+函子$(-)_{G}$相当于函子$\mathbb{Z}\otimes_{G}(-)$,故为右正合。
+
+
+对于任意左$G-$模$A,B$,张量积$A\otimes_{G}B$中模$A$被看作右$G-$模,其定义为
+$ag:=g^{-1}a$.
+%%定义映射
+% $$\varphi:A\otimes B\rightarrow A\otimes_{G} B,\qquad a\otimes b\mapsto a\otimes_{G}b,$$
+%该映射核为$I_{G}(A\otimes B)$.事实上,若$x=(s-1)(a\otimes b)\in A\otimes B$,则$(s-1)(a\otimes_{G} b)=s(a\otimes_{G}b)-a\otimes_{G}b=$
+%若$a\otimes_{G}b=0,$则任意$g\in G,g(a\otimes_{G}b)=a\otimes_{G}gb=0$,从而$a\otimes_{G}b=a\otimes_{G}(g-1)b=(g-1)((g-1)^{})$
+
+在$(A\otimes B)_{G}$中，有等式
+$$
+(a+a')\otimes b=a\otimes b+a'\otimes b,\quad a\otimes (b+b')=a\otimes b+a\otimes b';
+$$
+$$
+(g^{-1}a)\otimes b=a\otimes (gb), $$
+$\forall g,\in G,a,a'\in A,b,b'\in B.
+$
+事实上，第一行两个等式是自然满足地(因作为$\mathbb{Z}$上张量积).而
+$$(g^{-1}a)\otimes b-a\otimes (gb)=g^{-1}(a\otimes (gb))-a\otimes (gb)=(g^{-1}-1)(a\otimes (gb))\in I_{G}(A\otimes B).$$
+
+这里没要求$a\otimes(gb)=g(a\otimes b)$,这在Atiyah交换代数上定义张量积时是要求的，而在H.Cartan,
+S.Eilenberg及Rotman的同调代数教材中均没有要求这一条,这里也按这样处理(实际是不能证明出来).
+上面实际说$I_{G}(A\otimes B)$是$(g^{-1}-1)(a\otimes b)=(g^{-1}a)\otimes (g^{-1}b)-a\otimes g(g^{-1}b)$生成的子群(注意张量积$A\otimes_{G}B$中$A$作为$G-$模的定义)，故$(A\otimes B)_{G}$恰为张量积$A\otimes_{G}B$.
+即
+$$
+A\otimes_{G}B \cong (A\otimes B)_{G}. \eqno{(3.2)}
+$$
+
+
+
+若$X$是任意Abel群,$\Lambda\otimes X$具有$G-$模结构,称这样形式的模为\emph{诱导模(induced)}.
+
+第一节中，我们定义了$A^{G}$的上同调扩张.此处，我们将上述定义中所有态射的方向调换，将上诱导模换为诱导模就得到了$A_{G}$的\emph{同调扩张(homological extension)}的定义.类似地，有下述定理
+\begin{thm}
+	$A_{G}$的同调扩张存在且唯一.
+\end{thm}
+$A$的同调群$H_{q}(G,A)$同样可用标准复形表示，即
+$$
+H_{q}(G,A)=H_{q}(P_{\bullet}\otimes_{G}A),
+$$
+其中$P_{\bullet}$是第二节中定义的标准复形.
+群$P_{n}\otimes_{G}A$中的任意元素$x$可看作一个映射$x:G^{n}\rightarrow A,$这个映射只在有限个$(g_{1},\cdots,g_{n})$上不等于零.事实上：$x$可唯一表达成形式
+$$
+x=\sum\limits_{(1,g_{1},\cdots,g_{n})}y_{(1,g_{1},\cdots,g_{n})}((1,g_{1},\cdots,g_{n})\otimes_{G}a_{(1,g_{1},\cdots,g_{n})})
+$$
+其中$y_{(1,g_{1},\cdots,g_{n})}\in \mathbb{Z},a_{(1,g_{1},\cdots,g_{n})}\in A,$且只有有限个$y_{(1,g_{1},\cdots,g_{n})}$不等于零(若$G$是有限群,该条件自然满足).则$x$诱导出映射
+$$
+\bar{x}:G^{n}\rightarrow A,$$
+$$
+(g_{1},\cdots,g_{n})\mapsto a_{(1,g_{1},\cdots,g_{n})}.
+$$
+$\bar{x}$只在有限个$(g_{1},\cdots,g_{n})$上不等于零.
+反之，给出这样的映射$\bar{x}$,则可到$P_{n}\otimes_{G}A$中一个元素$x$.
+
+若$G$是有限群,则有一一对应
+$$
+P_{n}\otimes_{G}A\leftrightarrow Mor(G^{n},A)\leftrightarrow Hom_{G}(P_{n},A).
+$$
+其中第二个对应在上节给出。
+
+
+
+唯一性可用正合列
+$$
+0\rightarrow A'\rightarrow A_{*}\rightarrow A\rightarrow 0 \eqno{(3.3)}
+$$
+导出,其中$A_{*}=\Lambda\otimes A.$
+
+下面说明连接态射$\delta:H_{1}(G,C)\rightarrow H_{0}(G,A)$.
+
+\begin{prop}
+	记$G'$为$G$的换位子群，则$H_{1}(G,\mathbb{Z})\cong G/G'$.
+\end{prop}
+\begin{proof}
+	因$\Lambda$是诱导模，故由(3.1)知连接态射为同构，即
+	$$
+	\delta:H_{1}(G,\mathbb{Z})\rightarrow H_{0}(G,I_{G})=I_{G}/I_{G}^{2}.$$
+	
+	另一方面定义映射
+	$f:G\rightarrow I_{G}/I_{G}^{2}$为
+	$$
+	f:s\mapsto (s-1)+I_{G}^{2}.
+	$$
+	对任意$s,s'\in G,$我们有
+	\[
+	\begin{split}
+		f(ss')-f(s)-f(s')&=(ss'-1)-(s-1)-(s'-1)+I_{G}^{2},\\
+		&=ss'-s-s'+1 +I_{G}^{2}\\
+		&=(s-1)(s'-1)+I_{G}^{2} \\
+		&=0+I_{G}^{2}.
+	\end{split}
+	\]
+	故$f$是态射,因$G/Kerf$是$Abel$群，故$G'\subseteq Kerf$.故$f$诱导出映射$f':G/G'\rightarrow I_{G}/I_{G}^{2}$,直接验证该映射是单射并不容易，故我们构造该映射的逆。
+	
+	$I_{G}$是基为$\{(s-1)|s\in G\}$的一个自由Abel群,故定义映射时只需考虑在该组基上的作用.定义$\mu:I_{G}\rightarrow G/G'$为
+	$$
+	\mu:s-1\mapsto sG',
+	$$
+	若$I_{G}^{2}\subseteq Ker\mu$,则$\mu$诱导映射$\mu':I_{G}/I_{G}^{2}\rightarrow G/G'$,该映射显然是$f'$的逆映射,从而就证明了命题。
+	
+	若$u\in I_{G}^{2}$,则
+	\[
+	\begin{split}
+	u&=(\sum_{x\neq 1}m_{x}(x-1))(\sum_{y\neq 1}n_{y}(y-1)) \\
+	&=\sum_{x,y}m_{x}n_{y}(x-1)(y-1) \\
+	&=\sum_{x,y}m_{x}n_{y}\left((xy-1)-(x-1)-(y-1)\right) \\
+	\end{split}
+	\]
+	因此$\mu(u)=\prod_{x,y}xyx^{-1}y^{-2}G'=G'$.即$I_{G}^{2}\subseteq Ker\mu'$.
+	故最终证明了$$
+	H_{1}(G,\mathbb{Z})\cong G/G'.
+	$$
+\end{proof}
+\subsection{换基}
+
+设$G'$是$G$的换位子群。若$A'$是$G'-$模,令$A=Hom_{G'}(\Lambda,A')$,对任意$g\in G,\varphi\in A$,定义
+$$
+(\varphi)g:g'\mapsto \varphi(g'g),
+$$
+则$A$成为右$G-$模，类似第一节中，我们定义$g\cdot \varphi:=(\varphi)g^{-1}$,即$(g\cdot \varphi)(g'):=\varphi(g'g^{-1}),\forall g'\in G$.则$A$成为左$G-$模。后文若无说明都是指$A$是左$G-$模.
+\begin{prop}
+	(Shapiro's Lemma) $$H^{q}(G,A)=H^{q}(G',A') , \ \forall q\geq 0.$$
+\end{prop}
+\begin{proof}
+	若$P^{\bullet}$是$\mathbb{Z}$的自由$\Lambda-$模预解,则$P^{\bullet}$也是自由$\Lambda'-$模预解，且有$$
+	Hom_{G}(P_{n},Hom_{G'}(\Lambda,A'))\cong Hom_{G'}(P_{n},A'),\ \forall n\geq 0.
+	$$
+	由此即得到结论.
+\end{proof}
+
+%在该命题中，若$G'=(1)$,则$\Lambda'=\mathbb{Z}$,$A$是上诱导模
+
+若$f:G'\rightarrow G$是群同态，$P',P$表示对应地标准复形，则$f$诱导了$P'$到$P$的态射，从而对任意$G-$模$A$,$f$诱导了态射
+$$
+f^{*}:H^{q}(G,A)\rightarrow H^{q}(G',A)
+$$
+这里将$A$通过态射$f$看作$G'-$模。特别地,取$G'$为$G$的一个正规子群$H$,$f:H\rightarrow G$为嵌入，我们有\emph{限制(restriction)}同态
+$$
+Res: H^{q}(G,A)\rightarrow H^{q}(H,A).
+$$
+
+
+现在考虑商映射$f:G\rightarrow G/H.$对于任意$G-$模$A$,$A^{H}$成为一个$G/H-$模.因此有态射
+$$
+H^{q}(G/H,A^{H})\rightarrow H^{q}(G,A^{H}).
+$$
+包含映射$A^{H}\rightarrow A$诱导出同调群之间态射$H^{q}(G,A^{H})\rightarrow H^{q}(G,A)$.将这两个映射复合起来得到\emph{膨胀(inflation)}态射
+$$
+Inf:H^{q}(G/H,A^{H})\rightarrow H^{q}(G,A).
+$$
+
+相似地,同态$f:G'\rightarrow G$给出了同调群之间态射
+$$
+f_{*}:H_{q}(G',A)\rightarrow H_{q}(G,A);
+$$
+特别地,取$G'=H$是$G$的子群,$f:H\rightarrow G$是嵌入,则有\textbf{\emph{corestriction}}态射
+$$
+Cor:H_{q}(H,A)\rightarrow H_{q}(G,A).
+$$
+
+固定$t\in G$,考虑$G$的内自同构:$\psi_{t}:G\rightarrow G,s\mapsto tst^{-1}$.设有$G-$模$A$,则$A$可通过$\psi_{t}$看作一个新$G-$模$A^{t}$:作为群有$A^{t}=A$,但$G-$模作用为
+\[
+\begin{split}
+G\times A^{t}&\rightarrow A^{t}\\
+(s,a)&\mapsto (tst^{-1})\circ a.
+\end{split}
+\]
+这里$\circ$表示$G$对$G-$模$A$的作用。由此$\psi_{t}$诱导出(与上面$f^{*}$相似)态射
+$$
+\psi_{t}^{*}:H^{q}(G,A)\rightarrow H^{q}(G,A^{t}).\eqno{(4.1)}
+$$
+$$
+\qquad \qquad g\mapsto g\circ \psi_{t}.
+$$
+这里$\circ$表示函数的复合。映射$a\mapsto t^{-1}a$诱导同态$A^{t}\rightarrow A$,进而诱导出同态
+$$
+H^{q}(G,A^{t})\rightarrow H^{q}(G,A).\eqno{(4.2)}
+$$
+\begin{prop}
+	(4.1)与(4.2)的复合是$H^{q}(G,A)$上的恒等映射.
+\end{prop}
+
+\begin{proof}
+对$q=0$,我们有$H^{0}(G,A^{t})=(A^{t})^{G}=t\cdot A^{G}$,故(4.1)像当于乘以$t$,而(4.2)恰为乘以$t^{-1}$.显然此时复合是恒等映射。
+
+现在设$q>0$,并且命题对$q-1$成立。对应于正合列(1.4)，我们有
+$$
+0\rightarrow A^{t}\rightarrow (A^{*})^{t}\rightarrow (A')^{t}\rightarrow 0.
+$$
+因$(A^{*})^{t}$作为$G-$模同构于$A^{*}$,故为上诱导模，从而有
+$$
+H^{q}(G,A^{t})\cong H^{q-1}(G,(A')^{t})\quad (q\geq 2)
+$$
+且$$
+H^{1}(G,A^{t})\cong Coker(H^{0}(G,(A^{*})^{t})\rightarrow H^{0}(G,(A')^{t})).
+$$
+考虑如下交换图
+$$
+\xymatrix{
+0\ar[r]&A\ar[r]\ar[d]^{t}&A^{*}\ar[r]\ar[d]^{t}&A'\ar[r]\ar[d]^{t}&0\\
+0\ar[r]&A^{t}\ar[r]\ar[d]^{t^{-1}}&(A^{*})^{t}\ar[r]\ar[d]^{t^{-1}}&(A')^{t}\ar[r]\ar[d]^{t^{-1}}&0\\
+0\ar[r]&A\ar[r]&A^{*}\ar[r]&A'\ar[r]&0
+}
+$$
+故有复形的交换图($P_{\bullet}$中都是自由模,从而是投射模)
+$$
+\xymatrix{
+	0\ar[r]&Hom_{G}(P_{\bullet},A)\ar[r]\ar[d]&Hom_{G}(P_{\bullet},A^{*})\ar[r]\ar[d]&Hom_{G}(P_{\bullet},A')\ar[r]\ar[d]&0\\
+	0\ar[r]&Hom_{G}(P_{\bullet},A^{t})\ar[r]\ar[d]&Hom_{G}(P_{\bullet},(A^{*})^{t})\ar[r]\ar[d]&Hom_{G}(P_{\bullet},(A')^{t})\ar[r]\ar[d]&0\\
+	0\ar[r]&Hom_{G}(P_{\bullet},A)\ar[r]&Hom_{G}(P_{\bullet},A^{*})\ar[r]&Hom_{G}(P_{\bullet},A')\ar[r]&0
+}
+$$
+从而由同调代数基本定理(连接态射的自然性)得到交换图
+$$
+\xymatrix{
+H^{q-1}(G,A')\ar[r]\ar[d]&H^{q}(G,A)\ar[d]\\
+H^{q-1}(G,(A')^{t})\ar[r]\ar[d]&H^{q}(G,A^{t})\ar[d]\\
+H^{q-1}(G,A')\ar[r]&H^{q}(G,A)
+}
+$$
+由上分析知水平方向为同构，左侧两个竖直箭头的复合为恒等(假设),故右侧两个竖直箭头的复合也是恒等.证毕.
+\end{proof}
+上述命题中的证明技巧称为"维数平移"。
+\subsection{限制-膨胀列}
+\begin{prop}
+	设$H$是群$G$的正规子群，$A$是$G-$模，则有正合列$$
+	0\rightarrow H^{1}(G/H,A^{H})\stackrel{Inf}{\longrightarrow} H^{1}(G,A)\stackrel{Res}{\longrightarrow}H^{1}(H,A).
+	$$
+\end{prop}
+\begin{proof}
+	(1)$H^{1}(G/H,A^{H})$处正合性.设$f:G/H\rightarrow A^{H}$是1-cocycle，则$f$诱导映射
+	$$\bar{f}:G\rightarrow G/H\rightarrow A^{H}\rightarrow A.$$
+	易知$\bar{f}$是1-cocycle,且$[\bar{f}]=Inf[f]$,这里$[\cdot]$表示1-cocycle所在的类.若$\bar{f}$是coboundary,则存在$a\in A$使得
+	$\bar{f}(s)=sa-a(s\in G).$但$\bar{f}$作用在$aH(\forall a\in G)$上是常数，故$sa-a=sta-a$对任意$t\in H$成立，从而$ta=a,\forall t\in H.
+	$故$a\in A^{H}$,因此$f$是coboundary.
+	
+	(2)Res $\circ$ Inf=0.若$\varphi:G\rightarrow A$是一个1-cocycle,则$\varphi|H:H\rightarrow A$所在类是$\varphi$所在类的限制。进一步，若$\varphi=\bar{f}$,则$\bar{f}|H$是常数等于$f(1)=1\cdot f(1)+f(1)=0.$
+	
+	(3)$H^{1}(G,A)$处的正合性.设$\varphi:G\rightarrow A$是1-cocycle且限制到$H$上是coboundary;则存在$a\in A$使得对任意$t\in H,\varphi(t)=ta-a$.从$\varphi$中减去上边界$s\mapsto sa-a$,我们可假设$\varphi|H=0.$
+	
+	$\varphi$满足公式$$
+	\varphi(st)=\varphi(s)+s\cdot \varphi(t),
+	$$
+	取$t\in H$得到$\varphi$在$H$的每个配集内取值为常数.若取$s\in H,t\in G$,可得$$
+	s\cdot\varphi(t)= \varphi(st)=\varphi(ts')=\varphi(t),
+	$$
+	其中$s'$满足$st=ts'$,因$tH=Ht$,$s'\in H$存在且唯一。上式说明$Im(\varphi)\subseteq A^{H}.$从而$\varphi$是某个1-cocycle 
+	$G/H\rightarrow A^{H}$的膨胀.证毕.
+\end{proof}
+\begin{prop}
+	设$q\geq 1,$对于$1\leq i\leq q-1$有$H^{i}(H,A)=0$,则有正合列$$
+	0\rightarrow H^{q}(G/H,A^{H})\stackrel{Inf}{\longrightarrow }H^{q}(G,A)\stackrel{Res}{\longrightarrow}H^{q}(H,A).
+	$$
+\end{prop}
+\begin{proof}
+	用“维数平移”完成证明。$q=1$时，即上一个命题。
+	
+	下设$q>1$,且命题对q-1成立.在序列$(1.4)$中$A^{*}$是上诱导$H-$模(因$\Lambda=\mathbb{Z}[G]$是自由$\mathbb{Z}[H]-$模),因此
+	$$
+	H^{i}(H,A')\cong H^{i+1}(H,A)=0  \quad 1\leq i\leq q-2.
+	$$
+	因$H^{1}(H,A)=0$,我们有正合列$$
+	0\rightarrow A^{H}\rightarrow (A^{*})^{H}\rightarrow (A')^{H}\rightarrow 0.
+	$$
+	因$(A^{*})^{H}=Hom(\mathbb{Z}[G],A)^{H}\cong Hom(\mathbb{Z}[G/H],A)$是上诱导$G/H-$模,
+	结合序列(1.4),有交换图(连接态射的自然性,注意到$Map(G^{k},A)\rightarrow Map(H^{k},A)\quad f\mapsto f\circ(H^{k}\hookrightarrow G^{k})$诱导的映射即限制映射Res)
+	$$
+	\xymatrix{
+0\ar[r]&H^{q-1}(G/H,(A')^{H})\ar[r]\ar[d]^{\delta}&H^{q-1}(G,A')\ar[r]\ar[d]^{\delta}&H^{q-1}(H,A')\ar[d]^{\delta}\\
+0\ar[r]&	H^{q}(G/H,A^{H})\ar[r]&H^{q}(G,A)\ar[r]&H^{q}(H,A)
+}
+	$$
+	其中竖直箭头全是同构，上面一行为正合列，故下面一行也是正合列.证毕.
+\end{proof}
+\begin{cor}
+	条件同上一命题，则有
+	$$
+	H^{i}(G/H,A^{H})\cong H^{i}(G,A),\forall 1\leq i\leq q-1.
+	$$
+\end{cor}
+
+\subsection{Tate群}
+
+设$G$是有限群,用$N$表示$\Lambda=\mathbb{Z}[G]$中元素$\sum_{s\in G}s.$对任意$G-$模$A$,$N$作用在$A$上定义了自同态$N:A\rightarrow A$,显然有
+$$
+I_{G}A\subseteq Ker(N),\qquad Im(N)\subseteq A^{G}.
+$$
+注意到$H_{0}(G,A)=A/I_{G}A,H^{0}(G,A)=A^{G}$,
+因此$N$诱导了同态
+$$
+N^{*}:H_{0}(G,A)\rightarrow H^{0}(G,A),
+$$
+定义$$
+\widehat{H}_{0}(G,A)=Ker(N^{*}),\qquad \widehat{H}^{0}(G,A)=Coker(N^{*})=A^{G}/N(A),
+$$
+从而有正合列
+$$
+0\rightarrow \widehat{H}_{0}(G,A)\hookrightarrow H_{0}(G,A)\stackrel{N^{*}}{\longrightarrow }H^{0}(G,A)\twoheadrightarrow \widehat{H}^{0}(G,A)\rightarrow 0.
+$$
+
+设$X$是任意Abel群，定义映射
+\[
+\begin{split}
+Hom(\Lambda,X)&\rightarrow \Lambda\otimes X\\
+\varphi&\mapsto\sum_{s\in G}s\otimes \varphi(s),
+\end{split}
+\]
+因$G$是有限群,可证上述映射是$G-$模同构，从而有限群的诱导模和上诱导模是没有区别的。
+\begin{prop}
+	若$A$是诱导$G-$模，则$\widehat{H}_{0}(G,A)=\widehat{H}^{0}(G,A)=0.$
+\end{prop}
+\begin{proof}
+令$A=\Lambda\otimes X$,这里$X$是Abel群.因$\Lambda$是自由$\mathbb{Z}-$模,$A$中元素能被唯一写成形式$\sum\limits_{s\in G}s\otimes x_{s}$.若这样的元素是$G-$不变的，即对任意$g\in G$,有$\sum\limits_{s}gs\otimes 
+x_{s}=\sum\limits_{s}s\otimes x_{s}$.由此得到，所有$x_{s}$必相同,设为$x$,则$\sum\limits_{s}s\otimes x_{s}=N(1\otimes x)\in N(A).$由定义$\widehat{H}^{0}(G,A)=0.$
+
+
+相似地，若$N(\sum\limits_{s}s\otimes x_{s})=0$,易知$\sum x_{s}=0$,因此
+$$
+\sum s\otimes x_{s}=\sum (s-1)(1\otimes x_{s})\in I_{G}A.
+$$
+故$\widehat{H}_{0}(G,A)=0.$
+\end{proof}
+\begin{Rem}
+
+前面已说明，有限群的诱导模和上诱导模是同构的，故上述命题对上诱导模$A$也成立.\end{Rem}
+
+
+对任意整数$q$,定义\emph{Tate上同调群}如下：
+\[
+\begin{split}
+\widehat{H}^{q}(G,A)&=H^{q}(G,A) \qquad for \ q\geq 1\\
+\widehat{H}^{-1}(G,A)&=\widehat{H}_{0}(G,A) \\
+\widehat{H}^{-q}(G,A)&=H_{q-1}(G,A)\quad for \ q\geq 2.
+\end{split}
+\]
+\begin{thm}\label{thm:Tate group}
+	任给$G-$模正合列$$
+	0\rightarrow A\rightarrow B\rightarrow C\rightarrow 0
+	$$
+	我们有长正合列
+	$$
+	\cdots\rightarrow \widehat{H}^{q}(G,A)\rightarrow\widehat{H}^{q}(G,B)\rightarrow\widehat{H}^{q}(G,C)\stackrel{\delta}{\longrightarrow }\widehat{H}^{q+1}(G,A)\rightarrow \cdots.
+	$$
+\end{thm}
+此处我们省略证明.读者可查看\cite{Ro}Chapter section9.1或\cite{Ant}Chapter IV section 6.
+但在这里我们说下$Tate$群的另一种构造过程，详细过程请看上面两个参考书.
+
+前面我们已经有标准复形
+$$
+\cdots\rightarrow P_{1}\rightarrow P_{0}\stackrel{\varepsilon}{\rightarrow}\mathbb{Z}\rightarrow 0.
+$$
+令$P_{n}^{*}=Hom(P_{n},\mathbb{Z})$为$P_{n}$的对偶群，则有正合列(因$P_{i}$是$\mathbb{Z}-$自由)
+$$
+0\rightarrow\mathbb{Z}\stackrel{\varepsilon^{*}}{\rightarrow}P^{*}_{0}\rightarrow P^{*}_{1}\rightarrow \cdots
+$$
+记$P_{-n}=P_{n-1}^{*}$.将上面两个正合列拼接起来得到正合列$L:$
+$$
+\cdots\rightarrow P_{1}\rightarrow P_{0}\rightarrow P_{-1}\rightarrow P_{-1}\rightarrow \cdots
+$$
+$L$称为\emph{标准完全预解(Standard complete resolution)}.
+对于任意$G-$模$A$,\emph{Tate群定义为上同调群}
+$$H^{q}(Hom_{G}(L,A)),$$
+其中$q\in\mathbb{Z}$.可验证该定义与上面定义是相同的(见参考文献).
+
+
+若$H$是$G$的子群，我们已经对所有$q\geq 0$定义限制映射$$
+Res:H^{q}(G,A)\rightarrow H^{q}(H,A)
+$$
+因此对Tate群$H^{q}(q\geq 1)$定义了限制映射,且该映射与连接态射$\delta$交换(见上节命题2.5中交换图).由维数平移我们可对所有$\widehat{H}^{q}(q\in\mathbb{Z})$定义Res映射(利用正合列(3.3)及$A_{*}$是诱导$H-$模这一事实).
+
+
+相似地，我们首先有$H_{q}$(即$\widehat{H}^{-q-1},q\geq 1$)的膨胀映射，由维数平移就可到所有$\widehat{H}^{q}$的膨胀映射。
+\begin{prop}
+	令$H$是$G$的子群，$A$是$G-$模，则
+	\begin{itemize}
+		\item[(1)] $Res:\widehat{H}_{0}(G,A)\rightarrow \widehat{H}_{0}(H,A)$由$N'_{G/H}:A_{G}\rightarrow A_{H}$诱导，这里
+		$$
+		N'_{G/H}(a)=\sum_{i}s_{i}^{-1}a
+		$$
+		其中$(s_{i})$是$G/H$的一组陪集代表元；
+	\item[(2)] $Cor:\widehat{H}^{0}(H,A)\rightarrow \widehat{H}^{0}(G,A)$由$N_{G/H}:A^{H}\rightarrow A^{G}$诱导，这里$$
+	N_{G/H}(a)=\sum_{i}s_{i}a.
+	$$
+	\end{itemize}
+\end{prop}
+\begin{proof}
+	(i)首先考虑正合列(3.3) 连接态射$\widehat{\delta}:\widehat{H}^{0}(G,A)\rightarrow H^{1}(G,A')$是由$\delta:H^{0}(G,A)\rightarrow H^{1}(G,A')$诱导出的.
+	限制映射$Res:H^{0}(G,A)\rightarrow H^{0}(H,A)$由嵌入$A^{G}\rightarrow A^{H}$给出，且与连接态射交换.定义$Res:\widehat{H}^{0}(G,A)\rightarrow\widehat{H}^{0}(H,A)$是由$A^{G}\rightarrow A^{H}$诱导的态射，则有交换图
+	$$
+	\xymatrix{
+\widehat{H}^{0}(G,A)\ar[r]^{\widehat{\delta}}\ar[d]^{Res}&H^{1}(G,A')\ar[d]^{Res}\\
+	\widehat{H}^{0}(H,A)\ar[r]^{\widehat{\delta}}&H^{1}(H,A').
+}
+	$$
+	此即是将限制映射扩充到$\widehat{H}^{0}$.
+	现在设$v:\widehat{H}_{0}(G,A)\rightarrow \widehat{H}_{0}(H,A)$是由$N_{G/H}'$诱导的态射.我们验证有交换图
+	$$
+	\xymatrix{
+		\widehat{H}_{0}(G,A)\ar[r]^{\delta}\ar[d]^{Res}&\widehat{H}^{0}(G,A')\ar[d]^{Res}\\
+		\widehat{H}_{0}(H,A)\ar[r]^{\delta}&\widehat{H}^{0}(H,A').
+	}
+	$$
+	设$\bar{a}\in\widehat{H}_{0}(G,A)$,取$a\in A$是$\bar{a}$的一个代表元,则$N_{G}(a)=\sum_{s\in G}sa=0$.取$a$在$A_{*}$中的一个原像$b$,显然$N_{G}(b)$是$G$不变的，且$N_{G}(b)$在$A$中的像是零.因此$N_{G}(b)\in (A')^{G}\subseteq (A')^{H}$.故$Res\circ \delta(\bar{a})$就是\\
+	$N_{G}(b) \ mod \ N_{G}(A').$另一方面,$v(\bar{a})$为$N_{G/H}'(a)\ mod \ I_{H}A,$而$N_{G/H}'(a)$在$A_{*}$中的一个原像为$N_{G/H}'(b)$,因此
+	$\delta\circ v(\bar{a})$所在类可由$N_{H}\circ N_{G/H}'(b)=N_{G}(b)$表示.这就说明上图交换.
+	
+	(ii)证明略.
+	
+\end{proof}
+
+\begin{prop}\label{prop:Cor-Res}
+	若$(G:H)=n$,则
+	$$
+	Cor\circ Res=n.
+	$$
+\end{prop}
+\begin{proof}
+	首先考虑$\widehat{H}^{0}$.此时$Res$由嵌入$A^{G}\rightarrow A^{H}$诱导,$Cor$由$N_{G/H}:A^{H}\rightarrow A^{G}$定义.对于$a\in A^{G},$ $$N_{G/H}(a)=na.$$
+	命题对$\widehat{H}^{0}$成立.
+	
+	一般情形用维数平移证明.
+	首先,类似前文,有正合列(3.3)
+	$$
+	0\rightarrow A'\rightarrow A_{*}\rightarrow A\rightarrow 0.
+	$$
+	对于$q\leq 0$,
+	有交换图
+$$
+\xymatrix{
+\widehat{H}^{q-1}(G,A)\ar[r]^{\delta}\ar[d]^{Res}&\widehat{H}^{q}(G,A')\ar[d]^{res}\\
+\widehat{H}^{q-1}(H,A)\ar[r]^{\delta}\ar[d]^{Cor}&\widehat{H}^{q}(H,A')\ar[d]^{Cor}\\
+\widehat{H}^{q-1}(G,A)\ar[r]^{\delta}&\widehat{H}^{q}(G,A')
+}
+$$
+因$A_{*}$是诱导$G-$模,上图中连接态射$\delta$都是同构(事实上,正是利用该同构扩充限制态射Res).故若命题对$\widehat{H}^{q}$成立,则对$\widehat{H}^{q-1}$也成立。
+	
+	对于$q\geq 1$,考虑正合列
+	$$
+	0\rightarrow A\rightarrow A^{*}\rightarrow A'\rightarrow 0.
+	$$
+	类似上面,因命题对$\widehat{H}^{0}$成立，可得到命题对$q\geq 1$ 成立.
+\end{proof}
+\begin{cor}\label{cor:annihiliated}
+	若$G$的阶为$n$,则$n$零化所有$\widehat{H}^{q}(G,A)$.
+\end{cor}
+\begin{proof}
+	在命题\ref{prop:Cor-Res}中取$H=\{1\}$,注意到对任意$q\in \mathbb{Z}$有$\widehat{H}^{q}(H,A)=0$.
+\end{proof}
+\begin{cor}
+	若$A$是有限生成$G-$模,则所有$\widehat{H}^{q}(G,A)$是有限群.
+\end{cor}
+\begin{proof}
+	Tate群可由标准完全预解$L$计算，由此可知$\widehat{H}^{q}(G,A)$是有限生成Abel群，但由推论\ref{cor:annihiliated}知所有这样的群被$n=|G|$零化,故它们都是有限群.
+\end{proof}
+\begin{cor}\label{cor:Res is mono}
+	令$S$是$G$的$p-$sylow子群.则限制映射
+	$$
+	Res:\widehat{H}^{q}(G,A)\rightarrow \widehat{H}^{q}(S,A)
+	$$
+	在$\widehat{H}^{q}(G,A)$的$p-primary$分支上是单射.
+\end{cor}
+\begin{proof}
+令$Card(G)=p^{a}m,(p,m)=1$.设$x$在$\widehat{H}^{q}(G,A)$的$p-primary$分支中，且$Res(x)=0.$则由命题\ref{prop:Cor-Res}$$
+mx=Cor\circ Res(x)=0.
+$$
+另一方面，由推论\ref{cor:annihiliated},$p^{a}x=0$,因$(p,m)=1$,最终有$x=0$.
+\end{proof}
+\begin{cor}
+	设$S$是$G$的任意一个sylow子群，若$\widehat{H}^{q}(G,A)$中元素$x$限制到$\widehat{H}^{q}(S,A)$上都为零,则$x=0$.
+\end{cor}
+\begin{proof}
+	若$x$在$\widehat{H}^{q}(G,A)$的某一$p-primary$分支内，由推论\ref{cor:Res is mono}自然有$x=0$,若$x$不在任何一个$p-primary$分支内，将其分解为一些分支中元素的乘积，同样可证明$x=0$.
+\end{proof}
+	该推论说明映射
+	$$
+	\overline{Res}:=\prod_{S}Res_{S}:\widehat{H}^{q}(G,A)\rightarrow \prod_{S}\widehat{H}^{q}(S,A)
+	$$
+	是单射,其中$Res_{S}$为限制映射$\widehat{H}^{q}(G,A)\rightarrow \widehat{H}^{q}(S,A)$.
+
+
+\subsection{Cup积}
+
+
+
+\section{Galois上同调}
+
+
+		\begin{thebibliography}{99}
+			\bibitem{zh} 章璞，吴泉水.\emph{基础代数学讲义}.Vol,66.
+			现代数学基础丛书.北京：高等教育出版社，2018.
+			\bibitem{Ro}Joseph J. Rotman.\emph{An Introduction to
+				Homological Algebra}(Second Edition).Springer.
+			\bibitem{Ant}J.W.S.Cassels,A.Frohlich.\emph{Albebraic number theory}(ed).
+		\end{thebibliography}
+	\end{document}
