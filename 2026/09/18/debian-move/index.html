@@ -17,13 +17,13 @@
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"blog.shenhai.site","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+    var CONFIG = {"hostname":"shenhai.site","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
   <meta name="description" content="最近在我的 J4125 (Debian) 宿主机上重新部署了之前闲置的 Hexo 博客。为了追求极简、易迁移以及跨设备写作的便利性，我抛弃了传统的本地环境安装，转向了 Docker (Dockge) + CloudDrive2 的全套容器化解决方案。 这套方案不仅保持了宿主机系统的纯净，还完美打通了手机、Windows 电脑和服务器之间的数据壁垒，今天把整个折腾的过程和踩坑经验记录下来。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="在 Debian 上使用 Dockge 优雅部署 Hexo 博客，并借助 CloudDrive2 实现跨端写作">
-<meta property="og:url" content="https://blog.shenhai.site/2026/09/18/debian-move/index.html">
+<meta property="og:url" content="https://shenhai.site/2026/09/18/debian-move/index.html">
 <meta property="og:site_name" content="Dreamer">
 <meta property="og:description" content="最近在我的 J4125 (Debian) 宿主机上重新部署了之前闲置的 Hexo 博客。为了追求极简、易迁移以及跨设备写作的便利性，我抛弃了传统的本地环境安装，转向了 Docker (Dockge) + CloudDrive2 的全套容器化解决方案。 这套方案不仅保持了宿主机系统的纯净，还完美打通了手机、Windows 电脑和服务器之间的数据壁垒，今天把整个折腾的过程和踩坑经验记录下来。">
 <meta property="og:locale" content="zh_CN">
@@ -37,7 +37,7 @@
 <meta property="article:tag" content="CloudDrive2">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="https://blog.shenhai.site/2026/09/18/debian-move/">
+<link rel="canonical" href="https://shenhai.site/2026/09/18/debian-move/">
 
 
 <script id="page-configurations">
@@ -175,7 +175,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://blog.shenhai.site/2026/09/18/debian-move/">
+    <link itemprop="mainEntityOfPage" href="https://shenhai.site/2026/09/18/debian-move/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
